@@ -1,0 +1,10 @@
+{
+  "database": {
+    "host": "localhost",
+    "timeout": 30000,
+    "username": "team7db",
+    "password": "team7database",
+    "database": "team7db",
+    "connectionLimit": 1
+  }
+}
