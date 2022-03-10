@@ -2,8 +2,8 @@
   "database": {
     "host": "localhost",
     "timeout": 30000,
-    "username": "team7db",
-    "password": "team7database",
+    "username": "Quin",
+    "password": "@Quro2001",
     "database": "team7db",
     "connectionLimit": 1
   }
