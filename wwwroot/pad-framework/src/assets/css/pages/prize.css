@@ -1,0 +1,122 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+body.hoveredp1 {
+    background-color: gold;
+}
+body.hoveredp2 {
+    background-color: silver;
+}
+body.hoveredp3 {
+    background-color: #cd7f32;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
+}
+.popup{
+    display: none;
+}
+
+.popup-prize{
+    background:grey;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    /*margin-top: 2000px;*/
+    width: 400px;
+    height: 100px;
+    animation: popup-prize .5s;
+}
+
+@keyframes popup-prize {
+0%{
+    transform: scale(0);
+    opacity: 0;
+}
+100%{
+    transform: scale(1);
+    opacity: 1;
+}
+}
+
+h2 {
+    color: black;
+}
+
+/* Modal Content */
+.modal-content {
+    background: linear-gradient(to top right, #ff0000 0%, #ffffff 100%);
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    animation: modal-content 0.6s;
+}
+
+@keyframes modal-content {
+    0%{
+        transform: scale(0);
+        opacity: 0;
+    }
+    100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.list_prize:hover {
+    font-size: 30px;
+    transition-duration: 500ms;
+}
+
+#prize1:hover{
+    color: green;
+}
+
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #cb4545;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#myBtn {
+    width: 150px;
+    height: 70px;
+    background-color: white;
+    color: black;
+    border: 2px solid red;
+    border-radius: 8px;
+}
+
+#myBtn:hover {
+    font-size: 20px;
+    background-color: red;
+    transition-duration: 400ms;
+    cursor: pointer;
+}
+
