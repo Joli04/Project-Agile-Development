@@ -12,6 +12,7 @@ import { LoginController } from "./controllers/loginController.js"
 import { NavbarController }  from "./controllers/navbarController.js"
 import { UploadController }  from "./controllers/uploadController.js"
 import { WelcomeController }  from "./controllers/welcomeController.js"
+import {ScoreboardController} from "./controllers/scoreboardController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -24,6 +25,7 @@ export class App {
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_UPLOAD = "upload";
+    static CONTROLLER_SCOREBOARD = "scoreboard";
 
     constructor() {
         //Always load the navigation
@@ -70,6 +72,11 @@ export class App {
 
             case App.CONTROLLER_UPLOAD:
                 App.isLoggedIn(() => new UploadController(),() => new LoginController());
+                break;
+
+            case App.CONTROLLER_SCOREBOARD:
+                App.setCurrentController(name)
+                App.isLoggedIn(() => new ScoreboardController(), () => new LoginController());
                 break;
 
             default:
