@@ -32,6 +32,10 @@ export class ScoreboardController extends Controller{
         let thead = document.createElement('thead');
         let tbody = document.createElement('tbody');
 
+        table.classList.add("table");
+        thead.classList.add("tablehead")
+        tbody.classList.add("tablebody")
+
         let theadTr = document.createElement('tr');
         for (let i = 0; i < labels.length; i++) {
             let theadTh = document.createElement('th')
