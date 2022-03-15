@@ -18,50 +18,33 @@ export class ScoreboardController extends Controller{
 
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
-        var labels = ['Naam', 'Locatie', 'Score'];
-        var objects = await this.#scoreboardRepository.get();
-/*
-            [
-            {
-                "username": "test",
-                "location": "Amsterdam",
-                "score": 42069
-            },
-            {
-                "username": "Jeff",
-                "location": "Rotterdam",
-                "score": 19472
-            },
-            {
-                "username": "Richard",
-                "location": "Apeldorn",
-                "score": 40000
-            }
-        ]
-*/
-
-        this.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
+        let labels = ['Username', 'Location', 'Score'];
+        let objects = await this.#scoreboardRepository.get();
+/*        objects.sort((a, b) => {
+            return a.score - b+score;
+        })*/
+        ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
     }
 
-    #createScoreboard(labels, objects, container) {
-        var table = document.createElement('table');
-        var thead = document.createElement('thead');
-        var tbody = document.createElement('tbody');
+    static #createScoreboard(labels, objects, container) {
+        let table = document.createElement('table');
+        let thead = document.createElement('thead');
+        let tbody = document.createElement('tbody');
 
-        var theadTr = document.createElement('tr');
-        for (var i = 0; i < labels.length; i++) {
-            var theadTh = document.createElement('th')
+        let theadTr = document.createElement('tr');
+        for (let i = 0; i < labels.length; i++) {
+            let theadTh = document.createElement('th')
             theadTh.innerHTML = labels[i];
             theadTr.appendChild(theadTh);
         }
         thead.appendChild(theadTr);
         table.appendChild(thead);
 
-        for (var j = 0; j < objects.length; j++) {
-            var tbodyTr = document.createElement('tr')
-            for (var k = 0; k < labels.length; k++) {
-                var tbodyTd = document.createElement('td')
+        for (let j = 0; j < objects.length; j++) {
+            let tbodyTr = document.createElement('tr')
+            for (let k = 0; k < labels.length; k++) {
+                let tbodyTd = document.createElement('td')
                 tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()]
                 tbodyTr.appendChild(tbodyTd);
             }
