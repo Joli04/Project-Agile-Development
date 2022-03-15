@@ -20,9 +20,9 @@ export class ScoreboardController extends Controller{
 
         let labels = ['Username', 'Location', 'Score'];
         let objects = await this.#scoreboardRepository.get();
-/*        objects.sort((a, b) => {
-            return a.score - b+score;
-        })*/
+        objects.sort((a, b) => {
+            return b.score - a.score;
+        })
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
     }
