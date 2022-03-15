@@ -1,15 +1,15 @@
-import {RoomsExampleRepository} from "../repositories/roomsExampleRepository.js";
+import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
 
 export class ScoreboardController extends Controller{
-    #roomExampleRepository
     #scoreboardView
+    #scoreboardRepository
 
     constructor() {
         super();
 
-        this.#roomExampleRepository = new RoomsExampleRepository();
+        this.#scoreboardRepository = new ScoreboardRepository();
 
         this.#setupView();
     }
@@ -19,7 +19,9 @@ export class ScoreboardController extends Controller{
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
         var labels = ['Naam', 'Locatie', 'Score'];
-        var objects = [
+        var objects = await this.#scoreboardRepository.get();
+/*
+            [
             {
                 "username": "test",
                 "location": "Amsterdam",
@@ -36,6 +38,7 @@ export class ScoreboardController extends Controller{
                 "score": 40000
             }
         ]
+*/
 
         this.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
@@ -59,7 +62,7 @@ export class ScoreboardController extends Controller{
             var tbodyTr = document.createElement('tr')
             for (var k = 0; k < labels.length; k++) {
                 var tbodyTd = document.createElement('td')
-                tbodyTd.innerHTML = objects[j][labels[k]]
+                tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()]
                 tbodyTr.appendChild(tbodyTd);
             }
             tbody.appendChild(tbodyTr);
