@@ -14,6 +14,7 @@ export class ScoreboardRepository{
     }
 
     async get(scoreboard){
+        console.log(this.#route)
         return await this.#networmManeger.doRequest(`${this.#route}`, "GET")
     }
 
