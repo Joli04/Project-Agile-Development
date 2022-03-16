@@ -47,7 +47,7 @@
 .closeWindow:hover,
 .closeWindow:focus {
     display: flex;
-    color: #cb4545;
+    color: #b70d31;
     text-decoration: none;
     cursor: pointer;
 }
@@ -94,5 +94,5 @@ p {
     margin: 1.5%;
     margin-left: 150px;
     margin-right: 150px;
-    background-color: red;
+    background-color: #b70d31;
 }
