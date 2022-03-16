@@ -24,7 +24,6 @@ export class ScoreboardController extends Controller{
             return b.score - a.score;
         })
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
-
     }
 
     static #createScoreboard(labels, objects, container) {
@@ -33,8 +32,8 @@ export class ScoreboardController extends Controller{
         let tbody = document.createElement('tbody');
 
         table.classList.add("table");
-        thead.classList.add("tablehead")
-        tbody.classList.add("tablebody")
+        thead.classList.add("tablehead");
+        tbody.classList.add("tablebody");
 
         let theadTr = document.createElement('tr');
         for (let i = 0; i < labels.length; i++) {
@@ -56,6 +55,7 @@ export class ScoreboardController extends Controller{
         }
         table.appendChild(tbody);
         container.appendChild(table);
+        tbodytd.classList.add("tbodytd");
     }
 
 }
