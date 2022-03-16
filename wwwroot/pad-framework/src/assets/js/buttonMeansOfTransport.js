@@ -1,5 +1,5 @@
 const content = document.getElementById("myContentDiv")
-const button = document.getElementById("button")
+const button = document.getElementById("transportButton")
 const close = document.getElementsByClassName("closeWindow")[0];
 
 button.onclick = function() {
