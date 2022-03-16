@@ -3,16 +3,6 @@
     font-weight: bold;
 }
 
-body.hoveredp1 {
-    background-color: gold;
-}
-body.hoveredp2 {
-    background-color: silver;
-}
-body.hoveredp3 {
-    background-color: #cd7f32;
-}
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -32,14 +22,14 @@ body.hoveredp3 {
 }
 
 .popup-prize{
-    background:grey;
+    background: lightgrey;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
     /*margin-top: 2000px;*/
     width: 400px;
     height: 100px;
-    animation: popup-prize .5s;
+    animation: popup-prize 0.6s;
 }
 
 @keyframes popup-prize {
@@ -59,7 +49,7 @@ h2 {
 
 /* Modal Content */
 .modal-content {
-    background: linear-gradient(to top right, #ff0000 0%, #ffffff 100%);
+    background: whitesmoke;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
@@ -77,18 +67,18 @@ h2 {
         opacity: 1;
     }
 }
-
-
 .list_prize:hover {
+    color:#b70d32;
     font-size: 30px;
     transition-duration: 500ms;
 }
 
-#prize1:hover{
-    color: green;
+
+hr{
+    height: 3px;
+    background: #53535a
+    /*background-color: #44c5DE*/
 }
-
-
 /* The Close Button */
 .close {
     color: #aaaaaa;
@@ -114,6 +104,8 @@ h2 {
 }
 
 #myBtn:hover {
+    color:white;
+    border: 2px solid #53535a;
     font-size: 20px;
     background-color: red;
     transition-duration: 400ms;

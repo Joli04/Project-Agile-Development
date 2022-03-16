@@ -7,6 +7,7 @@ const prize3 = document.getElementById('prize3');
 const body = document.body;
 const prize_popup = document.querySelector('.popup');
 const prizes = [prize1, prize2, prize3];
+
 function timeout() {
     setTimeout(function () {
         prize_popup.style.display = "block";
@@ -25,13 +26,9 @@ window.onclick = function (event) {
 
     }
 }
-
     btn.addEventListener('click', function (){
         modal.style.display = "block";
     });
-
-
-
 
 prize1.onmouseover = function() {
     body.className = 'hoveredp1';
