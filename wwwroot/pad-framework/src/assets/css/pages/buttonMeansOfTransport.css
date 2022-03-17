@@ -1,4 +1,4 @@
-.content2 {
+.content {
     display: none;
     position: fixed;
     z-index: 1;
@@ -6,39 +6,38 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    background-color: rgba(0,0,0,0.4);
 }
 
-/*#transportButton {*/
-/*    width: 150px;*/
-/*    height: 70px;*/
-/*    border-radius: 8px;*/
-/*    background-color: #b70d31;*/
-/*    color: white;*/
-/*    justify-content: center;*/
-/*}*/
+#transportButton {
+    border-radius: 8px;
+    background-color: #b70d31;
+    color: white;
+    justify-content: center;
+}
 
-/*#transportButton:hover {*/
-/*    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
-/*    background-color: #d90f3a;*/
-/*    transition: 0.5s;*/
-/*}*/
+#transportButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #d90f3a;
+    transition: 0.5s;
+}
 
 .transport-content {
-    background: whitesmoke;
-    margin: auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 40%;
-    animation: modal-content 0.6s;
     border-style: inset;
     display: flex;
+    background-color: #fdecec;
+    margin: 5% auto;
+    padding: 20px;
     border: 5px;
+    width: 80%;
+    border-radius: 8px;
     justify-content: space-evenly;
     min-width: 500px;
-
 }
 
 .closeWindow {
+    justify-content: right;
+    display: flex;
     color: #aaaaaa;
     float: right;
     font-size: 28px;
@@ -47,12 +46,13 @@
 
 .closeWindow:hover,
 .closeWindow:focus {
+    display: flex;
     color: #b70d31;
     text-decoration: none;
     cursor: pointer;
 }
 
-.points_img {
+/*img {
     display: block;
     border-radius: 8px;
     height: 32.5%;
@@ -62,27 +62,31 @@
     margin-left: auto;
     margin-right: auto;
     min-width: 150px;
-}
+}*/
 
-.points_img:hover {
+/*
+img:hover {
     transform: scale(0.90);
 }
 
-.modal_points {
+p {
     text-align: center;
     font-weight: bold;
     margin: 2.5%;
     color: white;
 }
+*/
 
+#myContent {
+    display: table;
+    margin: 0 auto;
+}
 
 
 .transport-content {
     width: 35%;
     display: inline-block;
     padding: 5px;
-
-
 }
 
 .image {
@@ -92,10 +96,5 @@
     margin: 1.5%;
     margin-left: 150px;
     margin-right: 150px;
-    background-color: lightgrey;
-}
-
-#myContent{
-   position: relative;
-    margin-left: 25%;
+    background-color: #b70d31;
 }

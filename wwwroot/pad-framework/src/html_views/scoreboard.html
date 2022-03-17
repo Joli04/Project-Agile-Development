@@ -2,64 +2,75 @@
     <section class="scoreboard-container">
         <h2>Scoreboard:</h2>
         <br>
-<!--       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>-->
+        <!--<button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>
+        <button id="transportButton" class="dropbtn">Welk transport wilt u nemen?</button>
 
-           <button id="transportButton" class="dropbtn">Welk transport wilt u nemen?</button>
-
-          <div id="myContentDiv" class="content2">
-              <div id="myContent" class="transport-content">
-                  <span class="closeWindow" onclick="closeModal">&times;</span>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/auto.png"><p class="modal_points">1 punt</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/elektrischeAuto.png"><p class="modal_points">2 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/trein.png"><p class="modal_points">3 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/fiets.png"><p class="modal_points">4 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/lopend.png"><p class="modal_points">5 punten</p>
-                  </div>
-              </div>
-          </div>
-
-        <button id="myBtn" class="dropbtn">De prijzen</button>
-
-        <!-- The Modal -->
-        <div id="prizeModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close" onclick="closeModal">&times;</span>
-                <h2>De top drie prijzen</h2>
-                <ol>
-                    <li class="list_prize" id="prize1">Een gratis weekendje weg
-                        <hr>
-                    </li>
-                    <li class="list_prize" id="prize2">Een fiets met het Betabit logo
-                        <hr>
-                    </li>
-                    <li class="list_prize" id="prize3">Gratis koffie voor een week</li>
-                    <hr>
-                </ol>
-                <div class="popup">
-                    <div id="popup-prize">
-
-                    </div>
+        <div id="myContentDiv" class="content">
+            <div id="myContent" class="transport-content">
+                <span class="closeWindow">&times;</span>
+                <div class="image">
+                    <img src="../assets/Media/auto.png"><p>1 punt</p>
+                </div>
+                <div class="image">
+                    <img src="../assets/Media/elektrischeAuto.png"><p>2 punten</p>
+                </div>
+                <div class="image">
+                    <img src="../assets/Media/trein.png"><p>3 punten</p>
+                </div>
+                <div class="image">
+                    <img src="../assets/Media/fiets.png"><p>4 punten</p>
+                </div>
+                <div class="image">
+                    <img src="../assets/Media/lopend.png"><p>5 punten</p>
                 </div>
             </div>
-
         </div>
-          <br>
-          <br>
-        <button id="sort-btn" class="dropbtn">Sort by name</button>
+        <br>-->
         <div id="scoreboard">
-
+            <button class="sort-btn">Sort by name</button>
         </div>
     </section>
 </div>
 
+<!--
+<script>
+    const sortBtn = document.getElementById("#sort-btn");
+
+    //change this selector to the class/id of the table
+    let compList = document.getElementById("#tablebody");
+
+    let nameRow = 1;
+
+    console.log("sortByName wordt aangeroepen");
+
+        sortBtn.addEventListener("click", () => {
+            //Chane the col selector to the column that the names are in
+            sort_table(compList, 0, nameRow); nameRow *= -1;
+            console.log("click wordt uitgevoert");
+        })
+
+    function sort_table(tbody, col, asc){
+        let rows = tbody.rows
+        let rlen = rows.length
+        let arr = new Array()
+
+        // fill the array with values from the table
+        for(let i = 0; i < rlen; i++){
+            let cells = rows[i].cells;
+            let clen = cells.length;
+            arr[i] = new Array();
+            for(let j = 0; j < clen; j++){
+                arr[i][j] = cells[j].innerHTML;
+            }
+        }
+        // sort the array by the specified column number (col) and order (asc)
+        arr.sort(function(a, b){
+            return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1*asc);
+        });
+        // replace existing rows with new rows created from the sorted array
+        for(let i = 0; i < rlen; i++){
+            arr[i] = "<td>"+arr[i].join("</td><td>")+"</td>";
+        }
+        tbody.innerHTML = "<tr>"+arr.join("</tr><tr>")+"</tr>";
+    }
+</script>-->
