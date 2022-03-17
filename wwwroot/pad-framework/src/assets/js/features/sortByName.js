@@ -1,16 +1,23 @@
 document.addEventListener("DOMContentLoaded", async function () {
 
-    const sortBtn = document.querySelector(".sort-btn");
+    const sortBtn = document.getElementById("#sort-btn");
 
     //change this selector to the class/id of the table
-    let compList = document.querySelector(".scoreboard");
+    let compList = document.getElementById("#tablebody");
 
     let nameRow = 1;
 
+    console.log("sortByName wordt aangeroepen");
+
+/*
     sortBtn.addEventListener("click", () => {
         //Chane the col selector to the column that the names are in
+/!*
         sort_table(compList, 0, nameRow); nameRow *= -1;
+*!/
+        console.log("click wordt uitgevoert");
     })
+*/
 
     function sort_table(tbody, col, asc){
         let rows = tbody.rows
