@@ -18,13 +18,16 @@
     background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
 }
 .popup{
+    align-content: center;
     display: none;
 }
 
-.popup-prize{
+#popup-prize{
+    position: relative;
+    text-align: center;
     background: lightgrey;
     margin: auto;
-    padding: 20px;
+    padding: 100px;
     border-radius: 10px;
     /*margin-top: 2000px;*/
     width: 400px;
@@ -73,11 +76,9 @@ h2 {
     transition-duration: 500ms;
 }
 
-
 hr{
     height: 3px;
-    background: #53535a
-    /*background-color: #44c5DE*/
+    background: #53535a;
 }
 /* The Close Button */
 .close {
