@@ -31,6 +31,8 @@ export class ScoreboardController extends Controller{
         let thead = document.createElement('thead');
         let tbody = document.createElement('tbody');
 
+        tbody.setAttribute('id', 'scoreboard');
+
         table.classList.add("table");
         thead.classList.add("tablehead");
         tbody.classList.add("tablebody");
@@ -56,6 +58,10 @@ export class ScoreboardController extends Controller{
         table.appendChild(tbody);
         container.appendChild(table);
         tbodytd.classList.add("tbodytd");
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "../features/sortByName.js";
+        container.appendChild(script);
     }
 
 }
