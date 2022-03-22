@@ -5,7 +5,6 @@ import {Controller} from "./controller.js";
 export class ScoreboardController extends Controller{
     #scoreboardView
     #scoreboardRepository
-    #buttonMeansOfTransport
 
     constructor() {
         super();
@@ -13,11 +12,11 @@ export class ScoreboardController extends Controller{
         this.#scoreboardRepository = new ScoreboardRepository();
 
         this.#setupView();
+        this.buttonMeanOfTransport();
     }
 
     async #setupView(){
 
-        this.#buttonMeansOfTransport = await super.loadHtmlIntoContent("html_views/scoreboard.html")
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
         let labels = ['Username', 'Location', 'Score'];
@@ -26,40 +25,56 @@ export class ScoreboardController extends Controller{
             return b.score - a.score;
         })
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
-        ScoreboardController.#createButtonMeansOfTransport(document.getElementById('buttonMeansOfTransport'))
     }
 
-    static #createButtonMeansOfTransport(container){
+    buttonMeanOfTransport(){
 
-        // let content = document.getElementById("myContentDiv")
+        let content = document.getElementById("myContentDiv")
+
+/*
         let content = document.createElement('div')
         content.classList.add("myContentDiv")
         content.setAttribute('id', 'myContentDiv')
+*/
 
-        // const button = document.getElementsByClassName("dropbtn")
+
+        const button = document.getElementsByClassName("dropbtn")
+        button.addEventListener("click", callModal)
+        /*
         let button = document.createElement('button')
         button.classList.add("dropbtn")
+        */
 
-        // const close = document.getElementsByClassName("closeWindow")[0];
+        const close = document.getElementsByClassName("closeWindow")[0];
+        close.addEventListener("click", closeModal)
+
+/*
         let close = document.createElement('span')
         close.classList.add("closeWindow")
         close.textContent('&times')
+*/
 
-        button.onclick = function() {
+        window.addEventListener("click", offClickModal)
+
+
+        function callModal() {
+            console.log("bruh, button geklikt")
             content.style.display = "block";
         }
 
-        close.onclick = function () {
+        function closeModal() {
+            console.log("bruh, X is geklikt yo")
             content.style.display = "none";
         }
 
-        window.onclick = function(event) {
+        function offClickModal(event) {
             if (event.target === content){
                 content.style.display = "none";
             }
         }
 
-        container.appendChild(button)
+        
+
     }
 
     static #createScoreboard(labels, objects, container) {
