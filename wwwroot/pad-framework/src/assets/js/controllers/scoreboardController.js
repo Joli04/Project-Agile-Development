@@ -26,6 +26,8 @@ export class ScoreboardController extends Controller{
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
         this.buttonMeanOfTransport();
+        this.prize();
+
     }
 
     buttonMeanOfTransport(){
@@ -79,6 +81,60 @@ export class ScoreboardController extends Controller{
 
 
     }
+
+    prize(){
+        const button = document.getElementById("myBtn")
+        button.addEventListener("click", callModal)
+
+        let prizeModal = document.getElementById("prizeModal")
+        let prizepopup = document.querySelector(".popup")
+        prizepopup.style.display = "block";
+        let prizes = document.querySelector(".modal-content")
+
+        var img = document.createElement("img");
+        var src = document.getElementById("popup-prize");
+
+        const close = document.getElementsByClassName("closeWindow")[0];
+        close.addEventListener("click", closeModal)
+
+        window.addEventListener("click", offClickModal)
+
+        document.getElementById("prize1").onmouseover = function (){
+            img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
+            src.appendChild(img);
+        }
+
+
+        document.getElementById("prize2").onmouseover = function (){
+            img.src = "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/vslgdggkdt7kbg1ycqab";
+            src.appendChild(img);
+        }
+
+        document.getElementById("prize3").onmouseover = function (){
+            img.src = "https://pbs.twimg.com/profile_images/51457981/koffie_3__reasonably_small.gif";
+            src.appendChild(img);
+        }
+
+
+        function callModal() {
+            console.log("bruh, button geklikt")
+            prizeModal.style.display = "block";
+            prizes.style.display = "block";
+        }
+        function closeModal() {
+            console.log("X is geklikt")
+            prizeModal.style.display = "none";
+        }
+
+        function offClickModal(event) {
+            if (event.target === prizeModal){
+                prizeModal.style.display = "none";
+            }
+        }
+
+
+    }
+
 
     static #createScoreboard(labels, objects, container) {
         let table = document.createElement('table');

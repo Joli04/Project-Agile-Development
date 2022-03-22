@@ -27,11 +27,11 @@
     text-align: center;
     background: lightgrey;
     margin: auto;
-    padding: 100px;
+    padding: 10%;
     border-radius: 10px;
     /*margin-top: 2000px;*/
     width: 400px;
-    height: 100px;
+    height: auto;
     animation: popup-prize 0.6s;
 }
 
@@ -111,5 +111,7 @@ hr{
     background-color: red;
     transition-duration: 400ms;
     cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    transition: 0.5s;
 }
 
