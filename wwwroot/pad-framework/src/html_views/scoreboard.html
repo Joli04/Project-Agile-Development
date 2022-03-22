@@ -2,38 +2,46 @@
     <section class="scoreboard-container">
         <h2>Scoreboard:</h2>
         <br>
-        <!--<button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>
-        <button id="transportButton" class="dropbtn">Welk transport wilt u nemen?</button>
+<!--       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>-->
+<!--
+           <button id="transportButton" class="dropbtn">Welk transport wilt u nemen?</button>
 
-        <div id="myContentDiv" class="content">
-            <div id="myContent" class="transport-content">
-                <span class="closeWindow">&times;</span>
-                <div class="image">
-                    <img src="../assets/Media/auto.png"><p>1 punt</p>
-                </div>
-                <div class="image">
-                    <img src="../assets/Media/elektrischeAuto.png"><p>2 punten</p>
-                </div>
-                <div class="image">
-                    <img src="../assets/Media/trein.png"><p>3 punten</p>
-                </div>
-                <div class="image">
-                    <img src="../assets/Media/fiets.png"><p>4 punten</p>
-                </div>
-                <div class="image">
-                    <img src="../assets/Media/lopend.png"><p>5 punten</p>
-                </div>
-            </div>
+          <div id="myContentDiv" class="content2">
+              <div id="myContent" class="transport-content">
+                  <span class="closeWindow">&times;</span>
+                  <div class="image">
+                      <img class="points_img" src="assets/Media/auto.png"><p class="modal_points">1 punt</p>
+                  </div>
+                  <div class="image">
+                      <img class="points_img" src="assets/Media/elektrischeAuto.png"><p class="modal_points">2 punten</p>
+                  </div>
+                  <div class="image">
+                      <img class="points_img" src="assets/Media/trein.png"><p class="modal_points">3 punten</p>
+                  </div>
+                  <div class="image">
+                      <img class="points_img" src="assets/Media/fiets.png"><p class="modal_points">4 punten</p>
+                  </div>
+                  <div class="image">
+                      <img class="points_img" src="assets/Media/lopend.png"><p class="modal_points">5 punten</p>
+                  </div>
+              </div>
+          </div>
+-->
+
+        <div id="buttonMeansOfTransport" class="buttonMeansOfTransport">
+
         </div>
-        <br>-->
+          <br>
+          <br>
         <div id="scoreboard">
 
         </div>
     </section>
 </div>
 
-<!--
+
 <script>
+    /*
     const sortBtn = document.getElementById("#sort-btn");
 
     //change this selector to the class/id of the table
@@ -73,4 +81,25 @@
         }
         tbody.innerHTML = "<tr>"+arr.join("</tr><tr>")+"</tr>";
     }
-</script>-->
+    */
+
+    const content = document.getElementById("myContentDiv")
+    const button = document.getElementsByClassName("dropbtn")
+    const close = document.getElementsByClassName("closeWindow")[0];
+
+    function modalshow() {
+        content.style.display = "block";
+    }
+
+    close.onclick = function () {
+        content.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target === content){
+            content.style.display = "none";
+        }
+    }
+
+
+</script>

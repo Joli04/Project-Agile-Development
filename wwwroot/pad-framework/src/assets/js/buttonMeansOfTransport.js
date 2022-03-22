@@ -1,8 +1,9 @@
+/*
 const content = document.getElementById("myContentDiv")
-const button = document.getElementById("transportButton")
+const button = document.getElementsByClassName("dropbtn")
 const close = document.getElementsByClassName("closeWindow")[0];
 
-button.onclick = function() {
+function modalshow() {
     content.style.display = "block";
 }
 
@@ -15,3 +16,4 @@ window.onclick = function(event) {
         content.style.display = "none";
     }
 }
+*/
