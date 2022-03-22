@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const sortBtn = document.querySelector(".sort-btn");
 
     //change this selector to the class/id of the table
-    let compList = document.querySelector(".scoreboard");
+    let compList = document.querySelector("#scoreboard");
 
     let nameRow = 1;
+
+    console.log("script is loaded in");
 
     sortBtn.addEventListener("click", () => {
         //Chane the col selector to the column that the names are in
