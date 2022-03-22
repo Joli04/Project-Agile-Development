@@ -12,7 +12,6 @@ export class ScoreboardController extends Controller{
         this.#scoreboardRepository = new ScoreboardRepository();
 
         this.#setupView();
-        this.buttonMeanOfTransport();
     }
 
     async #setupView(){
@@ -25,9 +24,13 @@ export class ScoreboardController extends Controller{
             return b.score - a.score;
         })
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
+
+        this.buttonMeanOfTransport();
     }
 
     buttonMeanOfTransport(){
+
+        console.log("ButtonMeansOfTransport functie word geladen")
 
         let content = document.getElementById("myContentDiv")
 
@@ -38,7 +41,7 @@ export class ScoreboardController extends Controller{
 */
 
 
-        const button = document.getElementsByClassName("dropbtn")
+        const button = document.getElementById("transportButton")
         button.addEventListener("click", callModal)
         /*
         let button = document.createElement('button')
@@ -63,7 +66,7 @@ export class ScoreboardController extends Controller{
         }
 
         function closeModal() {
-            console.log("bruh, X is geklikt yo")
+            console.log("X is geklikt")
             content.style.display = "none";
         }
 
@@ -73,7 +76,7 @@ export class ScoreboardController extends Controller{
             }
         }
 
-        
+
 
     }
 
@@ -107,7 +110,7 @@ export class ScoreboardController extends Controller{
         }
         table.appendChild(tbody);
         container.appendChild(table);
-        tbodytd.classList.add("tbodytd");
+
     }
 
 }
