@@ -10,6 +10,8 @@
 }
 
 #transportButton {
+    width: 150px;
+    height: 70px;
     border-radius: 8px;
     background-color: #b70d31;
     color: white;
