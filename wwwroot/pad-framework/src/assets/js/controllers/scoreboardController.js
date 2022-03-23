@@ -83,36 +83,57 @@ export class ScoreboardController extends Controller{
     }
 
     prize(){
+
         const button = document.getElementById("myBtn")
         button.addEventListener("click", callModal)
 
         let prizeModal = document.getElementById("prizeModal")
-        let prizepopup = document.querySelector(".popup")
+        let prizepopup = document.querySelector("#popup-prize")
         prizepopup.style.display = "block";
         let prizes = document.querySelector(".modal-content")
+        let popup = document.querySelector(".popup");
 
         var img = document.createElement("img");
         var src = document.getElementById("popup-prize");
 
-        const close = document.getElementsByClassName("closeWindow")[0];
+        const close = document.getElementsByClassName("close")[0];
         close.addEventListener("click", closeModal)
 
         window.addEventListener("click", offClickModal)
 
+
         document.getElementById("prize1").onmouseover = function (){
+            popup.style.display = "block";
+            prizes.style.display = "block";
             img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
             src.appendChild(img);
         }
 
+        document.getElementById("prize1").onmouseleave = function (){
+            popup.style.display = "none";
+        }
+
 
         document.getElementById("prize2").onmouseover = function (){
+            popup.style.display = "block";
+            prizes.style.display = "block";
             img.src = "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/vslgdggkdt7kbg1ycqab";
             src.appendChild(img);
         }
 
+        document.getElementById("prize2").onmouseleave = function (){
+            popup.style.display = "none";
+        }
+
         document.getElementById("prize3").onmouseover = function (){
+            popup.style.display = "block";
+            prizes.style.display = "block";
             img.src = "https://pbs.twimg.com/profile_images/51457981/koffie_3__reasonably_small.gif";
             src.appendChild(img);
+        }
+
+        document.getElementById("prize3").onmouseleave = function (){
+            popup.style.display = "none";
         }
 
 
@@ -120,6 +141,7 @@ export class ScoreboardController extends Controller{
             console.log("bruh, button geklikt")
             prizeModal.style.display = "block";
             prizes.style.display = "block";
+
         }
         function closeModal() {
             console.log("X is geklikt")
@@ -134,7 +156,6 @@ export class ScoreboardController extends Controller{
 
 
     }
-
 
     static #createScoreboard(labels, objects, container) {
         let table = document.createElement('table');
