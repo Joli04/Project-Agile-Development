@@ -162,7 +162,7 @@ export class ScoreboardController extends Controller {
         const sortBtn = document.getElementById('sort-btn');
 
         //change this selector to the class/id of the table
-        let compList = document.getElementById("scoreboardTbody");
+        let compList = document.getElementById("tablebody");
 
         let nameRow = 1;
 
@@ -203,8 +203,6 @@ export class ScoreboardController extends Controller {
         let table = document.createElement('table');
         let thead = document.createElement('thead');
         let tbody = document.createElement('tbody');
-
-        tbody.setAttribute('id', 'scoreboard');
 
         table.classList.add("table");
         thead.classList.add("tablehead");
