@@ -15,7 +15,7 @@ class ScoreboardRoutes{
             try {
                 const data = await this.#databaseHelper.handleQuery({
                     //Select all the usernames, locations and scores from the users table
-                    query: "SELECT username, location, score FROM users",
+                    query: "SELECT username, location, score, RANK () OVER (ORDER BY score DESC) nr FROM users;"
                 });
 
                 //just give all data back as json, could also be empty
