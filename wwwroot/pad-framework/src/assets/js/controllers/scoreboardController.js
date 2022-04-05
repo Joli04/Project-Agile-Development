@@ -18,7 +18,7 @@ export class ScoreboardController extends Controller {
 
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
-        let labels = ['Username', 'Location', 'Score'];
+        let labels = ['nr','Username', 'Location', 'Score'];
         let objects = await this.#scoreboardRepository.get();
         objects.sort((a, b) => {
             return b.score - a.score;
@@ -138,14 +138,12 @@ export class ScoreboardController extends Controller {
 
 
         function callModal() {
-            console.log("bruh, button geklikt")
             prizeModal.style.display = "block";
             prizes.style.display = "block";
 
         }
 
         function closeModal() {
-            console.log("X is geklikt")
             prizeModal.style.display = "none";
         }
 
@@ -175,20 +173,20 @@ export class ScoreboardController extends Controller {
         function sort_table(tbody, col, asc) {
             let rows = tbody.rows
             let rlen = rows.length
-            let arr = new Array()
+            let arr = []
 
             // fill the array with values from the table
             for (let i = 0; i < rlen; i++) {
                 let cells = rows[i].cells;
                 let clen = cells.length;
-                arr[i] = new Array();
+                arr[i] = [];
                 for (let j = 0; j < clen; j++) {
                     arr[i][j] = cells[j].innerHTML;
                 }
             }
             // sort the array by the specified column number (col) and order (asc)
             arr.sort(function (a, b) {
-                return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
+                return (a[col] === b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
             });
             // replace existing rows with new rows created from the sorted array
             for (let i = 0; i < rlen; i++) {
