@@ -57,6 +57,7 @@ h2 {
     background: whitesmoke;
     margin: auto;
     padding: 20px;
+    height: 85%;
     border-radius: 10px;
     width: 40%;
     animation: modal-content 0.6s;
