@@ -25,40 +25,27 @@ export class ScoreboardController extends Controller {
         })
         ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
-        this.buttonMeanOfTransport();
-        this.prize();
-        this.sortByName();
+        this.#buttonMeanOfTransport();
+        this.#prize();
+        this.#sortByName();
 
     }
 
-    buttonMeanOfTransport() {
+    #buttonMeanOfTransport() {
 
         console.log("ButtonMeansOfTransport functie word geladen")
 
-        let content = document.getElementById("myContentDiv")
-
-        /*
-                let content = document.createElement('div')
-                content.classList.add("myContentDiv")
-                content.setAttribute('id', 'myContentDiv')
-        */
+        let content = document.querySelector("#myContentDiv")
 
 
-        const button = document.getElementById("transportButton")
+
+        const button = document.querySelector("#transportButton")
         button.addEventListener("click", callModal)
-        /*
-        let button = document.createElement('button')
-        button.classList.add("dropbtn")
-        */
+
 
         const close = document.getElementsByClassName("closeWindow")[0];
         close.addEventListener("click", closeModal)
 
-        /*
-                let close = document.createElement('span')
-                close.classList.add("closeWindow")
-                close.textContent('&times')
-        */
 
         window.addEventListener("click", offClickModal)
 
@@ -82,7 +69,7 @@ export class ScoreboardController extends Controller {
 
     }
 
-    prize() {
+    #prize() {
 
         const button = document.getElementById("myBtn")
         button.addEventListener("click", callModal)
@@ -136,7 +123,7 @@ export class ScoreboardController extends Controller {
             popup.style.display = "none";
         }
 
-
+        //TODO maak  methodes van callmodal,closemodal and offclickmodal
         function callModal() {
             console.log("bruh, button geklikt")
             prizeModal.style.display = "block";
@@ -150,15 +137,13 @@ export class ScoreboardController extends Controller {
         }
 
         function offClickModal(event) {
-            if (event.target === prizeModal) {
-                prizeModal.style.display = "none";
-            }
+            event.target.style.display = "none";
         }
 
 
     }
 
-    sortByName() {
+    #sortByName() {
         const sortBtn = document.getElementById('sort-btn');
 
         //change this selector to the class/id of the table
