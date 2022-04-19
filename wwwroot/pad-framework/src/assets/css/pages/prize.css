@@ -30,6 +30,7 @@
     text-align: center;
     background: lightgrey;
     margin: auto;
+    max-height: 250px;
     padding: 10%;
     /*margin-top: 2000px;*/
     width: 400px;
@@ -75,7 +76,11 @@ h2 {
 }
 .list_prize:hover {
     color:#b70d32;
-    font-size: 30px;
+    font-size: 25px;
+    transition-duration: 500ms;
+}
+
+.list_prize:not(hover){
     transition-duration: 500ms;
 }
 
