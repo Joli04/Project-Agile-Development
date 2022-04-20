@@ -27,80 +27,49 @@
               </div>
           </div>
 
-<!--
-        <div id="buttonMeansOfTransport" class="buttonMeansOfTransport">
+        <button id="myBtn" class="dropbtn">De prijzen</button>
+
+        <!-- The Modal -->
+        <div id="prizeModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close" onclick="closeModal">&times;</span>
+                <h2>De top drie prijzen</h2>
+                <ol>
+                    <li class="list_prize" id="prize1">Een gratis weekendje weg
+                        <hr>
+                    </li>
+                    <li class="list_prize" id="prize2">Een fiets met het Betabit logo
+                        <hr>
+                    </li>
+                    <li class="list_prize" id="prize3">Gratis koffie voor een week</li>
+                    <hr>
+                </ol>
+                <div class="popup">
+                    <div id="popup-prize">
+
+                    </div>
+                </div>
+            </div>
 
         </div>
--->
           <br>
           <br>
+        <button id="sort-btn" class="dropbtn">Sort by name</button>
+        <label for="places">Sorteer op plaats:</label>
+        <select name="places" id="places">
+            <option value="Geen">Geen</option>
+            <option value="Amsterdam" name="Amsterdam">Betabit Amsterdam</option>
+            <option value="Apeldoorn">Betabit Apeldoorn</option>
+            <option value="Den Haag">Betabit Den Haag</option>
+            <option value="Eindhoven">Betabit Eindhoven</option>
+            <option value="Rotterdam">Betabit Rotterdam</option>
+            <option value="Utrecht">Betabit Utrecht</option>
+        </select>
         <div id="scoreboard">
-            <button id="sort-btn">Sort by name</button>
+
         </div>
     </section>
 </div>
 
-
-<script>
-    /*
-    const sortBtn = document.getElementById("#sort-btn");
-
-    //change this selector to the class/id of the table
-    let compList = document.getElementById("#tablebody");
-
-    let nameRow = 1;
-
-    console.log("sortByName wordt aangeroepen");
-
-        sortBtn.addEventListener("click", () => {
-            //Chane the col selector to the column that the names are in
-            sort_table(compList, 0, nameRow); nameRow *= -1;
-            console.log("click wordt uitgevoert");
-        })
-
-    function sort_table(tbody, col, asc){
-        let rows = tbody.rows
-        let rlen = rows.length
-        let arr = new Array()
-
-        // fill the array with values from the table
-        for(let i = 0; i < rlen; i++){
-            let cells = rows[i].cells;
-            let clen = cells.length;
-            arr[i] = new Array();
-            for(let j = 0; j < clen; j++){
-                arr[i][j] = cells[j].innerHTML;
-            }
-        }
-        // sort the array by the specified column number (col) and order (asc)
-        arr.sort(function(a, b){
-            return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1*asc);
-        });
-        // replace existing rows with new rows created from the sorted array
-        for(let i = 0; i < rlen; i++){
-            arr[i] = "<td>"+arr[i].join("</td><td>")+"</td>";
-        }
-        tbody.innerHTML = "<tr>"+arr.join("</tr><tr>")+"</tr>";
-    }
-    */
-
-    const content = document.getElementById("myContentDiv")
-    const button = document.getElementsByClassName("dropbtn")
-    const close = document.getElementsByClassName("closeWindow")[0];
-
-    function modalshow() {
-        content.style.display = "block";
-    }
-
-    close.onclick = function () {
-        content.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target === content){
-            content.style.display = "none";
-        }
-    }
-
-
-</script>
