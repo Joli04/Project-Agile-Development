@@ -2,32 +2,50 @@
     <section class="scoreboard-container">
         <h2>Scoreboard:</h2>
         <br>
-<!--       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>-->
+        <!--       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>-->
 
-           <button id="transportButton" class="dropbtn">Welk transport wilt u nemen?</button>
+        <button id="transportButton" class="dropbtn">
+            <img src="assets/Media/auto.png" class="buttonImage">
+            Welk transport wilt u nemen?
+        </button>
 
-          <div id="myContentDiv" class="content2">
-              <div id="myContent" class="transport-content">
-                  <span class="closeWindow" onclick="closeModal">&times;</span>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/auto.png"><p class="modal_points">1 punt</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/elektrischeAuto.png"><p class="modal_points">2 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/trein.png"><p class="modal_points">3 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/fiets.png"><p class="modal_points">4 punten</p>
-                  </div>
-                  <div class="image">
-                      <img class="points_img" src="assets/Media/lopend.png"><p class="modal_points">5 punten</p>
-                  </div>
-              </div>
-          </div>
+        <div id="myContentDiv" class="content2">
+            <div id="myContent" class="transport-content">
+                <span class="closeWindow">&times;</span>
+                <div class="image">
+                    <img class="points_img" id="transport1" src="assets/Media/auto.png">
+                    <p class="modal_points">1 punt</p>
+                </div>
+                <div class="image">
+                    <img class="points_img" id="transport2" src="assets/Media/elektrischeAuto.png">
+                    <p class="modal_points">2 punten</p>
+                </div>
+                <div class="image">
+                    <img class="points_img" id="transport3" src="assets/Media/trein.png">
+                    <p class="modal_points">3 punten</p>
+                </div>
+                <div class="image">
+                    <img class="points_img" id="transport4" src="assets/Media/fiets.png">
+                    <p class="modal_points">4 punten</p>
+                </div>
+                <div class="image">
+                    <img class="points_img" id="transport5" src="assets/Media/lopend.png">
+                    <p class="modal_points">5 punten</p>
+                </div>
+            </div>
+            <div class="second_modal">
+                <div class="second_modal_content">
+                    <span id="closeWindowConfirm">&times;</span>
+                    <p>Wil je dit voertuig echt kiezen?!</p>
+                    <button id="confirmBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
 
-        <button id="myBtn" class="dropbtn">De prijzen</button>
+        <button id="myBtn" class="dropbtn">
+            <img src="assets/Media/wonPrizes.png" class="buttonImage" id="prizesImage">
+            De prijzen
+        </button>
 
         <!-- The Modal -->
         <div id="prizeModal" class="modal">
@@ -56,7 +74,10 @@
         </div>
           <br>
           <br>
-<!--        <button id="sort-btn" class="dropbtn">Sort by name</button>-->
+<!--        <button id="sort-btn" class="dropbtn">-->
+<!--            <img src="assets/Media/updownArrow.png" class="buttonImage" id="sortNameImage">-->
+<!--            Sort by name-->
+<!--        </button>-->
         <label for="places">Sorteer op plaats:</label>
         <select name="places" id="places">
             <option value="Geen">Geen</option>
