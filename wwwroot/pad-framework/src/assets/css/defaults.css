@@ -6,11 +6,19 @@ footer {
 }
 
 .navbar {
-    background-color: #2F72B9;
+    background-color: #b70d31;
+    color: white;
 }
 
 .bd-navbar .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: #cbbde2;
+}
+
+img{
+    max-height: 65px;
+    max-width: 65px;
+    margin-right: 5%;
+    border-radius: 25%;
 }

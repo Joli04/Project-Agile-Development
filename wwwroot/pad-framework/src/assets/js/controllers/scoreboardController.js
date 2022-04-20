@@ -1,15 +1,19 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {Controller} from "./controller.js";
+import {TransportRepository} from "../repositories/transportRepository.js";
+import {App} from "../app.js";
+
 
 export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
+    #transportRepository
 
     constructor() {
         super();
 
         this.#scoreboardRepository = new ScoreboardRepository();
-
+        this.#transportRepository = new TransportRepository();
         this.#setupView();
     }
 
@@ -18,11 +22,14 @@ export class ScoreboardController extends Controller {
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
 
-        this.buttonMeanOfTransport();
+        let objectsTransport = await this.#transportRepository.get();
+
+        this.buttonMeanOfTransport(objectsTransport);
         this.prize();
         // this.sortByName();
         this.sortByPlace();
         this.telkensaanroepen();
+        ScoreboardController.#showTransportImages(objectsTransport);
 
     }
     static #createScoreboard(labels, objects, container) {
@@ -105,6 +112,89 @@ export class ScoreboardController extends Controller {
             }
         }
 
+        // Confirm whether you want to choose the corresponding vehicle
+        const secondModalContent = document.querySelector(".second_modal_content");
+        const closeWindowConfirm = document.querySelector("#closeWindowConfirm");
+        const transport = document.querySelectorAll(
+            '#transport1, #transport2, #transport3, #transport4, #transport5');
+
+        // todo Robberto dit is de button voor uwe userstory doe er wat leuks mee
+        const buttonConfirm = document.querySelector("#confirmBtn");
+
+        let image1 = new Image();
+        let image2 = new Image();
+        let image3 = new Image();
+        let image4 = new Image();
+        let image5 = new Image();
+
+        let test = [image1, image2, image3, image4, image5]
+        for (let i = 0; i < test.length; i++) {
+            test[i].style.maxWidth = "200px";
+            test[i].style.maxHeight = "200px";
+        }
+
+        image1.src = "assets/Media/auto.png";
+        image2.src = "assets/Media/elektrischeAuto.png";
+        image3.src = "assets/Media/trein.png";
+        image4.src = "assets/Media/fiets.png";
+        image5.src = "assets/Media/lopend.png";
+
+        closeWindowConfirm.addEventListener('click', closeModalConfirm);
+
+        for (let i = 0; i < transport.length; i++) {
+            transport[i].addEventListener("click", callModal2)
+        }
+
+        const images = [image1, image2, image3, image4, image5];
+
+        function removeChildren() {
+            for (let i = 0; i < images.length; i++) {
+                if (images[i] !== event.target.id && images[i]) {
+                    images[i].remove();
+                }
+            }
+        }
+
+        function addingChildren() {
+            switch (event.target.id) {
+                case transport[0].id:
+                    secondModalContent.appendChild(images[0]);
+                    break;
+                case transport[1].id:
+                    secondModalContent.appendChild(images[1]);
+                    break;
+                case transport[2].id:
+                    secondModalContent.appendChild(images[2]);
+                    break;
+                case transport[3].id:
+                    secondModalContent.appendChild(images[3]);
+                    break;
+                case transport[4].id:
+                    secondModalContent.appendChild(images[4]);
+                    break;
+            }
+        }
+
+        function callModal2() {
+            secondModalContent.style.display = "block";
+            removeChildren();
+            addingChildren();
+            secondModalContent.appendChild(buttonConfirm);
+        }
+
+        function closeModalConfirm() {
+            secondModalContent.style.display = "none";
+        }
+
+        function offClickModal2(event) {
+            if (event.target === content) {
+                secondModalContent.style.display = "none";
+            }
+        }
+
+        window.addEventListener("click", offClickModal2)
+
+
 
     }
 
@@ -178,8 +268,6 @@ export class ScoreboardController extends Controller {
                 prizeModal.style.display = "none";
             }
         }
-
-
     }
 
     sortByName() {
@@ -237,6 +325,12 @@ export class ScoreboardController extends Controller {
             document.getElementById("scoreboard").innerHTML = "";
             this.sortByPlace();
         })
+    }
+    static #showTransportImages(objects){
+        let image1;
+        image1 = document.querySelector("#transport1");
+        image1.src = "assets/Media/auto.png";
+
     }
 }
 

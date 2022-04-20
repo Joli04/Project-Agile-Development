@@ -2,21 +2,43 @@ table {
   border-collapse: collapse;
 }
 th, td {
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .tablehead{
-  background: #dddddd;
-  border-bottom: 2px solid #000000;
+  background: black;
+  color: white;
 }
 
 th, td{
-  border: 1px solid #adadad !important;
+  border: 2px solid black !important;
 }
 
 .tablebody tr:nth-child(uneven){
   background: #ffffff;
 }
 .tablebody tr:nth-child(even){
-  background: #e9e9e9;
+  background: #e10738;
+}
+
+#sortNameImage {
+  max-width: 25px;
+  max-height: 25px;
+}
+
+.buttonImage {
+  justify-content: center;
+  margin-top: 15px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+}
+
+#prizesImage {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+#sort-btn {
+  margin-bottom: 5px;
+  margin-left: 7%;
 }
