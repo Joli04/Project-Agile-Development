@@ -2,19 +2,19 @@ import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class ScoreboardRepository{
     #route
-    #networkManeger
+    #networkManager
 
     constructor() {
         this.#route = "/scoreboard"
-        this.#networkManeger = new NetworkManager();
+        this.#networkManager = new NetworkManager();
     }
 
     async getALL(){
 
     }
 
-    async get(scoreboard){
+    async get(place){
         console.log(this.#route)
-        return await this.#networkManeger.doRequest(`${this.#route}`, "GET")
+        return await this.#networkManager.doRequest(`${this.#route}`, "POST",{place: place})
     }
 }
