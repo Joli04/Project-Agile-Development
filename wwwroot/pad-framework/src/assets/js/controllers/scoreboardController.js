@@ -20,7 +20,7 @@ export class ScoreboardController extends Controller {
 
         this.buttonMeanOfTransport();
         this.prize();
-        this.sortByName();
+        // this.sortByName();
         this.sortByPlace();
         this.telkensaanroepen();
 
