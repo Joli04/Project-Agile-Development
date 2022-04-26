@@ -9,12 +9,7 @@ export class ScoreboardRepository{
         this.#networkManager = new NetworkManager();
     }
 
-    async getALL(){
-
-    }
-
-    async get(scoreboard){
-        console.log(this.#route)
+    async get(place){
         return await this.#networkManager.doRequest(`${this.#route}/${place}`, "GET")
     }
 }

@@ -8,14 +8,12 @@ export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
-    #imageRepo
 
     constructor() {
         super();
 
         this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
-        // this.#imageRepo = new ImagesRepo();
 
         this.#setupView();
     }
@@ -24,34 +22,13 @@ export class ScoreboardController extends Controller {
 
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
-        let labels = ['Username', 'Location', 'Score'];
-        let objects = await this.#scoreboardRepository.get();
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        });
-        ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
+        this.sortByPlace()
+        this.selectPlace()
 
-        // let objectsTransport = await this.#transportRepository.get();
-
-        const close = document.getElementsByClassName("close")[0];
-        close.addEventListener("click", closeModal)
-        // this.buttonMeanOfTransport(objectsTransport);
-        // this.prize();
-        this.sortByPlace();
-        this.selectPlace();
-        // ScoreboardController.#showTransportImages(objectsTransport);
-
-        window.addEventListener("click", offClickModal)
     }
 
     static #createScoreboard(objects, container) {
 
-        document.getElementById("prize1").onmouseover = function () {
-            popup.style.display = "block";
-            prizes.style.display = "block";
-            img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
-            src.appendChild(img);
-        }
         let fragment = document.createDocumentFragment();
 
         for (let i = 0; i < objects.length; i++) {
