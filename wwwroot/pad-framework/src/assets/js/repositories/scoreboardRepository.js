@@ -13,8 +13,8 @@ export class ScoreboardRepository{
 
     }
 
-    async get(place){
+    async get(scoreboard){
         console.log(this.#route)
-        return await this.#networkManager.doRequest(`${this.#route}`, "POST",{place: place})
+        return await this.#networkManager.doRequest(`${this.#route}`, "GET")
     }
 }

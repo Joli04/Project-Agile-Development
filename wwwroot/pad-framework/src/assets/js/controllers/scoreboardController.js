@@ -1,19 +1,22 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
-import {Controller} from "./controller.js";
-import {TransportRepository} from "../repositories/transportRepository.js";
+import {PointsRepository} from "../repositories/pointsRepository.js";
+// import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
-
+import {Controller} from "./controller.js";
 
 export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
-    #transportRepository
+    #pointsRepository
+    #imageRepo
 
     constructor() {
         super();
 
+        this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
-        this.#transportRepository = new TransportRepository();
+        // this.#imageRepo = new ImagesRepo();
+
         this.#setupView();
     }
 
@@ -21,55 +24,42 @@ export class ScoreboardController extends Controller {
 
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
+        let labels = ['Username', 'Location', 'Score'];
+        let objects = await this.#scoreboardRepository.get();
+        objects.sort((a, b) => {
+            return b.score - a.score;
+        });
+        ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
 
-        let objectsTransport = await this.#transportRepository.get();
-
-        this.buttonMeanOfTransport(objectsTransport);
+        this.buttonMeanOfTransport();
         this.prize();
-        // this.sortByName();
-        this.sortByPlace();
-        this.telkensaanroepen();
-        ScoreboardController.#showTransportImages(objectsTransport);
-
+        this.sortByName();
     }
-    static #createScoreboard(labels, objects, container) {
-        let table = document.createElement('table');
-        let thead = document.createElement('thead');
-        let tbody = document.createElement('tbody');
 
-        table.classList.add("table");
-        thead.classList.add("tablehead");
-        tbody.classList.add("tablebody");
-        tbody.setAttribute("id", "tablebody")
-
-        let theadTr = document.createElement('tr');
-        for (let i = 0; i < labels.length; i++) {
-            let theadTh = document.createElement('th')
-            theadTh.innerHTML = labels[i];
-            theadTr.appendChild(theadTh);
-        }
-        thead.appendChild(theadTr);
-        table.appendChild(thead);
-
-        for (let j = 0; j < objects.length; j++) {
-            let tbodyTr = document.createElement('tr')
-            for (let k = 0; k < labels.length; k++) {
-                let tbodyTd = document.createElement('td')
-                tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()]
-                tbodyTr.appendChild(tbodyTd);
-            }
-            tbody.appendChild(tbodyTr);
-        }
-        table.appendChild(tbody);
-        container.appendChild(table);
+    /**
+     * Async function that gets, updates and sets the score of the user
+     *
+     * @param points = the amount of point that gets added to the players score
+     * @returns {Promise<void>}
+     */
+    async updatePoints(points){
+        let userId = App.sessionManager.get("id");
+        let userScore = await this.#pointsRepository.get(userId);
+        let totalScore = userScore[0].score += points;
+        this.#pointsRepository.set(totalScore, userId);
     }
 
     buttonMeanOfTransport() {
-
         console.log("ButtonMeansOfTransport functie word geladen")
 
-        let content = document.getElementById("myContentDiv")
 
+        let content = document.getElementById("myContentDiv")
+        const carScore = 1;
+        const electricCarScore = 2;
+        const ovScore = 3;
+        const bikeScore = 4;
+        const walkScore = 5;
+        let points;
         /*
                 let content = document.createElement('div')
                 content.classList.add("myContentDiv")
@@ -121,6 +111,7 @@ export class ScoreboardController extends Controller {
         // todo Robberto dit is de button voor uwe userstory doe er wat leuks mee
         const buttonConfirm = document.querySelector("#confirmBtn");
 
+
         let image1 = new Image();
         let image2 = new Image();
         let image3 = new Image();
@@ -129,8 +120,8 @@ export class ScoreboardController extends Controller {
 
         let test = [image1, image2, image3, image4, image5]
         for (let i = 0; i < test.length; i++) {
-            test[i].style.maxWidth = "200px";
-            test[i].style.maxHeight = "200px";
+                test[i].style.maxWidth = "200px";
+                test[i].style.maxHeight = "200px";
         }
 
         image1.src = "assets/Media/auto.png";
@@ -140,6 +131,9 @@ export class ScoreboardController extends Controller {
         image5.src = "assets/Media/lopend.png";
 
         closeWindowConfirm.addEventListener('click', closeModalConfirm);
+        buttonConfirm.addEventListener("click", evt => {
+            this.updatePoints(points);
+        });
 
         for (let i = 0; i < transport.length; i++) {
             transport[i].addEventListener("click", callModal2)
@@ -159,18 +153,23 @@ export class ScoreboardController extends Controller {
             switch (event.target.id) {
                 case transport[0].id:
                     secondModalContent.appendChild(images[0]);
+                    points = carScore;
                     break;
                 case transport[1].id:
                     secondModalContent.appendChild(images[1]);
+                    points = electricCarScore;
                     break;
                 case transport[2].id:
                     secondModalContent.appendChild(images[2]);
+                    points = ovScore;
                     break;
                 case transport[3].id:
                     secondModalContent.appendChild(images[3]);
+                    points = bikeScore;
                     break;
                 case transport[4].id:
                     secondModalContent.appendChild(images[4]);
+                    points = walkScore;
                     break;
             }
         }
@@ -194,18 +193,15 @@ export class ScoreboardController extends Controller {
 
         window.addEventListener("click", offClickModal2)
 
-
-
     }
 
     prize() {
-
         const button = document.getElementById("myBtn")
         button.addEventListener("click", callModal)
 
         let prizeModal = document.getElementById("prizeModal")
-        let prizepopup = document.querySelector("#popup-prize")
-        prizepopup.style.display = "block";
+        let prizePopup = document.querySelector("#popup-prize")
+        prizePopup.style.display = "block";
         let prizes = document.querySelector(".modal-content")
         let popup = document.querySelector(".popup");
 
@@ -254,12 +250,14 @@ export class ScoreboardController extends Controller {
 
 
         function callModal() {
+            console.log("prize button geklikt")
             prizeModal.style.display = "block";
             prizes.style.display = "block";
 
         }
 
         function closeModal() {
+            console.log("X is geklikt")
             prizeModal.style.display = "none";
         }
 
@@ -268,6 +266,8 @@ export class ScoreboardController extends Controller {
                 prizeModal.style.display = "none";
             }
         }
+
+
     }
 
     sortByName() {
@@ -287,20 +287,20 @@ export class ScoreboardController extends Controller {
         function sort_table(tbody, col, asc) {
             let rows = tbody.rows
             let rlen = rows.length
-            let arr = []
+            let arr = new Array()
 
             // fill the array with values from the table
             for (let i = 0; i < rlen; i++) {
                 let cells = rows[i].cells;
                 let clen = cells.length;
-                arr[i] = [];
+                arr[i] = new Array();
                 for (let j = 0; j < clen; j++) {
                     arr[i][j] = cells[j].innerHTML;
                 }
             }
             // sort the array by the specified column number (col) and order (asc)
             arr.sort(function (a, b) {
-                return (a[col] === b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
+                return (a[col] == b[col]) ? 0 : ((a[col] > b[col]) ? asc : -1 * asc);
             });
             // replace existing rows with new rows created from the sorted array
             for (let i = 0; i < rlen; i++) {
@@ -311,26 +311,35 @@ export class ScoreboardController extends Controller {
     }
 
 
-    async sortByPlace(){
-        let labels = ['nr', 'Username', 'Location', 'Score'];
-        let places = document.getElementById("places").value
-        let objects = await this.#scoreboardRepository.get(places);
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        })
-        ScoreboardController.#createScoreboard(labels, objects, document.getElementById('scoreboard'))
-    }
-    async telkensaanroepen(){
-        document.getElementById("places").addEventListener("change", (e)=>{
-            document.getElementById("scoreboard").innerHTML = "";
-            this.sortByPlace();
-        })
-    }
-    static #showTransportImages(objects){
-        let image1;
-        image1 = document.querySelector("#transport1");
-        image1.src = "assets/Media/auto.png";
+    static #createScoreboard(labels, objects, container) {
+        let table = document.createElement('table');
+        let thead = document.createElement('thead');
+        let tbody = document.createElement('tbody');
 
+        table.classList.add("table");
+        thead.classList.add("tablehead");
+        tbody.classList.add("tablebody");
+        tbody.setAttribute("id", "tablebody")
+
+        let theadTr = document.createElement('tr');
+        for (let i = 0; i < labels.length; i++) {
+            let theadTh = document.createElement('th')
+            theadTh.innerHTML = labels[i];
+            theadTr.appendChild(theadTh);
+        }
+        thead.appendChild(theadTr);
+        table.appendChild(thead);
+
+        for (let j = 0; j < objects.length; j++) {
+            let tbodyTr = document.createElement('tr')
+            for (let k = 0; k < labels.length; k++) {
+                let tbodyTd = document.createElement('td')
+                tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()]
+                tbodyTr.appendChild(tbodyTd);
+            }
+            tbody.appendChild(tbodyTr);
+        }
+        table.appendChild(tbody);
+        container.appendChild(table);
     }
 }
-
