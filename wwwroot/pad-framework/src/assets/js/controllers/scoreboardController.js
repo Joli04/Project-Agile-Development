@@ -45,8 +45,12 @@ export class ScoreboardController extends Controller {
             let score = document.createElement('td')
             score.className = 'text-center'
 
+
             number.textContent = "#" + (i+1);
             username.textContent = objects[i].username
+            if(username.textContent === App.sessionManager.get("username")){
+                trBody.style.backgroundColor = "#dbdbdb"
+            }
             location.textContent = objects[i].location
             score.textContent = objects[i].score
 
