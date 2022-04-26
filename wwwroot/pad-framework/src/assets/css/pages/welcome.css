@@ -1,28 +1,3 @@
 span.name {
     color: #b70d31;
 }
-
-#welkomBericht {
-    display: flex;
-    width: 50%;
-    height: 50%;
-    background: #b70d31;
-    border-radius: 10px;
-    margin-bottom: 5%;
-    padding: 20px 12px;
-    box-sizing: border-box;
-    transition: 0.5s;
-    margin-left: 32%;
-    margin-right: 55%;
-    text-align: center;
-    margin-top: 5%;
-    max-width: 350px;
-    max-height: 120px;
-}
-
-#paragraphBericht {
-    color: white;
-    font-family: "Open Sans", sans-serif;
-    font-size: large;
-}
-

@@ -6,19 +6,28 @@ footer {
 }
 
 .navbar {
-    background-color: #b70d31;
-    color: white;
+    background-color: transparent;
+    border: transparent;
 }
 
-.bd-navbar .navbar-nav .nav-link {
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
-    color: #cbbde2;
+.navbar .nav-link{
+    color: #292b2c;
+    transition: all 0.4s ease;
 }
 
-img{
-    max-height: 65px;
-    max-width: 65px;
-    margin-right: 5%;
+.navbar .nav-link:hover{
+    transform: translateY(-7px);
+    color: #b70d31;
+}
+
+/* Setting the stroke to green using rgb values (0, 128, 0) */
+.custom-toggler .navbar-toggler-icon {
+    background-image: url(
+    "data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(183, 13, 49, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+img {
+    max-height: 100px;
+    max-width: 100px;
     border-radius: 25%;
 }

@@ -15,6 +15,6 @@ export class ScoreboardRepository{
 
     async get(scoreboard){
         console.log(this.#route)
-        return await this.#networkManager.doRequest(`${this.#route}`, "GET")
+        return await this.#networkManager.doRequest(`${this.#route}/${place}`, "GET")
     }
 }

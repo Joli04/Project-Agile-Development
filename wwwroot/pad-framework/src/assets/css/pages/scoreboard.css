@@ -1,44 +1,62 @@
-table {
-  border-collapse: collapse;
-}
 th, td {
-  border: 2px solid black;
+    border: transparent;
 }
 
-.tablehead{
-  background: black;
-  color: white;
+thead th {
+    border: transparent;
+    font-size: 1.2rem;
+    font-weight: 900;
 }
 
-th, td{
-  border: 2px solid black !important;
+table {
+    border: transparent;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5.3px rgba(0, 0, 0, 0.027),
+    0px 0px 17.9px rgba(0, 0, 0, 0.037),
+    0px 0px 80px rgba(0, 0, 0, 0.06);
+
+
 }
 
-.tablebody tr:nth-child(uneven){
-  background: #ffffff;
+thead {
+    box-shadow: 0px 3.1px 5.3px rgba(0, 0, 0, 0.027),
+    0px 10.3px 17.9px rgba(0, 0, 0, 0.037),
+    0px 46px 80px rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+
 }
-.tablebody tr:nth-child(even){
-  background: #e10738;
+
+tbody tr {
+    transition: all 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(83, 83, 90, 0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.07);
 }
 
 #sortNameImage {
-  max-width: 25px;
-  max-height: 25px;
+    max-width: 25px;
+    max-height: 25px;
 }
 
 .buttonImage {
-  justify-content: center;
-  margin-top: 15px;
-  margin-right: 5px;
-  margin-bottom: 15px;
+    justify-content: center;
+    margin-top: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
 }
 
 #prizesImage {
-  max-width: 50px;
-  max-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
 }
 
 #sort-btn {
-  margin-bottom: 5px;
-  margin-left: 7%;
+    margin-bottom: 5px;
+    margin-left: 7%;
+}
+
+select {
+    background-color: transparent;
 }
