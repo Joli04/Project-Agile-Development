@@ -13,6 +13,7 @@ import { NavbarController }  from "./controllers/navbarController.js"
 import { UploadController }  from "./controllers/uploadController.js"
 import { WelcomeController }  from "./controllers/welcomeController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
+import {PointsController} from "./controllers/pointsController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -26,13 +27,14 @@ export class App {
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
+    static CONTROLLER_POINTS = "points";
 
     constructor() {
         //Always load the navigation
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
-        App.loadControllerFromUrl(App.CONTROLLER_WELCOME );
+        App.loadControllerFromUrl(App.CONTROLLER_WELCOME);
     }
 
     /**
@@ -78,7 +80,10 @@ export class App {
                 App.setCurrentController(name)
                 App.isLoggedIn(() => new ScoreboardController(), () => new LoginController());
                 break;
-
+            case App.CONTROLLER_POINTS:
+                App.setCurrentController(name);
+                App.isLoggedIn(() => new PointsController(), () => new LoginController());
+                break;
             default:
                 return false;
         }
@@ -136,6 +141,8 @@ export class App {
      */
     static handleLogout() {
         App.sessionManager.remove("username");
+        App.sessionManager.remove("password");
+        App.sessionManager.remove("id");
 
         //go to login screen
         App.loadController(App.CONTROLLER_LOGIN);
