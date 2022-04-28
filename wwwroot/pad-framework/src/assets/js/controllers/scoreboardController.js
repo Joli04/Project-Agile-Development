@@ -95,12 +95,14 @@ export class ScoreboardController extends Controller {
     async selectTime() {
         const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
         buttonMonthly.addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector("#places").value = "Geen"
             this.showMonthly();
         })
 
         const buttonYearly = this.#scoreboardView.querySelector("#yearly")
 
         buttonYearly.addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector("#places").value = "Geen"
             this.showYearly();
         })
     }
