@@ -14,6 +14,7 @@ import { UploadController }  from "./controllers/uploadController.js"
 import { WelcomeController }  from "./controllers/welcomeController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {PointsController} from "./controllers/pointsController.js";
+import {AdminController} from "./controllers/adminController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -28,6 +29,7 @@ export class App {
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
     static CONTROLLER_POINTS = "points";
+    static CONTROLLER_ADMIN = "admin"
 
     constructor() {
         //Always load the navigation
@@ -80,6 +82,12 @@ export class App {
                 App.setCurrentController(name)
                 App.isLoggedIn(() => new ScoreboardController(), () => new LoginController());
                 break;
+
+            case App.CONTROLLER_ADMIN:
+                App.setCurrentController(name)
+                App.isLoggedIn(() => new AdminController(), () => new LoginController());
+                break;
+
             case App.CONTROLLER_POINTS:
                 App.setCurrentController(name);
                 App.isLoggedIn(() => new PointsController(), () => new LoginController());
