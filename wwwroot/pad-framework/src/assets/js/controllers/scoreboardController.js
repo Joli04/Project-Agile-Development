@@ -26,8 +26,8 @@ export class ScoreboardController extends Controller {
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
         await this.sortByPlace();
-        await this.selectPlace();
         await this.selectTime();
+        await this.selectPlace();
 
     }
 
