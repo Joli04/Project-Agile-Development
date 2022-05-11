@@ -14,6 +14,7 @@ export class ScoreboardController extends Controller {
 
         this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
+        //this.#imageRepo = new ImagesRepo();
 
         this.#setupView();
     }

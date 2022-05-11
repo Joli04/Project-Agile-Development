@@ -28,3 +28,4 @@ export class PointsRepository{
         return this.#networkManager.doRequest(`${this.#route}/${userId}`, "GET");
     }
 }
+
