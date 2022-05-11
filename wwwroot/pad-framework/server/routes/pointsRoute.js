@@ -33,7 +33,6 @@ class pointsRoute{
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                        //query: "INSERT INTO users(username,password, location,score) VALUES(?, ?, ?,?)",
                         query: "SELECT score FROM users WHERE id = ?",
                         values: [getId]
                 });
