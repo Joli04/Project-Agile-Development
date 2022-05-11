@@ -10,13 +10,16 @@ class ScoreboardRoutes{
     }
 
     #getUsers(){
+        //If place is not 'Geen', we select all the users who are active in that specific location.
+        // If it is we just select every user in our database
         this.#app.get("/scoreboard/:place", async (req, res) => {
             const place = req.params.place;
 
             if (place !== 'Geen') {
                 try {
                     const data = await this.#databaseHelper.handleQuery({
-                        //Select all the usernames, locations and scores from the users table
+                        //Select all the usernames, locations and scores from the users table where the users have place
+                        //as location.
                         query: "SELECT id, username, location, score FROM users WHERE location = ?",
                         values: [place]
                     });
