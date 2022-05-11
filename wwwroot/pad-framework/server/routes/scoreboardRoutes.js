@@ -11,12 +11,14 @@ class ScoreboardRoutes{
 
     #getUsers(){
         this.#app.get("/scoreboard/:place", async (req, res) => {
-            let place = req.params.place;
-            if(place === "Geen"){
+            const place = req.params.place;
+
+            if (place !== 'Geen') {
                 try {
                     const data = await this.#databaseHelper.handleQuery({
-                        //Select all the usernames, locations and scores from the users table
-                        query: "SELECT id, username, location, score FROM users WHERE location = ? ORDER BY score DESC",
+                        //Select all the usernames, locations and scores from the users table where the users have place
+                        //as location.
+                        query: "SELECT id, username, location, score, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?",
                         values: [place]
                     });
 
@@ -31,9 +33,7 @@ class ScoreboardRoutes{
                 try {
                     const data = await this.#databaseHelper.handleQuery({
                         //Select all the usernames, locations and scores from the users table
-                        // query: "SELECT us+ername, location, score, RANK () OVER (ORDER BY score DESC) nr FROM users;"
-                        query: "SELECT username, location, score, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?;",
-                        values: [place]
+                        query: "SELECT id, username, location, score, RANK () OVER (ORDER BY score DESC) nr  FROM users",
                     });
 
                     //just give all data back as json, could also be empty
