@@ -31,6 +31,17 @@ export class WelcomeController extends Controller{
 
         //from here we can safely get elements from the view via the right getter
         this.#welcomeView.querySelector("span.name").innerHTML = App.sessionManager.get("username");
+        const vehiclePopup = document.getElementById("vehiclePopup");
+        const closeButtonPopup = document.querySelector(".closePopup");
+        const buttonPopup = document.querySelector(".btn-popup");
+
+        buttonPopup.addEventListener("click", (event) => {
+            vehiclePopup.style.display = "block";
+        })
+
+        closeButtonPopup.addEventListener("click", (event) => {
+            vehiclePopup.style.display = "none";
+        })
 
         //for demonstration a hardcoded room id that exists in the database of the back-end
         this.#fetchRooms(1256);

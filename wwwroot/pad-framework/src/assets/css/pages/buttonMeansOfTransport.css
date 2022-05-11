@@ -166,3 +166,11 @@
     color: #b70d31;
     cursor:pointer;
 }
+
+.errorMsg{
+    color:red;
+}
+
+/*.btn-danger,.btn-success{*/
+/*    display: none;*/
+/*}*/

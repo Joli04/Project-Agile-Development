@@ -7,11 +7,11 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { SessionManager } from "./framework/utils/sessionManager.js"
-import { LoginController } from "./controllers/loginController.js"
-import { NavbarController }  from "./controllers/navbarController.js"
-import { UploadController }  from "./controllers/uploadController.js"
-import { WelcomeController }  from "./controllers/welcomeController.js"
+import {SessionManager} from "./framework/utils/sessionManager.js"
+import {LoginController} from "./controllers/loginController.js"
+import {NavbarController} from "./controllers/navbarController.js"
+import {UploadController} from "./controllers/uploadController.js"
+import {WelcomeController} from "./controllers/welcomeController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {PointsController} from "./controllers/pointsController.js";
 import {BadgesController} from "./controllers/badgesController.js";
@@ -75,7 +75,7 @@ export class App {
                 break;
 
             case App.CONTROLLER_UPLOAD:
-                App.isLoggedIn(() => new UploadController(),() => new LoginController());
+                App.isLoggedIn(() => new UploadController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_SCOREBOARD:
