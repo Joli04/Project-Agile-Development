@@ -15,6 +15,7 @@ import {WelcomeController} from "./controllers/welcomeController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {PointsController} from "./controllers/pointsController.js";
 import {BadgesController} from "./controllers/badgesController.js";
+import {PrizeTransportController} from "./controllers/prizeTransportController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -29,6 +30,7 @@ export class App {
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
     static CONTROLLER_POINTS = "points";
+    static CONTROLLER_PRIZE = "prize";
     static CONTROLLER_BADGES = "badges"
 
     constructor() {
@@ -86,13 +88,16 @@ export class App {
                 App.setCurrentController(name);
                 App.isLoggedIn(() => new PointsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_PRIZE:
+                App.setCurrentController(name);
+                App.isLoggedIn(() => new PrizeTransportController(), () => new LoginController());
+                break;
             case App.CONTROLLER_BADGES:
-                App.setCurrentController(name)
+                App.setCurrentController(name);
                 App.isLoggedIn(() => new BadgesController(), () => new LoginController());
             default:
                 return false;
         }
-
         return true;
     }
 
