@@ -11,10 +11,10 @@ import {SessionManager} from "./framework/utils/sessionManager.js"
 import {LoginController} from "./controllers/loginController.js"
 import {NavbarController} from "./controllers/navbarController.js"
 import {UploadController} from "./controllers/uploadController.js"
-import {WelcomeController} from "./controllers/welcomeController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {PointsController} from "./controllers/pointsController.js";
-import {BadgesController} from "./controllers/badgesController.js";
+import {BadgesController} from "./controllers/badgesController.js"
+import {ProfileController} from "./controllers/profileController.js";
 import {PrizeTransportController} from "./controllers/prizeTransportController.js";
 
 export class App {
