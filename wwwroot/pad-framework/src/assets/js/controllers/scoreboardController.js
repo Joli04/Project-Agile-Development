@@ -76,22 +76,24 @@ export class ScoreboardController extends Controller {
     async selectPlace() {
         this.#scoreboardView.querySelector("#places").addEventListener("change", (e) => {
             this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
-    async sortByPlace(){
-        //Gets the value of the place/branche that was chosen.
-        let places = document.getElementById("places").value
-        //Objects has all the data that comes back from our request that we made in our repository
-        let objects = await this.#scoreboardRepository.get(places);
-        //Creates the scoreboard with the variable objects
-        ScoreboardController.#createScoreboard(objects, document.getElementById('tablebody'))
-    }
-
-    async selectPlace() {
-        //Everytime when a different branche is chosen, there will be a new table.
-        document.getElementById("places").addEventListener("change", (e) => {
-            document.getElementById('tablebody').innerHTML = "";
-            this.sortByPlace();
         })
     }
+    // async sortByPlace(){
+    //     //Gets the value of the place/branche that was chosen.
+    //     let places = document.getElementById("places").value
+    //     //Objects has all the data that comes back from our request that we made in our repository
+    //     let objects = await this.#scoreboardRepository.get(places);
+    //     //Creates the scoreboard with the variable objects
+    //     ScoreboardController.#createScoreboard(objects, document.getElementById('tablebody'))
+    // }
+    //
+    // async selectPlace() {
+    //     //Everytime when a different branche is chosen, there will be a new table.
+    //     document.getElementById("places").addEventListener("change", (e) => {
+    //         document.getElementById('tablebody').innerHTML = "";
+    //         this.sortByPlace();
+    //     })
+    // }
 
     async showMonthly() {
         let objects = await this.#scoreRepository.get();
