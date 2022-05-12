@@ -10,6 +10,8 @@ class ScoreboardRoutes{
     }
 
     #getUsers(){
+        //If place is not 'Geen', we select all the users who are active in that specific location.
+        // If it is we just select every user in our database
         this.#app.get("/scoreboard/:place", async (req, res) => {
             const place = req.params.place;
 
