@@ -53,9 +53,9 @@ export class ScoreboardController extends Controller {
             number.textContent = "#" + (i+1);
             username.textContent = objects[i].username
             //Highlights all the information of the user currently logged in.
-            if(username.textContent === App.sessionManager.get("username")){
-                trBody.style.backgroundColor = "#dbdbdb"
-            }
+            // if(username.textContent === App.sessionManager.get("username")){
+            //     trBody.style.backgroundColor = "#dbdbdb"
+            // }
             location.textContent = objects[i].location
             score.textContent = objects[i].score
 
@@ -68,14 +68,19 @@ export class ScoreboardController extends Controller {
     }
 
     async sortByPlace() {
+        //Gets the value of the place/branche that was chosen.
         let places = this.#scoreboardView.querySelector("#places").value;
+        //Objects has all the data that comes back from our request that we made in our repository
         let objects = await this.#scoreboardRepository.get(places);
+        //Creates the scoreboard with the variable objects
         this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
     }
 
     async selectPlace() {
+        //Everytime when a different branche is chosen, there will be a new table.
         this.#scoreboardView.querySelector("#places").addEventListener("change", (e) => {
             this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
+            this.sortByPlace();
         })
     }
     // async sortByPlace(){
