@@ -26,8 +26,11 @@ export class ScoreboardController extends Controller {
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
         await this.sortByPlace();
-        await this.selectTime();
+        // await this.selectTime();
         await this.selectPlace();
+        await this.selectYearly();
+        await this.selectMonthly();
+
 
     }
 
@@ -53,9 +56,9 @@ export class ScoreboardController extends Controller {
             number.textContent = "#" + (i+1);
             username.textContent = objects[i].username
             //Highlights all the information of the user currently logged in.
-            // if(username.textContent === App.sessionManager.get("username")){
-            //     trBody.style.backgroundColor = "#dbdbdb"
-            // }
+            if(username.textContent === App.sessionManager.get("username")){
+                tr.style.backgroundColor = "#dbdbdb"
+            }
             location.textContent = objects[i].location
             score.textContent = objects[i].score
 
@@ -67,13 +70,27 @@ export class ScoreboardController extends Controller {
         container.appendChild(fragment);
     }
 
-    async sortByPlace() {
+    async sortByPlace(score) {
         //Gets the value of the place/branche that was chosen.
         let places = this.#scoreboardView.querySelector("#places").value;
-        //Objects has all the data that comes back from our request that we made in our repository
-        let objects = await this.#scoreboardRepository.get(places);
-        //Creates the scoreboard with the variable objects
-        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+
+        if (score === "yearly"){
+            //Objects has all the data that comes back from our request that we made in our repository
+            let objects = await this.#scoreboardRepository.getYearlyScore(places, score);
+            //Creates the scoreboard with the variable objects
+            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+        } else if (score === "monthly"){
+            //Objects has all the data that comes back from our request that we made in our repository
+            let objects = await this.#scoreboardRepository.getMonthlyScore(places, score);
+            //Creates the scoreboard with the variable objects
+            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+        } else {
+            //Objects has all the data that comes back from our request that we made in our repository
+            let objects = await this.#scoreboardRepository.get(places);
+            //Creates the scoreboard with the variable objects
+            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+        }
+
     }
 
     async selectPlace() {
@@ -83,54 +100,54 @@ export class ScoreboardController extends Controller {
             this.sortByPlace();
         })
     }
-    // async sortByPlace(){
-    //     //Gets the value of the place/branche that was chosen.
-    //     let places = document.getElementById("places").value
-    //     //Objects has all the data that comes back from our request that we made in our repository
-    //     let objects = await this.#scoreboardRepository.get(places);
-    //     //Creates the scoreboard with the variable objects
-    //     ScoreboardController.#createScoreboard(objects, document.getElementById('tablebody'))
+
+    async selectYearly() {
+        this.#scoreboardView.querySelector(".button_yearly").addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
+            const score = "yearly"
+            this.sortByPlace(score)
+        })
+    }
+
+    async selectMonthly(){
+        this.#scoreboardView.querySelector(".button_monthly").addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
+            const score = "monthly"
+            this.sortByPlace(score)
+        })
+    }
+
+    // async showMonthly() {
+    //     let objects = await this.#scoreRepository.get();
+    //     objects.sort((a, b) => {
+    //         return b.score - a.score;
+    //     })
+    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+    //
     // }
     //
-    // async selectPlace() {
-    //     //Everytime when a different branche is chosen, there will be a new table.
-    //     document.getElementById("places").addEventListener("change", (e) => {
-    //         document.getElementById('tablebody').innerHTML = "";
-    //         this.sortByPlace();
+    // async showYearly() {
+    //     let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
+    //     objects.sort((a, b) => {
+    //         return b.score - a.score;
+    //     })
+    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+    // }
+    //
+    // async selectTime() {
+    //     const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
+    //     buttonMonthly.addEventListener("click", (e) => {
+    //         this.#scoreboardView.querySelector("#places").value = "Geen"
+    //         this.showMonthly();
+    //     })
+    //
+    //     const buttonYearly = this.#scoreboardView.querySelector("#yearly")
+    //
+    //     buttonYearly.addEventListener("click", (e) => {
+    //         this.#scoreboardView.querySelector("#places").value = "Geen"
+    //         this.showYearly();
     //     })
     // }
-
-    async showMonthly() {
-        let objects = await this.#scoreRepository.get();
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        })
-        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-
-    }
-
-    async showYearly() {
-        let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        })
-        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    }
-
-    async selectTime() {
-        const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
-        buttonMonthly.addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector("#places").value = "Geen"
-            this.showMonthly();
-        })
-
-        const buttonYearly = this.#scoreboardView.querySelector("#yearly")
-
-        buttonYearly.addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector("#places").value = "Geen"
-            this.showYearly();
-        })
-    }
 
 
     // buttonMeanOfTransport() {

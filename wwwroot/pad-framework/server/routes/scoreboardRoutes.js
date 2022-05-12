@@ -1,4 +1,4 @@
-class ScoreboardRoutes{
+class ScoreboardRoutes {
     #errorCodes = require("../framework/utils/httpErrorCodes")
     #databaseHelper = require("../framework/utils/databaseHelper")
     #app
@@ -7,9 +7,89 @@ class ScoreboardRoutes{
         this.#app = app;
 
         this.#getUsers()
+        this.#getTimeScore()
     }
 
-    #getUsers(){
+    #getTimeScore() {
+        //If place is not 'Geen', we select all the users who are active in that specific location.
+        // If it is we just select every user in our database
+        this.#app.get("/scoreboard/:place/:score", async (req, res) => {
+            const place = req.params.place;
+            const score = req.params.score;
+
+            if (place !== 'Geen') {
+                if (score === 'yearly') {
+                    try {
+                        const data = await this.#databaseHelper.handleQuery({
+                            //Select all the usernames, locations and scores from the users table where the users have place
+                            //as location.
+                            query: "SELECT id, username, location, score_yearly, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?",
+                            values: [place]
+                        });
+
+                        //just give all data back as json, could also be empty
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+                    } catch (e) {
+                        //Gives an error if the request went wrong
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+                    }
+                } else {
+                    try {
+                        const data = await this.#databaseHelper.handleQuery({
+                            //Select all the usernames, locations and scores from the users table where the users have place
+                            //as location.
+                            query: "SELECT id, username, location, score_monthly, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?",
+                            values: [place]
+                        });
+
+                        //just give all data back as json, could also be empty
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+                    } catch (e) {
+                        //Gives an error if the request went wrong
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+                    }
+                }
+            } else {
+                if (score === 'yearly') {
+                    try {
+                        const data = await this.#databaseHelper.handleQuery({
+                            //Select all the usernames, locations and scores from the users table where the users have place
+                            //as location.
+                            query: "SELECT id, username, location, score_yearly, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?",
+                            values: [place]
+                        });
+
+                        //just give all data back as json, could also be empty
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+                    } catch (e) {
+                        //Gives an error if the request went wrong
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+                    }
+                } else {
+                    try {
+                        const data = await this.#databaseHelper.handleQuery({
+                            //Select all the usernames, locations and scores from the users table where the users have place
+                            //as location.
+                            query: "SELECT id, username, location, score_monthly, RANK () OVER (ORDER BY score DESC) nr FROM users WHERE location = ?",
+                            values: [place]
+                        });
+
+                        //just give all data back as json, could also be empty
+                        res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+                    } catch (e) {
+                        //Gives an error if the request went wrong
+                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+                    }
+                }
+            }
+        });
+    }
+
+    #getUsers() {
         //If place is not 'Geen', we select all the users who are active in that specific location.
         // If it is we just select every user in our database
         this.#app.get("/scoreboard/:place", async (req, res) => {
