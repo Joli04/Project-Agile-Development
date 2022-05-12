@@ -28,6 +28,7 @@ export class ScoreboardController extends Controller {
         await this.sortByPlace();
         await this.selectTime();
         await this.selectPlace();
+        await this.badgePopUp();
 
     }
 
@@ -52,10 +53,10 @@ export class ScoreboardController extends Controller {
 
             number.textContent = "#" + (i+1);
             username.textContent = objects[i].username
-            //Highlights all the information of the user currently logged in.
-            // if(username.textContent === App.sessionManager.get("username")){
-            //     trBody.style.backgroundColor = "#dbdbdb"
-            // }
+            // Highlights all the information of the user currently logged in.
+            if(username.textContent === App.sessionManager.get("username")){
+                tr.style.backgroundColor = "#dbdbdb"
+            }
             location.textContent = objects[i].location
             score.textContent = objects[i].score
 
@@ -119,6 +120,7 @@ export class ScoreboardController extends Controller {
 
     async selectTime() {
         const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
+
         buttonMonthly.addEventListener("click", (e) => {
             this.#scoreboardView.querySelector("#places").value = "Geen"
             this.showMonthly();
@@ -130,6 +132,27 @@ export class ScoreboardController extends Controller {
             this.#scoreboardView.querySelector("#places").value = "Geen"
             this.showYearly();
         })
+    }
+
+    async badgePopUp() {
+        const popup = this.#scoreboardView.querySelector("#openModal")
+        const showModal = this.#scoreboardView.querySelector("#exampleModal")
+        const closeModal = this.#scoreboardView.querySelector(".btn-close")
+
+        popup.addEventListener("click", () =>{
+            showModal.style.display = "block";
+            console.log("dit gaat goed")
+        })
+
+        closeModal.addEventListener("click", () => {
+            showModal.style.display = "block";
+            console.log("dit wordt aangeroepen")
+        })
+
+        const modal = this.#scoreboardView.querySelector("#exampleModal")
+
+
+
     }
 
 

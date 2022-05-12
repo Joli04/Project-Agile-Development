@@ -13,7 +13,7 @@ export class scoreRepository {
 
     }
 
-    async get(score) {
+    async get() {
         console.log(this.#route)
         return await this.#networkManager.doRequest(`${this.#route}`,"GET")
     }

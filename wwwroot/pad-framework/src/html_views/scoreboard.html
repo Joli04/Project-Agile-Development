@@ -15,6 +15,9 @@
             <div class="tab">
                 <button id="yearly" class="tablinks">Jaarlijks</button>
                 <button id="monthly" class="tablinks">Maandelijks</button>
+                <button type="button" class="btn btn-primary" id="openModal">
+                    modal
+                </button>
             </div>
             <div class="table-responsive-sm">
                 <table class="table align-middle mb-0 bg-white table_scoreboard">
@@ -29,6 +32,23 @@
                     <tbody class="tbody_scoreboard" id="tablebody">
                     </tbody>
                 </table>
+            </div>
+            <div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
