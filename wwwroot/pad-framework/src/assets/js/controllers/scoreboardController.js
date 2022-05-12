@@ -1,5 +1,6 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
+import {scoreRepository} from "../repositories/scoreRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
@@ -8,6 +9,7 @@ export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
+    #scoreRepository
 
     constructor() {
         super();
@@ -23,18 +25,19 @@ export class ScoreboardController extends Controller {
 
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
-        this.sortByPlace()
-        this.selectPlace()
+        await this.sortByPlace();
+        await this.selectTime();
+        await this.selectPlace();
 
     }
 
-    static #createScoreboard(objects, container) {
-
+    #createScoreboard(objects, container) {
+        container.innerHTML = "";
         let fragment = document.createDocumentFragment();
 
         for (let i = 0; i < objects.length; i++) {
 
-            let trBody = document.createElement('tr')
+            let tr = document.createElement('tr')
 
             let number = document.createElement('th')
             number.scope = 'row'
@@ -56,14 +59,23 @@ export class ScoreboardController extends Controller {
             location.textContent = objects[i].location
             score.textContent = objects[i].score
 
-            trBody.append(number, username, location, score)
+            tr.append(number, username, location, score)
 
-            fragment.appendChild(trBody);
+            fragment.appendChild(tr);
         }
 
         container.appendChild(fragment);
     }
 
+    async sortByPlace() {
+        let places = this.#scoreboardView.querySelector("#places").value;
+        let objects = await this.#scoreboardRepository.get(places);
+        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+    }
+
+    async selectPlace() {
+        this.#scoreboardView.querySelector("#places").addEventListener("change", (e) => {
+            this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
     async sortByPlace(){
         //Gets the value of the place/branche that was chosen.
         let places = document.getElementById("places").value
@@ -80,6 +92,39 @@ export class ScoreboardController extends Controller {
             this.sortByPlace();
         })
     }
+
+    async showMonthly() {
+        let objects = await this.#scoreRepository.get();
+        objects.sort((a, b) => {
+            return b.score - a.score;
+        })
+        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+
+    }
+
+    async showYearly() {
+        let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
+        objects.sort((a, b) => {
+            return b.score - a.score;
+        })
+        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
+    }
+
+    async selectTime() {
+        const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
+        buttonMonthly.addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector("#places").value = "Geen"
+            this.showMonthly();
+        })
+
+        const buttonYearly = this.#scoreboardView.querySelector("#yearly")
+
+        buttonYearly.addEventListener("click", (e) => {
+            this.#scoreboardView.querySelector("#places").value = "Geen"
+            this.showYearly();
+        })
+    }
+
 
     // buttonMeanOfTransport() {
     //
