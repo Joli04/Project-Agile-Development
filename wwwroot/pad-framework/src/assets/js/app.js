@@ -26,7 +26,7 @@ export class App {
     static CONTROLLER_NAVBAR = "navbar";
     static CONTROLLER_LOGIN = "login";
     static CONTROLLER_LOGOUT = "logout";
-    static CONTROLLER_WELCOME = "welcome";
+    static CONTROLLER_PROFILE = "profile";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
     static CONTROLLER_POINTS = "points";
@@ -38,7 +38,7 @@ export class App {
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
-        App.loadControllerFromUrl(App.CONTROLLER_WELCOME);
+        App.loadControllerFromUrl(App.CONTROLLER_SCOREBOARD);
     }
 
     /**
@@ -63,7 +63,7 @@ export class App {
 
             case App.CONTROLLER_LOGIN:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new ProfileController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_LOGOUT:
@@ -71,9 +71,9 @@ export class App {
                 App.handleLogout();
                 break;
 
-            case App.CONTROLLER_WELCOME:
+            case App.CONTROLLER_PROFILE:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new ProfileController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_UPLOAD:

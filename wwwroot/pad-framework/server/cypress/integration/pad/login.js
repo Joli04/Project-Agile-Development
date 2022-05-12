@@ -36,10 +36,10 @@ describe("Login",  () => {
         }).as('login');
 
         //Find the field for the username and type the text "test".
-        cy.get("#exampleInputUsername").type("test");
+        cy.get("#exampleInputUsername").type("Richard");
 
         //Find the field for the password and type the text "test".
-        cy.get("#exampleInputPassword").type("test");
+        cy.get("#exampleInputPassword").type("ww");
 
         //Find the button to login and click it
         console.log(cy.get(".login-form button"));
@@ -52,10 +52,10 @@ describe("Login",  () => {
         cy.get("@login").should((xhr) => {
             //The username should match what we typed earlier
             const body = xhr.request.body;
-            expect(body.username).equals("test");
+            expect(body.username).equals("Richard");
 
             //The password should match what we typed earlier
-            expect(body.password).equals("test");
+            expect(body.password).equals("ww");
         });
 
         //After a successful login, the URL should now contain #welcome.
