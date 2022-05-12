@@ -1,6 +1,6 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
-import {scoreRepository} from "../repositories/scoreRepository.js";
+// import {scoreRepository} from "../repositories/scoreRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
@@ -9,7 +9,7 @@ export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
-    #scoreRepository
+    // #scoreRepository
 
     constructor() {
         super();
@@ -28,9 +28,6 @@ export class ScoreboardController extends Controller {
         await this.sortByPlace();
         // await this.selectTime();
         await this.selectPlace();
-        await this.selectYearly();
-        await this.selectMonthly();
-
 
     }
 
@@ -53,10 +50,10 @@ export class ScoreboardController extends Controller {
             score.className = 'text-center'
 
 
-            number.textContent = "#" + (i+1);
+            number.textContent = "#" + (i + 1);
             username.textContent = objects[i].username
             //Highlights all the information of the user currently logged in.
-            if(username.textContent === App.sessionManager.get("username")){
+            if (username.textContent === App.sessionManager.get("username")) {
                 tr.style.backgroundColor = "#dbdbdb"
             }
             location.textContent = objects[i].location
@@ -70,26 +67,13 @@ export class ScoreboardController extends Controller {
         container.appendChild(fragment);
     }
 
-    async sortByPlace(score) {
+    async sortByPlace() {
         //Gets the value of the place/branche that was chosen.
         let places = this.#scoreboardView.querySelector("#places").value;
-
-        if (score === "yearly"){
-            //Objects has all the data that comes back from our request that we made in our repository
-            let objects = await this.#scoreboardRepository.getYearlyScore(places, score);
-            //Creates the scoreboard with the variable objects
-            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-        } else if (score === "monthly"){
-            //Objects has all the data that comes back from our request that we made in our repository
-            let objects = await this.#scoreboardRepository.getMonthlyScore(places, score);
-            //Creates the scoreboard with the variable objects
-            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-        } else {
-            //Objects has all the data that comes back from our request that we made in our repository
-            let objects = await this.#scoreboardRepository.get(places);
-            //Creates the scoreboard with the variable objects
-            this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-        }
+        //Objects has all the data that comes back from our request that we made in our repository
+        let objects = await this.#scoreboardRepository.get(places);
+        //Creates the scoreboard with the variable objects
+        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
 
     }
 
@@ -98,22 +82,6 @@ export class ScoreboardController extends Controller {
         this.#scoreboardView.querySelector("#places").addEventListener("change", (e) => {
             this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
             this.sortByPlace();
-        })
-    }
-
-    async selectYearly() {
-        this.#scoreboardView.querySelector(".button_yearly").addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
-            const score = "yearly"
-            this.sortByPlace(score)
-        })
-    }
-
-    async selectMonthly(){
-        this.#scoreboardView.querySelector(".button_monthly").addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector('#tablebody').innerHTML = "";
-            const score = "monthly"
-            this.sortByPlace(score)
         })
     }
 

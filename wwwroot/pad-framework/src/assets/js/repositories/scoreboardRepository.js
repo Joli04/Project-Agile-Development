@@ -13,12 +13,4 @@ export class ScoreboardRepository {
     async get(place) {
         return await this.#networkManager.doRequest(`${this.#route}/${place}`, "GET")
     }
-
-    async getYearlyScore(place, score) {
-        return await this.#networkManager.doRequest(`${this.#route}/${place}/${score}`, "GET")
-    }
-
-    async getMonthlyScore(place, score) {
-        return await this.#networkManager.doRequest(`${this.#route}/${place}/${score}`, "GET")
-    }
 }
