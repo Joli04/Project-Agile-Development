@@ -44,22 +44,22 @@ export class ProfileController extends Controller {
         // let element = document.getElementById("row");
         // let fragment = document.createDocumentFragment();
 
-        // for (let i = 0; i < badges.length; i++) {
-        //     const badgeName = badges[i].badge_name;
-        //     const badgeDescription = badges[i].badge_description;
-        //     const badgeImage = badges[i].badge_image
-        //
-        //     let col = document.createElement('div')
-        //     col.className = 'col-6'
-        //     let card = document.createElement('div')
-        //     card.className = 'card'
-        //     let cardBody = document.createElement('div')
-        //     cardBody.className = 'card-body text-center'
-        //
-        //     let title = document.createElement('h5')
-        //     let badge = document.createElement('')
-        //
-        // }
+        for (let i = 0; i < badges.length; i++) {
+            const badgeName = badges[i].badge_name;
+            const badgeDescription = badges[i].badge_description;
+            const badgeImage = badges[i].badge_image
+
+            let col = document.createElement('div')
+            col.className = 'col-6'
+            let card = document.createElement('div')
+            card.className = 'card'
+            let cardBody = document.createElement('div')
+            cardBody.className = 'card-body text-center'
+
+            let title = document.createElement('h5')
+            let badge = document.createElement('')
+
+        }
 
     }
 }
