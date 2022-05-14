@@ -29,8 +29,8 @@ class ScoreboardRoutes {
                                            WHEN 'total' THEN u.score
                                            WHEN 'monthly' THEN u.score_monthly
                                            WHEN 'yearly' THEN u.score_yearly END AS score
-                                FROM users u ORDER BY score DESC 
-                                WHERE u.location = "${place}"`
+                                FROM users u 
+                                WHERE u.location = "${place}" ORDER BY score DESC`
                     });
                 } else {
                     data = await this.#databaseHelper.handleQuery({
