@@ -10,7 +10,8 @@ export class ScoreboardRepository {
     }
 
     //Does a request and gives the value place
-    async get(place) {
-        return await this.#networkManager.doRequest(`${this.#route}/${place}`, "GET")
+    async get(place, scoreType) {
+        return await this.#networkManager.doRequest(`${this.#route}/${place}/${scoreType}`, "GET")
     }
+
 }
