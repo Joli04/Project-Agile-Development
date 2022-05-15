@@ -60,7 +60,7 @@ select {
     background-color: transparent;
 }
 
-.tablinks {
+.button_monthly, .button_yearly {
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -78,7 +78,7 @@ select {
     color: black;
 }
 
-.tablinks:hover{
+.button_monthly:hover, .button_yearly:hover{
     color: #b70d31;
     background-color: #ffffff;
     border-color: #dae0e5;

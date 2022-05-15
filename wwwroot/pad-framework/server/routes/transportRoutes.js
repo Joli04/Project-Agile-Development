@@ -30,7 +30,7 @@ class TransportRoutes {
         this.#app.get("/transport", async (req, res) => {
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT point FROM transport",
+                    query: "SELECT * FROM transport",
                 });
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
             } catch (e) {
