@@ -7,14 +7,15 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { SessionManager } from "./framework/utils/sessionManager.js"
-import { LoginController } from "./controllers/loginController.js"
-import { NavbarController }  from "./controllers/navbarController.js"
-import { UploadController }  from "./controllers/uploadController.js"
-import { WelcomeController }  from "./controllers/welcomeController.js"
+import {SessionManager} from "./framework/utils/sessionManager.js"
+import {LoginController} from "./controllers/loginController.js"
+import {NavbarController} from "./controllers/navbarController.js"
+import {UploadController} from "./controllers/uploadController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {PointsController} from "./controllers/pointsController.js";
-import {AdminController} from "./controllers/adminController.js";
+import {BadgesController} from "./controllers/badgesController.js"
+import {ProfileController} from "./controllers/profileController.js";
+import {PrizeTransportController} from "./controllers/prizeTransportController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -25,18 +26,19 @@ export class App {
     static CONTROLLER_NAVBAR = "navbar";
     static CONTROLLER_LOGIN = "login";
     static CONTROLLER_LOGOUT = "logout";
-    static CONTROLLER_WELCOME = "welcome";
+    static CONTROLLER_PROFILE = "profile";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
     static CONTROLLER_POINTS = "points";
-    static CONTROLLER_ADMIN = "admin"
+    static CONTROLLER_PRIZE = "prize";
+    static CONTROLLER_BADGES = "badges"
 
     constructor() {
         //Always load the navigation
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
-        App.loadControllerFromUrl(App.CONTROLLER_WELCOME);
+        App.loadControllerFromUrl(App.CONTROLLER_SCOREBOARD);
     }
 
     /**
@@ -61,7 +63,7 @@ export class App {
 
             case App.CONTROLLER_LOGIN:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new ProfileController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_LOGOUT:
@@ -69,33 +71,33 @@ export class App {
                 App.handleLogout();
                 break;
 
-            case App.CONTROLLER_WELCOME:
+            case App.CONTROLLER_PROFILE:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                App.isLoggedIn(() => new ProfileController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_UPLOAD:
-                App.isLoggedIn(() => new UploadController(),() => new LoginController());
+                App.isLoggedIn(() => new UploadController(), () => new LoginController());
                 break;
 
             case App.CONTROLLER_SCOREBOARD:
                 App.setCurrentController(name)
                 App.isLoggedIn(() => new ScoreboardController(), () => new LoginController());
                 break;
-
-            case App.CONTROLLER_ADMIN:
-                App.setCurrentController(name)
-                App.isLoggedIn(() => new AdminController(), () => new LoginController());
-                break;
-
             case App.CONTROLLER_POINTS:
                 App.setCurrentController(name);
                 App.isLoggedIn(() => new PointsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_PRIZE:
+                App.setCurrentController(name);
+                App.isLoggedIn(() => new PrizeTransportController(), () => new LoginController());
+                break;
+            case App.CONTROLLER_BADGES:
+                App.setCurrentController(name);
+                App.isLoggedIn(() => new BadgesController(), () => new LoginController());
             default:
                 return false;
         }
-
         return true;
     }
 
