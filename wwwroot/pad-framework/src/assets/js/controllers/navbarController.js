@@ -29,6 +29,7 @@ export class NavbarController extends Controller{
         for (let i = 0; i < admins.length ; i++) {
             if(App.sessionManager.get("username") === admins[i].username){
                 this.#navbarView.querySelector("#admin").style.display = 'block';
+                break; //very important! if this break misses the whole code won't work!!!
             }
             else{
                 this.#navbarView.querySelector("#admin").style.display = 'none';
