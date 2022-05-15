@@ -1,99 +1,3 @@
-<!--<div class="container">-->
-<!--    <section class="scoreboard-container">-->
-<!--        <h2>Scoreboard:</h2>-->
-<!--        <br>-->
-<!--        &lt;!&ndash;       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>&ndash;&gt;-->
-
-<!--        <button id="transportButton" class="dropbtn">-->
-<!--            <img src="assets/Media/auto.png" class="buttonImage">-->
-<!--            Welk transport wilt u nemen?-->
-<!--        </button>-->
-
-<!--        <div id="myContentDiv" class="content2">-->
-<!--            <div id="myContent" class="transport-content">-->
-<!--                <span class="closeWindow">&times;</span>-->
-<!--                <div class="image">-->
-<!--                    <img class="points_img" id="transport1" src="assets/Media/auto.png">-->
-<!--                    <p class="modal_points">1 punt</p>-->
-<!--                </div>-->
-<!--                <div class="image">-->
-<!--                    <img class="points_img" id="transport2" src="assets/Media/elektrischeAuto.png">-->
-<!--                    <p class="modal_points">2 punten</p>-->
-<!--                </div>-->
-<!--                <div class="image">-->
-<!--                    <img class="points_img" id="transport3" src="assets/Media/trein.png">-->
-<!--                    <p class="modal_points">3 punten</p>-->
-<!--                </div>-->
-<!--                <div class="image">-->
-<!--                    <img class="points_img" id="transport4" src="assets/Media/fiets.png">-->
-<!--                    <p class="modal_points">4 punten</p>-->
-<!--                </div>-->
-<!--                <div class="image">-->
-<!--                    <img class="points_img" id="transport5" src="assets/Media/lopend.png">-->
-<!--                    <p class="modal_points">5 punten</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="second_modal">-->
-<!--                <div class="second_modal_content">-->
-<!--                    <span id="closeWindowConfirm">&times;</span>-->
-<!--                    <p>Wil je dit voertuig echt kiezen?!</p>-->
-<!--                    <button id="confirmBtn">Confirm</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <button id="myBtn" class="dropbtn">-->
-<!--            <img src="assets/Media/wonPrizes.png" class="buttonImage" id="prizesImage">-->
-<!--            De prijzen-->
-<!--        </button>-->
-
-<!--        &lt;!&ndash; The Modal &ndash;&gt;-->
-<!--        <div id="prizeModal" class="modal">-->
-
-<!--            &lt;!&ndash; Modal content &ndash;&gt;-->
-<!--            <div class="modal-content">-->
-<!--                <span class="close" onclick="closeModal">&times;</span>-->
-<!--                <h2>De top drie prijzen</h2>-->
-<!--                <ol>-->
-<!--                    <li class="list_prize" id="prize1">Een gratis weekendje weg-->
-<!--                        <hr>-->
-<!--                    </li>-->
-<!--                    <li class="list_prize" id="prize2">Een fiets met het Betabit logo-->
-<!--                        <hr>-->
-<!--                    </li>-->
-<!--                    <li class="list_prize" id="prize3">Gratis koffie voor een week</li>-->
-<!--                    <hr>-->
-<!--                </ol>-->
-<!--                <div class="popup">-->
-<!--                    <div id="popup-prize">-->
-
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--        </div>-->
-<!--          <br>-->
-<!--          <br>-->
-<!--&lt;!&ndash;        <button id="sort-btn" class="dropbtn">&ndash;&gt;-->
-<!--&lt;!&ndash;            <img src="assets/Media/updownArrow.png" class="buttonImage" id="sortNameImage">&ndash;&gt;-->
-<!--&lt;!&ndash;            Sort by name&ndash;&gt;-->
-<!--&lt;!&ndash;        </button>&ndash;&gt;-->
-<!--        <label for="places">Sorteer op plaats:</label>-->
-<!--        <select name="places" id="places">-->
-<!--            <option value="Geen">Geen</option>-->
-<!--            <option value="Amsterdam" name="Amsterdam">Betabit Amsterdam</option>-->
-<!--            <option value="Apeldoorn">Betabit Apeldoorn</option>-->
-<!--            <option value="Den Haag">Betabit Den Haag</option>-->
-<!--            <option value="Eindhoven">Betabit Eindhoven</option>-->
-<!--            <option value="Rotterdam">Betabit Rotterdam</option>-->
-<!--            <option value="Utrecht">Betabit Utrecht</option>-->
-<!--        </select>-->
-<!--        <div id="scoreboard">-->
-
-<!--        </div>-->
-<!--    </section>-->
-<!--</div>-->
-
 <div class="container">
     <section class="py-4 container-fluid">
         <h3>Scoreboard</h3>
@@ -108,9 +12,13 @@
                 <option value="Rotterdam">Betabit Rotterdam</option>
                 <option value="Utrecht">Betabit Utrecht</option>
             </select>
+            <div class="tab">
+                <button id="yearly" class="tablinks">Jaarlijks</button>
+                <button id="monthly" class="tablinks">Maandelijks</button>
+            </div>
             <div class="table-responsive-sm">
-                <table class="table align-middle mb-0 bg-white">
-                    <thead class="bg-light">
+                <table class="table align-middle mb-0 bg-white table_scoreboard">
+                    <thead class="bg-light thead_scoreboard">
                     <tr>
                         <th class="text-center fw-bold" scope="col">Number</th>
                         <th class="text-center fw-bold" scope="col">Username</th>
@@ -118,21 +26,10 @@
                         <th class="text-center fw-bold" scope="col">Score</th>
                     </tr>
                     </thead>
-                    <tbody class="tbody" id="tablebody">
+                    <tbody class="tbody_scoreboard" id="tablebody">
                     </tbody>
                 </table>
             </div>
         </div>
-        <!--        <div class="flip-box">-->
-        <!--            <div class="flip-box-inner">-->
-        <!--                <div class="flip-box-front">-->
-        <!--                    <h2>Front Side</h2>-->
-        <!--                </div>-->
-        <!--                <div class="flip-box-back">-->
-        <!--                    <h2>Back Side</h2>-->
-        <!--                    <button id="confirmBtn">Confirm</button>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </section>
 </div>

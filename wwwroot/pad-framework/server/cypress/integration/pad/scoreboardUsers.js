@@ -1,5 +1,5 @@
 //Context: Login
-describe("Login",  () => {
+describe("Login and click monthly button",  () => {
     const endpoint = "/users/login";
 
     //Run before each test in this context
@@ -36,10 +36,10 @@ describe("Login",  () => {
         }).as('login');
 
         //Find the field for the username and type the text "test".
-        cy.get("#exampleInputUsername").type("Richard");
+        cy.get("#exampleInputUsername").type("test");
 
         //Find the field for the password and type the text "test".
-        cy.get("#exampleInputPassword").type("ww");
+        cy.get("#exampleInputPassword").type("test");
 
         //Find the button to login and click it
         console.log(cy.get(".login-form button"));
@@ -52,50 +52,18 @@ describe("Login",  () => {
         cy.get("@login").should((xhr) => {
             //The username should match what we typed earlier
             const body = xhr.request.body;
-            expect(body.username).equals("Richard");
+            expect(body.username).equals("test");
 
             //The password should match what we typed earlier
-            expect(body.password).equals("ww");
+            expect(body.password).equals("test");
         });
 
         //After a successful login, the URL should now contain #welcome.
         cy.url().should("contain", "#welcome");
     });
 
-    //Test: Failed login
-    it("Failed login",  () => {
-        //Start a fake server
-        cy.server();
-
-
-        const mockedResponse = {
-            reason: "ERROR"
-        };
-
-        //Add a stub with the URL /users/login as a POST
-        //Respond with a JSON-object when requested and set the status-code tot 401.
-        //Give the stub the alias: @login
-        cy.intercept('POST', '/users/login', {
-            statusCode: 401,
-            body: mockedResponse,
-        }).as('login');
-
-
-        //Find the field for the username and type the text "test".
-        cy.get("#exampleInputUsername").type("test");
-
-        //Find the field for the password and type the text "test".
-        cy.get("#exampleInputPassword").type("test");
-
-        //Find the button to login and click it.
-        cy.get(".login-form button").click();
-
-        //Wait for the @login-stub to be called by the click-event.
-        cy.wait("@login");
-
-        //After a failed login, an element containing our error-message should be shown.
-        cy.get(".error").should("exist").should("contain", "ERROR");
+    it('Valid scoreboard button', () => {
+        cy.get("#nav-link").should("exist");
     });
-
 
 });

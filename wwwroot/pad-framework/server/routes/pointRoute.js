@@ -1,5 +1,4 @@
-
-class pointsRoute{
+class pointRoute {
     #app;
     #databaseHelper = require("../framework/utils/databaseHelper");
     #errorCodes = require("../framework/utils/httpErrorCodes");
@@ -33,8 +32,9 @@ class pointsRoute{
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                        query: "SELECT score FROM users WHERE id = ?",
-                        values: [getId]
+                    //query: "INSERT INTO users(username,password, location,score) VALUES(?, ?, ?,?)",
+                    query: "SELECT score FROM users WHERE id = ?",
+                    values: [getId]
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
@@ -45,4 +45,4 @@ class pointsRoute{
     }
 }
 
-module.exports = pointsRoute;
+module.exports = pointRoute;

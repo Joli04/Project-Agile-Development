@@ -5,7 +5,8 @@ class TransportRoutes {
 
     constructor(app) {
         this.#app = app;
-        this.#getImages();
+        // this.#getImages();
+        this.#getPoints();
     }
 
     #getImages() {
@@ -20,6 +21,22 @@ class TransportRoutes {
                 res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
             }
         });
+    }
+
+    /**
+     * Get all the values in the column point from table transport.
+     */
+    #getPoints(){
+        this.#app.get("/transport", async (req, res) => {
+            try {
+                const data = await this.#databaseHelper.handleQuery({
+                    query: "SELECT point FROM transport",
+                });
+                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+            } catch (e) {
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+            }
+        })
     }
 }
 

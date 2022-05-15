@@ -28,13 +28,14 @@
     border-style: solid;
     position: relative;
     text-align: center;
-    background: lightgrey;
+    background: #e5e5e5;
     margin: auto;
-    max-height: 250px;
+    max-height: 170px;
     padding: 10%;
     /*margin-top: 2000px;*/
-    width: 400px;
+    max-width: 300px;
     height: auto;
+    box-shadow: 10px 10px 15px grey;
     animation: popup-prize 0.6s;
 }
 
@@ -120,3 +121,26 @@ hr{
     transition: 0.5s;
 }
 
+/*before clicking*/
+#prizeBox{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 4px 3px 8px 1px #969696;
+    -webkit-box-shadow: 4px 3px 8px 1px #969696;
+    min-height: 50vh;
+}
+
+#transportBox{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 4px 3px 8px 1px #969696;
+    -webkit-box-shadow: 4px 3px 8px 1px #969696;
+}
+
+/*#transport1, #transport2, #transport3, #transport4, #transport5{*/
+/*    display: none;*/
+/*}*/
+
+.modal_transport_content{
+    display: none;
+}
