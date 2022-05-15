@@ -28,6 +28,7 @@ describe("Scoreboard", () => {
         cy.get("th.text-center").should("exist")
 
         //checking if the different branches have the indicated values.
+        cy.get('select[id="places"]').select("Geen").should('have.value', 'Geen')
         cy.get('select[id="places"]').select("Amsterdam").should('have.value', 'Amsterdam')
         cy.get('select[id="places"]').select("Apeldoorn").should('have.value', 'Apeldoorn')
         cy.get('select[id="places"]').select("Den Haag").should('have.value', 'Den Haag')
