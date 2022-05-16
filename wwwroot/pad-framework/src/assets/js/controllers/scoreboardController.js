@@ -5,11 +5,13 @@ import {scoreRepository} from "../repositories/scoreRepository.js";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
 
+
 export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
     #scoreRepository
+    #ProfielRepository
 
     constructor() {
         super();
@@ -135,21 +137,6 @@ export class ScoreboardController extends Controller {
     }
 
     async badgePopUp() {
-        // const popup = this.#scoreboardView.querySelector("#openModal")
-        // const showModal = this.#scoreboardView.querySelector("#exampleModal")
-        // const closeModal = this.#scoreboardView.querySelector(".btn-close")
-        //
-        // popup.addEventListener("click", () =>{
-        //     showModal.style.display = "none";
-        //     console.log("dit gaat goed")
-        // })
-        //
-        // closeModal.addEventListener("click", () => {
-        //     showModal.style.display = "block";
-        //     console.log("dit wordt aangeroepen")
-        // })
-        //
-        // const modal = this.#scoreboardView.querySelector("#exampleModal")
         const popUp = this.#scoreboardView.querySelector(".badge-popup");
         const btnPopUp = this.#scoreboardView.querySelector(".popupbtn")
         const closebtnPopUp = this.#scoreboardView.querySelector(".closepopup")
@@ -168,6 +155,42 @@ export class ScoreboardController extends Controller {
         })
 
 
+    }
+
+    async showCorrectBadge() {
+        // async fetchAllBadges(userId) {
+        //     let badges = await this.#profileRepository.getUserData(userId);
+        //
+        //     let element = document.getElementById("row");
+        //     let fragment = document.createDocumentFragment();
+        //
+        //     for (let i = 0; i < badges.length; i++) {
+        //         const badgeName = badges[i].badge_name;
+        //         // const badgeDescription = badges[i].badge_description;
+        //         const badgeImage = badges[i].badge_image;
+        //
+        //         let col = document.createElement('div')
+        //         col.className = 'col-6'
+        //         let card = document.createElement('div')
+        //         card.className = 'card'
+        //         let cardBody = document.createElement('div')
+        //         cardBody.className = 'card-body text-center'
+        //
+        //         let title = document.createElement('h5')
+        //         let badge = document.createElement('img')
+        //
+        //         title.textContent = badgeName;
+        //         badge.src = badgeImage;
+        //
+        //         cardBody.append(title, badge)
+        //         card.appendChild(cardBody)
+        //         col.appendChild(card)
+        //         fragment.appendChild(col)
+        //     }
+        //
+        //     element.appendChild(fragment)
+
+        let badges = await this.#profileRepository
     }
 
 
