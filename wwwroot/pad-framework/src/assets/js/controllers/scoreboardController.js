@@ -135,22 +135,37 @@ export class ScoreboardController extends Controller {
     }
 
     async badgePopUp() {
-        const popup = this.#scoreboardView.querySelector("#openModal")
-        const showModal = this.#scoreboardView.querySelector("#exampleModal")
-        const closeModal = this.#scoreboardView.querySelector(".btn-close")
+        // const popup = this.#scoreboardView.querySelector("#openModal")
+        // const showModal = this.#scoreboardView.querySelector("#exampleModal")
+        // const closeModal = this.#scoreboardView.querySelector(".btn-close")
+        //
+        // popup.addEventListener("click", () =>{
+        //     showModal.style.display = "none";
+        //     console.log("dit gaat goed")
+        // })
+        //
+        // closeModal.addEventListener("click", () => {
+        //     showModal.style.display = "block";
+        //     console.log("dit wordt aangeroepen")
+        // })
+        //
+        // const modal = this.#scoreboardView.querySelector("#exampleModal")
+        const popUp = this.#scoreboardView.querySelector(".badge-popup");
+        const btnPopUp = this.#scoreboardView.querySelector(".popupbtn")
+        const closebtnPopUp = this.#scoreboardView.querySelector(".closepopup")
 
-        popup.addEventListener("click", () =>{
-            showModal.style.display = "block";
-            console.log("dit gaat goed")
+        btnPopUp.addEventListener("click", () =>{
+            console.log("deze knop doet iets")
+            popUp.style.visibility = "visible"
+            popUp.style.top = "75%"
+            popUp.style.transform = "translate(-50%, -50%) scale(1)"
         })
 
-        closeModal.addEventListener("click", () => {
-            showModal.style.display = "block";
-            console.log("dit wordt aangeroepen")
+        closebtnPopUp.addEventListener("click", () =>{
+            popUp.style.visibility = "hidden"
+            popUp.style.transition = "transform 0.4s, top 0.4s"
+            popUp.style.transform = "translate(-50%, -50%) scale(0.1)"
         })
-
-        const modal = this.#scoreboardView.querySelector("#exampleModal")
-
 
 
     }
