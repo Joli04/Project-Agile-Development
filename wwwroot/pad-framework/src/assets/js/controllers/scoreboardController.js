@@ -1,6 +1,4 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
-import {PointsRepository} from "../repositories/pointsRepository.js";
-// import {scoreRepository} from "../repositories/scoreRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
@@ -15,7 +13,6 @@ export class ScoreboardController extends Controller {
     constructor() {
         super();
 
-        this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
         //this.#imageRepo = new ImagesRepo();
 

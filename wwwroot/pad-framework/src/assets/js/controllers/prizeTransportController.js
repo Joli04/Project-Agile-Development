@@ -25,7 +25,7 @@ export class PrizeTransportController extends Controller {
      * @returns {Promise<void>}
      */
     async #setupView() {
-        console.log("setupView() called")
+
         this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
         this.#showPrizeModal();
         this.#showTransportModal();
@@ -181,6 +181,13 @@ export class PrizeTransportController extends Controller {
         let userScore = await this.#pointsRepository.get(userId);
         console.log(userScore)
         let totalScore = userScore[0].score += points;
+
+        // switch (vehicleType){
+        //     case "car":
+        //         break
+        //     case ""
+        // }
+
         this.#pointsRepository.set(totalScore, userId);
     }
 
@@ -210,6 +217,7 @@ export class PrizeTransportController extends Controller {
             for (let i = 0; i < transports.length; i++) {
                 if (transports[i].checked) {
                     console.log(score[i].point)
+                    let vehicleType = transports[i].value;
                     await this.updatePoints(score[i].point);
                 }
             }
