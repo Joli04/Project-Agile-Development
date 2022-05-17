@@ -1,6 +1,7 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
 import {BadgesRepository} from "../repositories/badgesRepository.js";
+import {user_badgesRepository} from "../repositories/user_badgesRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
@@ -11,6 +12,7 @@ export class ScoreboardController extends Controller {
     #scoreboardRepository
     #pointsRepository
     #badgesRepository
+    #user_badgesRepository
 
     constructor() {
         super();
@@ -18,6 +20,7 @@ export class ScoreboardController extends Controller {
         this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
         this.#badgesRepository = new BadgesRepository();
+        this.#user_badgesRepository = new user_badgesRepository();
         //this.#imageRepo = new ImagesRepo();
 
         this.#setupView();
@@ -107,6 +110,8 @@ export class ScoreboardController extends Controller {
         const popUp = this.#scoreboardView.querySelector(".badge-popup");
         const badge = await this.#scoreboardRepository.getBadges();
         const closebtnPopUp = this.#scoreboardView.querySelector(".closepopup")
+        const userBadge = await this.#user_badgesRepository.get();
+        console.log(userBadge)
         console.log(badge)
 
         await this.showCorrectBadge();
@@ -127,6 +132,15 @@ export class ScoreboardController extends Controller {
 
             }
         }
+
+        // for (let i = 0; i < userBadge.length; i++) {
+        //     let userBadgeAchieved = userBadge[i].badge_seen
+        //     let userid = userBadge[i].id_user
+        //     let badgeId = userBadge[i].id_badge
+        //     console.log(userBadgeAchieved)
+        //
+        //         if (userid ===  && badgeId === )
+        // }
 
         closebtnPopUp.addEventListener("click", () => {
             popUp.style.visibility = "hidden"
