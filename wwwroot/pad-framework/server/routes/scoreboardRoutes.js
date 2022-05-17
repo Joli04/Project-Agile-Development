@@ -7,6 +7,26 @@ class ScoreboardRoutes{
         this.#app = app;
 
         this.#getUsers()
+        this.#getBadges()
+    }
+
+    #getBadges() {
+        this.#app.get("/scoreboard/:id/badges", async (req, res) => {
+            try {
+                const data = await this.#databaseHelper.handleQuery({
+                    //Select all the usernames, locations and scores from the users table where the users have place
+                    //as location.
+                    query: "SELECT * FROM badges"
+                });
+
+                //just give all data back as json, could also be empty
+                res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
+
+            } catch (e) {
+                //Gives an error if the request went wrong
+                res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e})
+            }
+        })
     }
 
     #getUsers(){
@@ -48,6 +68,8 @@ class ScoreboardRoutes{
             }
         });
     }
+
+
 
 }
 

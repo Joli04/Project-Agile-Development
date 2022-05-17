@@ -1,6 +1,6 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
-import {scoreRepository} from "../repositories/scoreRepository.js";
+import {BadgesRepository} from "../repositories/badgesRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
@@ -10,14 +10,14 @@ export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
-    #scoreRepository
-    #ProfielRepository
+    #badgesRepository
 
     constructor() {
         super();
 
         this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
+        this.#badgesRepository = new BadgesRepository();
         //this.#imageRepo = new ImagesRepo();
 
         this.#setupView();
@@ -28,7 +28,6 @@ export class ScoreboardController extends Controller {
         this.#scoreboardView = await super.loadHtmlIntoContent("html_views/scoreboard.html")
 
         await this.sortByPlace();
-        await this.selectTime();
         await this.selectPlace();
         await this.badgePopUp();
 
@@ -53,10 +52,10 @@ export class ScoreboardController extends Controller {
             score.className = 'text-center'
 
 
-            number.textContent = "#" + (i+1);
+            number.textContent = "#" + (i + 1);
             username.textContent = objects[i].username
             // Highlights all the information of the user currently logged in.
-            if(username.textContent === App.sessionManager.get("username")){
+            if (username.textContent === App.sessionManager.get("username")) {
                 tr.style.backgroundColor = "#dbdbdb"
             }
             location.textContent = objects[i].location
@@ -86,6 +85,7 @@ export class ScoreboardController extends Controller {
             this.sortByPlace();
         })
     }
+
     // async sortByPlace(){
     //     //Gets the value of the place/branche that was chosen.
     //     let places = document.getElementById("places").value
@@ -103,308 +103,58 @@ export class ScoreboardController extends Controller {
     //     })
     // }
 
-    async showMonthly() {
-        let objects = await this.#scoreRepository.get();
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        })
-        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-
-    }
-
-    async showYearly() {
-        let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
-        objects.sort((a, b) => {
-            return b.score - a.score;
-        })
-        this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    }
-
-    async selectTime() {
-        const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
-
-        buttonMonthly.addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector("#places").value = "Geen"
-            this.showMonthly();
-        })
-
-        const buttonYearly = this.#scoreboardView.querySelector("#yearly")
-
-        buttonYearly.addEventListener("click", (e) => {
-            this.#scoreboardView.querySelector("#places").value = "Geen"
-            this.showYearly();
-        })
-    }
-
     async badgePopUp() {
         const popUp = this.#scoreboardView.querySelector(".badge-popup");
-        const btnPopUp = this.#scoreboardView.querySelector(".popupbtn")
+        const badge = await this.#scoreboardRepository.getBadges();
         const closebtnPopUp = this.#scoreboardView.querySelector(".closepopup")
+        console.log(badge)
 
-        btnPopUp.addEventListener("click", () =>{
-            console.log("deze knop doet iets")
-            popUp.style.visibility = "visible"
-            popUp.style.top = "75%"
-            popUp.style.transform = "translate(-50%, -50%) scale(1)"
-        })
+        await this.showCorrectBadge();
+        for (let i = 0; i < badge.length; i++) {
 
-        closebtnPopUp.addEventListener("click", () =>{
+            let badgeAchieved = badge[i].badge_achieved
+
+            console.log(badgeAchieved)
+            if (badgeAchieved === 0){
+                console.log("dit doet iets")
+                popUp.style.visibility = "visible"
+                popUp.style.top = "75%"
+                popUp.style.transform = "translate(-50%, -50%) scale(1)"
+                await this.#badgesRepository.update(1);
+                break
+            }
+            else{
+                
+            }
+        }
+
+        closebtnPopUp.addEventListener("click", () => {
             popUp.style.visibility = "hidden"
-            popUp.style.transition = "transform 0.4s, top 0.4s"
+            popUp.style.transition = "transform` 0.4s, top 0.4s"
             popUp.style.transform = "translate(-50%, -50%) scale(0.1)"
         })
-
-
     }
 
     async showCorrectBadge() {
-        // async fetchAllBadges(userId) {
-        //     let badges = await this.#profileRepository.getUserData(userId);
-        //
-        //     let element = document.getElementById("row");
-        //     let fragment = document.createDocumentFragment();
-        //
-        //     for (let i = 0; i < badges.length; i++) {
-        //         const badgeName = badges[i].badge_name;
-        //         // const badgeDescription = badges[i].badge_description;
-        //         const badgeImage = badges[i].badge_image;
-        //
-        //         let col = document.createElement('div')
-        //         col.className = 'col-6'
-        //         let card = document.createElement('div')
-        //         card.className = 'card'
-        //         let cardBody = document.createElement('div')
-        //         cardBody.className = 'card-body text-center'
-        //
-        //         let title = document.createElement('h5')
-        //         let badge = document.createElement('img')
-        //
-        //         title.textContent = badgeName;
-        //         badge.src = badgeImage;
-        //
-        //         cardBody.append(title, badge)
-        //         card.appendChild(cardBody)
-        //         col.appendChild(card)
-        //         fragment.appendChild(col)
-        //     }
-        //
-        //     element.appendChild(fragment)
 
-        let badges = await this.#profileRepository
+        const imageSrc = this.#scoreboardView.querySelector(".imgBadge");
+        const badge = await this.#scoreboardRepository.getBadges();
+
+        for (let i = 0; i < badge.length; i++) {
+
+            let badgeAchieved = badge[i].badge_achieved
+
+            if (badgeAchieved === 0){
+                imageSrc.src = await badge[i].badge_image;
+                console.log("ja")
+                break
+            }
+            else {
+                console.log("nee")
+            }
+        }
+
+
     }
 
-
-    // buttonMeanOfTransport() {
-    //
-    //     console.log("ButtonMeansOfTransport functie word geladen")
-    //
-    //     let content = document.getElementById("myContentDiv")
-    //
-    //     /*
-    //             let content = document.createElement('div')
-    //             content.classList.add("myContentDiv")
-    //             content.setAttribute('id', 'myContentDiv')
-    //     */
-    //
-    //
-    //     const button = document.getElementById("transportButton")
-    //     button.addEventListener("click", callModal)
-    //     /*
-    //     let button = document.createElement('button')
-    //     button.classList.add("dropbtn")
-    //     */
-    //
-    //     const close = document.getElementsByClassName("closeWindow")[0];
-    //     close.addEventListener("click", closeModal)
-    //
-    //     /*
-    //             let close = document.createElement('span')
-    //             close.classList.add("closeWindow")
-    //             close.textContent('&times')
-    //     */
-    //
-    //     window.addEventListener("click", offClickModal)
-    //
-    //
-    //     function callModal() {
-    //         console.log("bruh, button geklikt")
-    //         content.style.display = "block";
-    //     }
-    //
-    //     function closeModal() {
-    //         console.log("X is geklikt")
-    //         content.style.display = "none";
-    //     }
-    //
-    //     function offClickModal(event) {
-    //         if (event.target === content) {
-    //             content.style.display = "none";
-    //         }
-    //     }
-    //
-    //     // Confirm whether you want to choose the corresponding vehicle
-    //     const secondModalContent = document.querySelector(".second_modal_content");
-    //     const closeWindowConfirm = document.querySelector("#closeWindowConfirm");
-    //     const transport = document.querySelectorAll(
-    //         '#transport1, #transport2, #transport3, #transport4, #transport5');
-    //
-    //     // todo Robberto dit is de button voor uwe userstory doe er wat leuks mee
-    //     const buttonConfirm = document.querySelector("#confirmBtn");
-    //
-    //     let image1 = new Image();
-    //     let image2 = new Image();
-    //     let image3 = new Image();
-    //     let image4 = new Image();
-    //     let image5 = new Image();
-    //
-    //     let test = [image1, image2, image3, image4, image5]
-    //     for (let i = 0; i < test.length; i++) {
-    //         test[i].style.maxWidth = "200px";
-    //         test[i].style.maxHeight = "200px";
-    //     }
-    //
-    //     image1.src = "assets/Media/auto.png";
-    //     image2.src = "assets/Media/elektrischeAuto.png";
-    //     image3.src = "assets/Media/trein.png";
-    //     image4.src = "assets/Media/fiets.png";
-    //     image5.src = "assets/Media/lopend.png";
-    //
-    //     closeWindowConfirm.addEventListener('click', closeModalConfirm);
-    //
-    //     for (let i = 0; i < transport.length; i++) {
-    //         transport[i].addEventListener("click", callModal2)
-    //     }
-    //
-    //     const images = [image1, image2, image3, image4, image5];
-    //
-    //     function removeChildren() {
-    //         for (let i = 0; i < images.length; i++) {
-    //             if (images[i] !== event.target.id && images[i]) {
-    //                 images[i].remove();
-    //             }
-    //         }
-    //     }
-    //
-    //     function addingChildren() {
-    //         switch (event.target.id) {
-    //             case transport[0].id:
-    //                 secondModalContent.appendChild(images[0]);
-    //                 break;
-    //             case transport[1].id:
-    //                 secondModalContent.appendChild(images[1]);
-    //                 break;
-    //             case transport[2].id:
-    //                 secondModalContent.appendChild(images[2]);
-    //                 break;
-    //             case transport[3].id:
-    //                 secondModalContent.appendChild(images[3]);
-    //                 break;
-    //             case transport[4].id:
-    //                 secondModalContent.appendChild(images[4]);
-    //                 break;
-    //         }
-    //     }
-    //
-    //     function callModal2() {
-    //         secondModalContent.style.display = "block";
-    //         removeChildren();
-    //         addingChildren();
-    //         secondModalContent.appendChild(buttonConfirm);
-    //     }
-    //
-    //     function closeModalConfirm() {
-    //         secondModalContent.style.display = "none";
-    //     }
-    //
-    //     function offClickModal2(event) {
-    //         if (event.target === content) {
-    //             secondModalContent.style.display = "none";
-    //         }
-    //     }
-    //
-    //     window.addEventListener("click", offClickModal2)
-    //
-    //
-    //
-    // }
-
-    // prize() {
-    //
-    //     const button = document.getElementById("myBtn")
-    //     button.addEventListener("click", callModal)
-    //
-    //     let prizeModal = document.getElementById("prizeModal")
-    //     let prizepopup = document.querySelector("#popup-prize")
-    //     prizepopup.style.display = "block";
-    //     let prizes = document.querySelector(".modal-content")
-    //     let popup = document.querySelector(".popup");
-    //
-    //     var img = document.createElement("img");
-    //     var src = document.getElementById("popup-prize");
-    //
-    //     const close = document.getElementsByClassName("close")[0];
-    //     close.addEventListener("click", closeModal)
-    //
-    //     window.addEventListener("click", offClickModal)
-    //
-    //
-    //     document.getElementById("prize1").onmouseover = function () {
-    //         popup.style.display = "block";
-    //         prizes.style.display = "block";
-    //         img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
-    //         src.appendChild(img);
-    //     }
-    //
-    //     document.getElementById("prize1").onmouseleave = function () {
-    //         popup.style.display = "none";
-    //     }
-    //
-    //
-    //     document.getElementById("prize2").onmouseover = function () {
-    //         popup.style.display = "block";
-    //         prizes.style.display = "block";
-    //         img.src = "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/vslgdggkdt7kbg1ycqab";
-    //         src.appendChild(img);
-    //     }
-    //
-    //     document.getElementById("prize2").onmouseleave = function () {
-    //         popup.style.display = "none";
-    //     }
-    //
-    //     document.getElementById("prize3").onmouseover = function () {
-    //         popup.style.display = "block";
-    //         prizes.style.display = "block";
-    //         img.src = "https://pbs.twimg.com/profile_images/51457981/koffie_3__reasonably_small.gif";
-    //         src.appendChild(img);
-    //     }
-    //
-    //     document.getElementById("prize3").onmouseleave = function () {
-    //         popup.style.display = "none";
-    //     }
-    //
-    //
-    //     function callModal() {
-    //         prizeModal.style.display = "block";
-    //         prizes.style.display = "block";
-    //
-    //     }
-    //
-    //     function closeModal() {
-    //         prizeModal.style.display = "none";
-    //     }
-    //
-    //     function offClickModal(event) {
-    //         if (event.target === prizeModal) {
-    //             prizeModal.style.display = "none";
-    //         }
-    //     }
-    // }
-
-
-    // static #showTransportImages(objects){
-    //     let image1;
-    //     image1 = document.querySelector("#transport1");
-    //     image1.src = "assets/Media/auto.png";
-    //
-    // }
 }
