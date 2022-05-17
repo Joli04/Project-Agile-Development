@@ -27,9 +27,7 @@ export class PrizeTransportController extends Controller {
     async #setupView() {
 
         this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
-        this.#showPrizeModal();
         this.#showTransportModal();
-        this.#prizeContent();
         this.#transportContent();
         this.#transportConformation();
     }
@@ -54,67 +52,6 @@ export class PrizeTransportController extends Controller {
     }
 
     /**
-     * the prize modal is shown.
-     */
-    #showPrizeModal() {
-        const prizePopup = document.querySelector("#prize_popup");
-        const closeBtnPopup = document.querySelector(".close_prize_popup");
-        const btnPopup = document.querySelector(".btn_prize_popup");
-
-        btnPopup.addEventListener("click", () => {
-            prizePopup.style.display = "block";
-        })
-
-        closeBtnPopup.addEventListener("click", () => {
-            prizePopup.style.display = "none";
-        })
-        this.#offClickModal();
-    }
-
-    /**
-     * the prize modal content is shown
-     */
-    #prizeContent() {
-        let popup = document.querySelector(".popup");
-        let img = document.createElement("img");
-        let src = document.getElementById("popup-prize");
-
-        document.getElementById("prize1").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-        }
-
-        document.getElementById("prize1").onmouseleave = function () {
-            popup.style.display = "none";
-        }
-
-        document.getElementById("prize2").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/vslgdggkdt7kbg1ycqab";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-            img.style.marginBottom = "50px";
-        }
-
-        document.getElementById("prize2").onmouseleave = function () {
-            popup.style.display = "none";
-        }
-
-        document.getElementById("prize3").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://pbs.twimg.com/profile_images/51457981/koffie_3__reasonably_small.gif";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-        }
-
-        document.getElementById("prize3").onmouseleave = function () {
-            popup.style.display = "none";
-        }
-    }
-
-    /**
      * Show and close transport modal.
      */
     #showTransportModal() {
@@ -135,39 +72,40 @@ export class PrizeTransportController extends Controller {
      * make sure the transport modal content is shown.
      */
     #transportContent() {
-        const totalBtn = document.querySelectorAll(
-            "#walking-button, #cycling-button, #scooter-button, #bus-button, #car-button");
-        const modalTransportContent = document.querySelector(".modal_transport_content")
-        const transport = document.querySelectorAll(
-            '#transport1, #transport4, #transport3, #transport2, #transport5');
 
-        for (let i = 0; i < totalBtn.length; i++) {
-            totalBtn[i].addEventListener("click", () => {
-                transportModalContent();
-            })
-        }
-
-        function transportModalContent() {
-            addChildren();
-            modalTransportContent.style.display = "block";
-            removeChildren();
-        }
-
-        function removeChildren() {
-            for (let i = 0; i < totalBtn.length; i++) {
-                // console.log(totalBtn[i].id !== event.target.id);
-                if (totalBtn[i].id !== event.target.id) {
-                    transport[i].remove();
-                }
-            }
-        }
-
-        function addChildren() {
-            for (let i = 0; i < totalBtn.length; i++) {
-                // console.log(totalBtn[i].id !== event.target.id);
-                modalTransportContent.appendChild(transport[i]);
-            }
-        }
+        // const totalBtn = document.querySelectorAll(
+        //     "#walking-button, #cycling-button, #e-car-button, #bus-button, #car-button");
+        // const modalTransportContent = document.querySelector(".modal_transport_content")
+        // const transport = document.querySelectorAll(
+        //     '#bike-img, #e-car-img, #car-img, #bike-img, #walk-img');
+        //
+        // for (let i = 0; i < totalBtn.length; i++) {
+        //     totalBtn[i].addEventListener("click", () => {
+        //         transportModalContent();
+        //     })
+        // }
+        //
+        // function transportModalContent() {
+        //     addChildren();
+        //     modalTransportContent.style.display = "block";
+        //     removeChildren();
+        // }
+        //
+        // function removeChildren() {
+        //     for (let i = 0; i < totalBtn.length; i++) {
+        //         // console.log(totalBtn[i].id !== event.target.id);
+        //         if (totalBtn[i].id !== event.target.id) {
+        //             transport[i].remove();
+        //         }
+        //     }
+        // }
+        //
+        // function addChildren() {
+        //     for (let i = 0; i < totalBtn.length; i++) {
+        //         console.log(totalBtn[i].id !== event.target.id);
+        //         modalTransportContent.appendChild(transport[i]);
+        //     }
+        // }
     }
 
     /**

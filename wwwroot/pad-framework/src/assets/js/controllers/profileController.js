@@ -79,6 +79,7 @@ export class ProfileController extends Controller {
 
             let title = document.createElement('h5')
             let badge = document.createElement('img')
+            badge.className = 'badgeImage'
 
             title.textContent = badgeName;
             badge.src = badgeImage;
