@@ -25,11 +25,13 @@ export class PrizeTransportController extends Controller {
      * @returns {Promise<void>}
      */
     async #setupView() {
-
+        let object = await this.#prizeRepository.get();
         this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
+
         this.#showTransportModal();
         this.#transportContent();
         this.#transportConformation();
+        this.#showPrizes(object);
     }
 
     /**
@@ -47,8 +49,20 @@ export class PrizeTransportController extends Controller {
                 modal.style.display = "none";
             }
         }
-
         window.addEventListener("click", offClickModal);
+    }
+
+    #showPrizes(object) {
+        let prizes = document.querySelectorAll("#prize1, #prize2, #prize3");
+        for (let i = 0; i < prizes.length; i++) {
+            let img = new Image();
+            img.src = object[i].image_link;
+            img.style.width = "60px";
+            img.style.height = "60px";
+            img.style.marginLeft = "20px";
+            prizes[i].append(object[i].image_description)
+            prizes[i].append(img)
+        }
     }
 
     /**
@@ -72,40 +86,38 @@ export class PrizeTransportController extends Controller {
      * make sure the transport modal content is shown.
      */
     #transportContent() {
+        const totalBtn = this.#prizeView.querySelectorAll(
+            "#car-button, #e-car-button, #bus-button, #cycling-button, #walking-button");
+        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content")
+        const transport = this.#prizeView.querySelectorAll(
+            '#transport1, #transport4, #transport3, #transport2, #transport5');
 
-        // const totalBtn = document.querySelectorAll(
-        //     "#walking-button, #cycling-button, #e-car-button, #bus-button, #car-button");
-        // const modalTransportContent = document.querySelector(".modal_transport_content")
-        // const transport = document.querySelectorAll(
-        //     '#bike-img, #e-car-img, #car-img, #bike-img, #walk-img');
-        //
-        // for (let i = 0; i < totalBtn.length; i++) {
-        //     totalBtn[i].addEventListener("click", () => {
-        //         transportModalContent();
-        //     })
-        // }
-        //
-        // function transportModalContent() {
-        //     addChildren();
-        //     modalTransportContent.style.display = "block";
-        //     removeChildren();
-        // }
-        //
-        // function removeChildren() {
-        //     for (let i = 0; i < totalBtn.length; i++) {
-        //         // console.log(totalBtn[i].id !== event.target.id);
-        //         if (totalBtn[i].id !== event.target.id) {
-        //             transport[i].remove();
-        //         }
-        //     }
-        // }
-        //
-        // function addChildren() {
-        //     for (let i = 0; i < totalBtn.length; i++) {
-        //         console.log(totalBtn[i].id !== event.target.id);
-        //         modalTransportContent.appendChild(transport[i]);
-        //     }
-        // }
+        for (let i = 0; i < totalBtn.length; i++) {
+            totalBtn[i].addEventListener("click", () => {
+                transportModalContent();
+            })
+        }
+
+        function transportModalContent() {
+            addChildren();
+            modalTransportContent.style.display = "block";
+            removeChildren();
+        }
+
+        function removeChildren() {
+            for (let i = 0; i < totalBtn.length; i++) {
+                if (totalBtn[i].id !== event.target.id) {
+                    transport[i].remove();
+                }
+            }
+        }
+
+        function addChildren() {
+            for (let i = 0; i < totalBtn.length; i++) {
+                modalTransportContent.appendChild(transport[i]);
+            }
+        }
+
     }
 
     /**
@@ -139,6 +151,7 @@ export class PrizeTransportController extends Controller {
         const errorMsg = document.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
 
+        // show error message if no vehicle selected
         cancelBtn.addEventListener("click", () => {
             if (window.getComputedStyle(modalTransportContent).display === "none") {
                 errorMsg.innerText = "Oeps, niks geselecteerd!";

@@ -1,6 +1,5 @@
 <div class="container">
     <section class="py-4 container-fluid">
-        <h3 class="mb-5">Transport</h3>
         <div class="row">
             <div class="mb-4 mb-lg-0 col-lg-6">
                 <div class="h-100 card">
@@ -8,7 +7,7 @@
                         <div class="d-flex align-items-center flex-column">
                             <h2>Award</h2>
                             <div class="card w-100">
-                                <div class="card-body">
+                                <div class="card-body" id="prize1">
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                          width="48" height="48"
                                          viewBox="0 0 48 48"
@@ -356,7 +355,7 @@
                                 </div>
                             </div>
                             <div class="card w-100">
-                                <div class="card-body">
+                                <div class="card-body" id="prize2">
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                          width="48" height="48"
                                          viewBox="0 0 48 48"
@@ -652,7 +651,7 @@
                                 </div>
                             </div>
                             <div class="card w-100">
-                                <div class="card-body">
+                                <div class="card-body" id="prize3">
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                          width="48" height="48"
                                          viewBox="0 0 48 48"
@@ -1034,26 +1033,26 @@
                         </label>
                     </div>
                 </div>
-                <div class="text-center modal_transport_content">
-                    <img class="car-img" src="assets/Media/auto.png"
+                <div class="text-center mt-5 modal_transport_content">
+                    <img class="car-img" id="transport1" src="assets/Media/auto.png"
                          width="210" height="65"
                          alt="auto">
-                    <img class="e-car-img" src="assets/Media/elektrischeAuto.png"
+                    <img class="e-car-img" id="transport2" src="assets/Media/elektrischeAuto.png"
                          width="210" height="65"
                          alt="elektrische auto">
-                    <img class="train-img" src="assets/Media/trein.png"
+                    <img class="train-img" id="transport3" src="assets/Media/trein.png"
                          width="210" height="65"
                          alt="trein">
-                    <img class="bike-img" src="assets/Media/fiets.png"
+                    <img class="bike-img" id="transport4" src="assets/Media/fiets.png"
                          width="210" height="65"
                          alt="fiets">
-                    <img class="walk-img" src="assets/Media/lopend.png"
+                    <img class="walk-img" id="transport5" src="assets/Media/lopend.png"
                          width="210" height="65"
                          alt="lopend">
                 </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-danger m-3">Cancel</button>
-                    <button type="button" class="btn btn-success m-3">Confirm</button>
+                <div class=" text-center">
+                    <button type="button" class="btn btn-danger position-absolute bottom-0 end-50 m-5">Cancel</button>
+                    <button type="button" class="btn btn-success position-absolute bottom-0 start-50 m-5">Confirm</button>
                 </div>
             </div>
         </div>
