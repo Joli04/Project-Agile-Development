@@ -124,7 +124,7 @@ export class ScoreboardController extends Controller {
                 break
             }
             else{
-                
+
             }
         }
 
