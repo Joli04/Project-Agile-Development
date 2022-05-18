@@ -25,13 +25,13 @@ export class PrizeTransportController extends Controller {
      * @returns {Promise<void>}
      */
     async #setupView() {
-        console.log("setupView() called")
+        let object = await this.#prizeRepository.get();
         this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
-        this.#showPrizeModal();
+
         this.#showTransportModal();
-        this.#prizeContent();
         this.#transportContent();
         this.#transportConformation();
+        this.#showPrizes(object);
     }
 
     /**
@@ -49,68 +49,19 @@ export class PrizeTransportController extends Controller {
                 modal.style.display = "none";
             }
         }
-
         window.addEventListener("click", offClickModal);
     }
 
-    /**
-     * the prize modal is shown.
-     */
-    #showPrizeModal() {
-        const prizePopup = document.querySelector("#prize_popup");
-        const closeBtnPopup = document.querySelector(".close_prize_popup");
-        const btnPopup = document.querySelector(".btn_prize_popup");
-
-        btnPopup.addEventListener("click", () => {
-            prizePopup.style.display = "block";
-        })
-
-        closeBtnPopup.addEventListener("click", () => {
-            prizePopup.style.display = "none";
-        })
-        this.#offClickModal();
-    }
-
-    /**
-     * the prize modal content is shown
-     */
-    #prizeContent() {
-        let popup = document.querySelector(".popup");
-        let img = document.createElement("img");
-        let src = document.getElementById("popup-prize");
-
-        document.getElementById("prize1").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://pbs.twimg.com/profile_images/1284476346/vakantie_reasonably_small.gif";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-        }
-
-        document.getElementById("prize1").onmouseleave = function () {
-            popup.style.display = "none";
-        }
-
-        document.getElementById("prize2").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/vslgdggkdt7kbg1ycqab";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-            img.style.marginBottom = "50px";
-        }
-
-        document.getElementById("prize2").onmouseleave = function () {
-            popup.style.display = "none";
-        }
-
-        document.getElementById("prize3").onmouseover = function () {
-            popup.style.display = "block";
-            img.src = "https://pbs.twimg.com/profile_images/51457981/koffie_3__reasonably_small.gif";
-            src.append(img);
-            img.style.boxShadow = "10px 10px 10px grey";
-        }
-
-        document.getElementById("prize3").onmouseleave = function () {
-            popup.style.display = "none";
+    #showPrizes(object) {
+        let prizes = document.querySelectorAll("#prize1, #prize2, #prize3");
+        for (let i = 0; i < prizes.length; i++) {
+            let img = new Image();
+            img.src = object[i].image_link;
+            img.style.width = "60px";
+            img.style.height = "60px";
+            img.style.marginLeft = "20px";
+            prizes[i].append(object[i].image_description)
+            prizes[i].append(img)
         }
     }
 
@@ -135,10 +86,10 @@ export class PrizeTransportController extends Controller {
      * make sure the transport modal content is shown.
      */
     #transportContent() {
-        const totalBtn = document.querySelectorAll(
-            "#walking-button, #cycling-button, #scooter-button, #bus-button, #car-button");
-        const modalTransportContent = document.querySelector(".modal_transport_content")
-        const transport = document.querySelectorAll(
+        const totalBtn = this.#prizeView.querySelectorAll(
+            "#car-button, #e-car-button, #bus-button, #cycling-button, #walking-button");
+        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content")
+        const transport = this.#prizeView.querySelectorAll(
             '#transport1, #transport4, #transport3, #transport2, #transport5');
 
         for (let i = 0; i < totalBtn.length; i++) {
@@ -155,7 +106,6 @@ export class PrizeTransportController extends Controller {
 
         function removeChildren() {
             for (let i = 0; i < totalBtn.length; i++) {
-                // console.log(totalBtn[i].id !== event.target.id);
                 if (totalBtn[i].id !== event.target.id) {
                     transport[i].remove();
                 }
@@ -164,10 +114,10 @@ export class PrizeTransportController extends Controller {
 
         function addChildren() {
             for (let i = 0; i < totalBtn.length; i++) {
-                // console.log(totalBtn[i].id !== event.target.id);
                 modalTransportContent.appendChild(transport[i]);
             }
         }
+
     }
 
     /**
@@ -181,6 +131,13 @@ export class PrizeTransportController extends Controller {
         let userScore = await this.#pointsRepository.get(userId);
         console.log(userScore)
         let totalScore = userScore[0].score += points;
+
+        // switch (vehicleType){
+        //     case "car":
+        //         break
+        //     case ""
+        // }
+
         this.#pointsRepository.set(totalScore, userId);
     }
 
@@ -194,6 +151,7 @@ export class PrizeTransportController extends Controller {
         const errorMsg = document.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
 
+        // show error message if no vehicle selected
         cancelBtn.addEventListener("click", () => {
             if (window.getComputedStyle(modalTransportContent).display === "none") {
                 errorMsg.innerText = "Oeps, niks geselecteerd!";
@@ -210,6 +168,7 @@ export class PrizeTransportController extends Controller {
             for (let i = 0; i < transports.length; i++) {
                 if (transports[i].checked) {
                     console.log(score[i].point)
+                    let vehicleType = transports[i].value;
                     await this.updatePoints(score[i].point);
                 }
             }

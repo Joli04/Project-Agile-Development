@@ -4,7 +4,7 @@
         <div class="col-12">
             <label for="places">Choose branche:</label>
             <select name="places" id="places" class="border-0 my-4">
-                <option value="Geen">Geen</option>
+                <option value="none">none</option>
                 <option value="Amsterdam">Betabit Amsterdam</option>
                 <option value="Apeldoorn">Betabit Apeldoorn</option>
                 <option value="Den Haag">Betabit Den Haag</option>
@@ -12,9 +12,16 @@
                 <option value="Rotterdam">Betabit Rotterdam</option>
                 <option value="Utrecht">Betabit Utrecht</option>
             </select>
-            <div class="tab">
-                <button id="yearly" class="tablinks">Jaarlijks</button>
-                <button id="monthly" class="tablinks">Maandelijks</button>
+            <div class="btn-group btn-group-toggle my-2" data-toggle="buttons">
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-yearly" value="yearly"
+                       autocomplete="off">
+                <label class="btn btn-primary" for="btn-yearly">Yearly</label>
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-mothly" value="monthly"
+                       autocomplete="off">
+                <label class="btn btn-primary" for="btn-mothly">Monthly</label>
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-total" value="total"
+                       autocomplete="off">
+                <label class="btn btn-primary" for="btn-total">Total</label>
             </div>
             <div class="table-responsive-sm">
                 <table class="table align-middle mb-0 bg-white table_scoreboard">
