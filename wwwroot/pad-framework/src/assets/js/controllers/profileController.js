@@ -1,15 +1,18 @@
 import {Controller} from "./controller.js";
 import {ProfileRepository} from "../repositories/profileRepository.js";
 import {App} from "../app.js";
+import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class ProfileController extends Controller {
     #profileView
     #profileRepository
+    #networkManager
 
     constructor() {
         super();
 
         this.#profileRepository = new ProfileRepository();
+        this.#networkManager = new NetworkManager();
 
         this.#setupView();
     }
@@ -22,6 +25,8 @@ export class ProfileController extends Controller {
         this.fetchAllBadges(userId)
 
         this.fetchUserData(userId)
+
+        this.changeUserImage(userId)
     }
 
     /**
@@ -37,6 +42,7 @@ export class ProfileController extends Controller {
         const username = this.#profileView.querySelector("span.user_name");
         const branch = this.#profileView.querySelector("span.user_function");
         const score = this.#profileView.querySelector("span.score_points");
+        const userPicture = this.#profileView.querySelector(".profile_image");
 
         const carFrequency = this.#profileView.querySelector("span.vehicle_frequency_car");
         const walkFrequency = this.#profileView.querySelector("span.vehicle_frequency_walk_bike");
@@ -44,18 +50,15 @@ export class ProfileController extends Controller {
         const publicTransportFrequency = this.#profileView.querySelector("span.vehicle_frequency_public_transport");
 
 
-        // const location = this.#profileView.querySelector("span.user_location");
-
         carFrequency.innerHTML = userData[0].frequency_car;
         walkFrequency.innerHTML = userData[0].frequency_walk_bike;
         scooterFrequency.innerHTML = userData[0].frequency_scooter;
         publicTransportFrequency.innerHTML = userData[0].frequency_public_transport;
 
+        userPicture.src = userData[0].profile_image;
         username.innerHTML = userData[0].username;
         branch.innerHTML = userData[0].branch;
         score.innerHTML = userData[0].score;
-
-        // location.innerHTML = userData[0].location;
 
     }
 
@@ -92,5 +95,32 @@ export class ProfileController extends Controller {
 
         element.appendChild(fragment)
 
+    }
+
+    changeUserImage(userId){
+        //from here we can safely get elements from the view via the right getter
+        this.#profileView.querySelector(".upload").addEventListener("click", async (event) => {
+            event.preventDefault()
+
+            const fileInput = this.#profileView.querySelector("#file");
+
+            const file = fileInput.files[0];
+            const fileName = fileInput.files[0].name;
+            const formData = new FormData()
+
+            formData.append("userpic", file, `${fileName}`)
+
+            console.log(formData)
+
+            try {
+                const repsonse = await this.#networkManager.doFileRequest(`/upload/${userId}`, "POST", formData);
+                console.log(repsonse);
+
+                fileInput.value = "";
+
+            } catch (e) {
+                console.error(e);
+            }
+        });
     }
 }
