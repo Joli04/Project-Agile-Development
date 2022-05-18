@@ -23,6 +23,11 @@ export class BadgesController extends Controller{
         this.createBadges(objects);
     }
 
+    /***
+     * method that gets all the badges from the database and puts them in the view
+     *
+     * @param objects = data of the badges
+     */
     createBadges(objects){
 
         let badgeTable = this.#badgesView.querySelector(".badges");
@@ -33,20 +38,24 @@ export class BadgesController extends Controller{
             let imgBadge = new Image();
             let numberBadge = document.createElement("p");
             let descBadge = document.createElement("p");
-            let gehaald = objects[i].badge_seen;
+            let achieved = objects[i].badge_seen;
 
             divBadge.style.width = "250px";
-            if(gehaald == 1){
-                divBadge.style.backgroundColor = "rgba(94, 255, 100, 0.8)"
+            if(achieved){
+                divBadge.style.backgroundColor = "rgba(94, 255, 100, 0.8)";
             } else {
-                divBadge.style.backgroundColor = "rgba(168, 168, 168, 1)"
+                divBadge.style.backgroundColor = "rgba(168, 168, 168, 1)";
             }
 
             imgBadge.src = objects[i].badge_image;
             imgBadge.style.height = "100px";
             imgBadge.style.width = "100px";
+            imgBadge.style.display = "block";
+            imgBadge.style.margin = "0 auto";
             numberBadge.textContent = objects[i].id_badge;
+            numberBadge.style.textAlign = "center";
             descBadge.textContent = objects[i].badge_description;
+            descBadge.style.textAlign = "center";
 
             badgeTable.appendChild(divBadge);
             divBadge.appendChild(imgBadge);

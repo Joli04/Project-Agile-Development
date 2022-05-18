@@ -8,6 +8,9 @@ class BadgesRoutes{
         this.#getBadges();
     }
 
+    /**
+     * method that gets al the data from the badges tabel and that gets the achieved data from the user_badge tabel
+     */
     #getBadges(){
         this.#app.get("/badges/:id", async (req, res) => {
             const getId = req.params.id;
@@ -19,10 +22,6 @@ class BadgesRoutes{
                         "AND ub.id_badge = b.id_badge " +
                         "GROUP BY 1",
                     values: [getId]
-
-                    // SELECT f.name, f.price, f.options, fm.food_menu
-                    // FROM food AS f
-                    // JOIN food_menu AS fm ON fm.food_id = f.food_id
 
                 });
 
