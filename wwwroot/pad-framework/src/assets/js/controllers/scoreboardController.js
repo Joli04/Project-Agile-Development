@@ -34,7 +34,6 @@ export class ScoreboardController extends Controller {
         await this.selectPlace();
         await this.selectTypeScore();
         // await this.sortByScoreType();
-        await this.sortByPlace();
         await this.selectPlace();
         await this.badgePopUp();
 
@@ -115,57 +114,6 @@ export class ScoreboardController extends Controller {
             })
         })
     }
-
-
-    // async showMonthly() {
-    //     let objects = await this.#scoreRepository.get();
-    //     objects.sort((a, b) => {
-    //         return b.score - a.score;
-    //     })
-    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    //
-    // }
-    //
-    // async showYearly() {
-    //     let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
-    //     objects.sort((a, b) => {
-    //         return b.score - a.score;
-    //     })
-    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    // }
-    //
-    // async selectTime() {
-    //     const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
-    //     buttonMonthly.addEventListener("click", (e) => {
-    //         this.#scoreboardView.querySelector("#places").value = "Geen"
-    //         this.showMonthly();
-    //     })
-    //
-    //     const buttonYearly = this.#scoreboardView.querySelector("#yearly")
-    //
-    //     buttonYearly.addEventListener("click", (e) => {
-    //         this.#scoreboardView.querySelector("#places").value = "Geen"
-    //         this.showYearly();
-    //     })
-    // }
-
-
-    // async sortByPlace(){
-    //     //Gets the value of the place/branche that was chosen.
-    //     let places = document.getElementById("places").value
-    //     //Objects has all the data that comes back from our request that we made in our repository
-    //     let objects = await this.#scoreboardRepository.get(places);
-    //     //Creates the scoreboard with the variable objects
-    //     ScoreboardController.#createScoreboard(objects, document.getElementById('tablebody'))
-    // }
-    //
-    // async selectPlace() {
-    //     //Everytime when a different branche is chosen, there will be a new table.
-    //     document.getElementById("places").addEventListener("change", (e) => {
-    //         document.getElementById('tablebody').innerHTML = "";
-    //         this.sortByPlace();
-    //     })
-    // }
 
     async badgePopUp() {
         const popUp = this.#scoreboardView.querySelector(".badge-popup");
