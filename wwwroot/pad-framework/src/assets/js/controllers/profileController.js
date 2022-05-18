@@ -46,14 +46,14 @@ export class ProfileController extends Controller {
 
         // const location = this.#profileView.querySelector("span.user_location");
 
-        carFrequency.innerHTML = userData[0].frequency_car;
-        walkFrequency.innerHTML = userData[0].frequency_walk_bike;
-        scooterFrequency.innerHTML = userData[0].frequency_scooter;
-        publicTransportFrequency.innerHTML = userData[0].frequency_public_transport;
+        // carFrequency.innerHTML = userData[0].frequency_car;
+        // walkFrequency.innerHTML = userData[0].frequency_walk_bike;
+        // scooterFrequency.innerHTML = userData[0].frequency_scooter;
+        // publicTransportFrequency.innerHTML = userData[0].frequency_public_transport;
 
-        username.innerHTML = userData[0].username;
-        branch.innerHTML = userData[0].branch;
-        score.innerHTML = userData[0].score;
+        // username.innerHTML = userData[0].username;
+        // branch.innerHTML = userData[0].branch;
+        // score.innerHTML = userData[0].score;
 
         // location.innerHTML = userData[0].location;
 
@@ -90,7 +90,7 @@ export class ProfileController extends Controller {
             fragment.appendChild(col)
         }
 
-        element.appendChild(fragment)
+        // element.appendChild(fragment)
 
     }
 }

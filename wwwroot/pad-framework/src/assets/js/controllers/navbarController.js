@@ -24,6 +24,19 @@ export class NavbarController extends Controller{
         //await for when HTML is
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
 
+        let admins = App.sessionManager.get("admins")
+        for (let i = 0; i < admins[i].length ; i++) {
+            if(App.sessionManager.get("username") === admins[i].length){
+                this.#navbarView.querySelector("#admin").style.display = 'block';
+                break;
+            }
+            else{
+                this.#navbarView.querySelector("#admin").style.display = 'none';
+            }
+
+
+        }
+
         //from here we can safely get elements from the view via the right getter
         const anchors = this.#navbarView.querySelectorAll("a.nav-link");
 
