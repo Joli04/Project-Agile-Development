@@ -61,7 +61,7 @@ export class ScoreboardController extends Controller {
             number.textContent = "#" + (i + 1);
             username.textContent = objects[i].username
             //Highlights all the information of the user currently logged in.
-            if (App.sessionManager.get("id") === objects[i].id) {
+            if (username.textContent === App.sessionManager.get("username")) {
                 tr.style.backgroundColor = "#dbdbdb"
             }
             location.textContent = objects[i].location

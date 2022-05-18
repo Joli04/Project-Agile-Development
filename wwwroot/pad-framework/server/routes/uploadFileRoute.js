@@ -1,11 +1,12 @@
 /**
- *
- * @author Bartek Tynior
+ * This class contains ExpressJS routes specific for uploading a file. This is an example to use.
+ * this file is automatically loaded in app.js
+ * multer is used for parsing formdata
+ * @author Pim Meijer
  */
 
 class UploadFileRoute {
     #errorCodes = require("../framework/utils/httpErrorCodes")
-    #databaseHelper = require("../framework/utils/databaseHelper");
     #multer = require("multer");
     #app
 
@@ -19,36 +20,28 @@ class UploadFileRoute {
     }
 
     /**
-     *
+     * Example route for uploading files
+     * @private
      */
     #uploadFile() {
-        this.#app.post("/upload/:id", this.#multer().single("file"), (req, res) => {
+        this.#app.post("/upload", this.#multer().single("sampleFile"), (req, res) => {
 
             if (!req.files || Object.keys(req.files).length === 0) {
                 return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: "No files were uploaded."});
             }
-            const id = req.params.id;
 
-            //get file by key "file", defined in front-end
-            const file = req.files.userpic;
-            const fileName = req.files.userpic.name;
-            const imageUrl = wwwrootPath + `uploads/${fileName}`;
+            //get file by key "sampleFile", defined in front-end
+            const sampleFile = req.files.sampleFile;
 
-            file.mv(imageUrl, (err) => {
+            //TODO: you should make file name dynamic otherwise it will overwrite each time :)
+            sampleFile.mv(wwwrootPath + "/uploads/test.jpg", (err) => {
                 if (err) {
                     console.log(err)
                     return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: err});
-                } else {
-                    try {
-                        this.#databaseHelper.handleQuery({
-                            query: "UPDATE users SET profile_image = ? WHERE id = ?",
-                            values: [imageUrl, id]
-                        });
-                        return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
-                    } catch (e) {
-                        res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: e});
-                    }
                 }
+
+                return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
+
             });
         });
     }

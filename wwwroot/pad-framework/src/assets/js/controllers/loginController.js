@@ -6,18 +6,16 @@
 import { UsersRepository } from "../repositories/usersRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
-import { AdminRepository } from "../repositories/adminRepository.js";
 
 export class LoginController extends Controller{
     //# is a private field in Javascript
     #usersRepository
-    #adminRepository
     #loginView
 
     constructor() {
         super();
         this.#usersRepository = new UsersRepository();
-        this.#adminRepository = new AdminRepository();
+
         this.#setupView()
     }
 
@@ -47,15 +45,11 @@ export class LoginController extends Controller{
 
         try{
             const user = await this.#usersRepository.login(username, password);
-            let objects = await this.#adminRepository.get();
-
 
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
             App.sessionManager.set("username", user.username);
             App.sessionManager.set("id", user.id);
-            App.sessionManager.set("admins",objects)
             App.loadController(App.CONTROLLER_PROFILE);
-            window.location.reload(true)
         } catch(error) {
             //if unauthorized error code, show error message to the user
             if(error.code === 401) {
