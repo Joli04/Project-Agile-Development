@@ -14,4 +14,8 @@ export class ProfileRepository {
         return await this.#networkManager.doRequest(`${this.#route}/${userId}`, "GET")
     }
 
+    async setUserImage(userId, formData) {
+        return await this.#networkManager.doFileRequest(`/upload/${userId}`, "POST", formData);
+    }
+
 }

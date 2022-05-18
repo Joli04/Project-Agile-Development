@@ -1,15 +1,18 @@
 import {Controller} from "./controller.js";
 import {ProfileRepository} from "../repositories/profileRepository.js";
 import {App} from "../app.js";
+import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class ProfileController extends Controller {
     #profileView
     #profileRepository
+    #networkManager
 
     constructor() {
         super();
 
         this.#profileRepository = new ProfileRepository();
+        this.#networkManager = new NetworkManager();
 
         this.#setupView();
     }
@@ -18,6 +21,11 @@ export class ProfileController extends Controller {
         this.#profileView = await super.loadHtmlIntoContent("html_views/profile.html")
 
         const userId = App.sessionManager.get('id');
+
+        this.#profileView.querySelector(".upload").addEventListener("click", async (event) => {
+            event.preventDefault()
+            await this.changeUserImage(userId)
+        });
 
         this.fetchAllBadges(userId)
 
@@ -37,6 +45,7 @@ export class ProfileController extends Controller {
         const username = this.#profileView.querySelector("span.user_name");
         const branch = this.#profileView.querySelector("span.user_function");
         const score = this.#profileView.querySelector("span.score_points");
+        const userPicture = this.#profileView.querySelector(".profile_image");
 
         const carFrequency = this.#profileView.querySelector("span.vehicle_frequency_car");
         const walkFrequency = this.#profileView.querySelector("span.vehicle_frequency_walk_bike");
@@ -44,17 +53,21 @@ export class ProfileController extends Controller {
         const publicTransportFrequency = this.#profileView.querySelector("span.vehicle_frequency_public_transport");
 
 
-        const location = this.#profileView.querySelector("span.user_location");
         carFrequency.innerHTML = userData[0].frequency_car;
         walkFrequency.innerHTML = userData[0].frequency_walk_bike;
         scooterFrequency.innerHTML = userData[0].frequency_scooter;
         publicTransportFrequency.innerHTML = userData[0].frequency_public_transport;
 
+        if (userData[0].profile_image === null) {
+            userPicture.src = "assets/Media/default_profile_image.png"
+        } else {
+            userPicture.src = userData[0].profile_image;
+        }
+
         username.innerHTML = userData[0].username;
         branch.innerHTML = userData[0].branch;
         score.innerHTML = userData[0].score;
 
-        location.innerHTML = userData[0].location;
     }
 
     async fetchAllBadges(userId) {
@@ -91,4 +104,28 @@ export class ProfileController extends Controller {
         element.appendChild(fragment)
 
     }
+
+    async changeUserImage(userId) {
+
+        const fileInput = this.#profileView.querySelector("#file");
+
+        const file = fileInput.files[0];
+        const fileName = fileInput.files[0].name;
+        const formData = new FormData()
+
+        formData.append("userpic", file, `${fileName}`)
+
+        console.log(formData)
+
+        try {
+            const repsonse = await this.#profileRepository.setUserImage(userId, formData);
+            console.log(repsonse);
+
+            fileInput.value = "";
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
 }
