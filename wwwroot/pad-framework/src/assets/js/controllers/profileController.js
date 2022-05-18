@@ -27,6 +27,11 @@ export class ProfileController extends Controller {
             await this.changeUserImage(userId)
         });
 
+        this.#profileView.querySelector(".badges_link").addEventListener("click", (event) => {
+            event.preventDefault()
+            App.loadController(App.CONTROLLER_BADGES);
+        })
+
         this.fetchAllBadges(userId)
 
         this.fetchUserData(userId)
@@ -108,6 +113,8 @@ export class ProfileController extends Controller {
     async changeUserImage(userId) {
 
         const fileInput = this.#profileView.querySelector("#file");
+        const error = this.#profileView.querySelector(".error_image");
+
 
         const file = fileInput.files[0];
         const fileName = fileInput.files[0].name;

@@ -132,19 +132,13 @@ export class PrizeTransportController extends Controller {
         console.log(userScore)
         let totalScore = userScore[0].score += points;
 
-        // switch (vehicleType){
-        //     case "car":
-        //         break
-        //     case ""
-        // }
-
         this.#pointsRepository.set(totalScore, userId);
     }
 
     /**
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
-    #transportConformation() {
+    #transportConformation(userId) {
         const cancelBtn = document.querySelector(".btn-danger");
         const confirmBtn = document.querySelector(".btn-success");
         const modalTransportContent = document.querySelector(".modal_transport_content");
@@ -169,6 +163,23 @@ export class PrizeTransportController extends Controller {
                 if (transports[i].checked) {
                     console.log(score[i].point)
                     let vehicleType = transports[i].value;
+                    // switch (vehicleType){
+                    //     case "car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "e-car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "public_transport":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "bike":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "walk":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    // }
                     await this.updatePoints(score[i].point);
                 }
             }

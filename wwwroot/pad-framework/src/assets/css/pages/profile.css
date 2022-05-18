@@ -71,55 +71,15 @@ h1, h2, h3, h4, h5, p, span {
     height: 100px;
 }
 
+.upload {
+    color: #ffffff;
+    background-color: #b70d31;
+    transition: all 0.2s ease;
+}
 
-/*.bg-betared {*/
-/*    background-color: #b70d31;*/
-/*}*/
-
-/*.btn_submit {*/
-/*    background-color: #b70d31;*/
-/*    border-radius: 15px;*/
-/*    border: 1px solid transparent;*/
-/*    color: #ffffff;*/
-/*    display: none;*/
-/*}*/
-
-/*.btn_edit {*/
-/*    background-color: #b70d31;*/
-/*    border-radius: 15px;*/
-/*    border: 1px solid transparent;*/
-/*    color: #ffffff;*/
-/*}*/
-
-/*.btn_upload {*/
-/*    background-color: #b70d31;*/
-/*    border-radius: 15px;*/
-/*    border: 1px solid transparent;*/
-/*    color: #ffffff;*/
-/*}*/
-
-/*.btn_shop, .bi-cart2 p {*/
-/*    background-color: #b70d31;*/
-/*    border-radius: 15px;*/
-/*    border: 1px solid transparent;*/
-/*    color: #ffffff;*/
-/*    font-size: 12px;*/
-/*}*/
-
-/*.user_description_input {*/
-/*    display: none;*/
-/*}*/
-
-/*span.name {*/
-/*    color: #b70d31;*/
-/*}*/
-
-/*span.function {*/
-/*    color: #b70d31;*/
-/*}*/
-
-/*.bi-cart2 {*/
-/*    color: #ffffff;*/
-/*}*/
+.upload:hover {
+    color: #ffffff;
+    background-color: #980926;
+}
 
 
