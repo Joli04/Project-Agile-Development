@@ -15,6 +15,7 @@ import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {BadgesController} from "./controllers/badgesController.js"
 import {ProfileController} from "./controllers/profileController.js";
 import {PrizeTransportController} from "./controllers/prizeTransportController.js";
+import {AdminController} from "./controllers/adminController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -31,6 +32,8 @@ export class App {
     static CONTROLLER_POINTS = "points";
     static CONTROLLER_PRIZE = "prize";
     static CONTROLLER_BADGES = "badges"
+    static CONTROLLER_ADMIN = "admin"
+
 
     constructor() {
         //Always load the navigation
@@ -94,6 +97,11 @@ export class App {
             case App.CONTROLLER_BADGES:
                 App.setCurrentController(name);
                 App.isLoggedIn(() => new BadgesController(), () => new LoginController());
+                break;
+            case App.CONTROLLER_ADMIN:
+                App.setCurrentController(name)
+                App.isLoggedIn(() => new AdminController(), () => new LoginController());
+                break;
             default:
                 return false;
         }
