@@ -25,8 +25,9 @@ export class NavbarController extends Controller{
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
 
         let admins = App.sessionManager.get("admins")
-        for (let i = 0; i < admins[i].length ; i++) {
-            if(App.sessionManager.get("username") === admins[i].length){
+        console.log(admins)
+        for (let i = 0; i < admins.length  ; i++) {
+            if(App.sessionManager.get("username") === admins[i].username){
                 this.#navbarView.querySelector("#admin").style.display = 'block';
                 break;
             }

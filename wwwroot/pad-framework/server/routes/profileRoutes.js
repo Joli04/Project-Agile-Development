@@ -25,7 +25,7 @@ class ProfileRoutes {
             try {
                 const data = await this.#databaseHelper.handleQuery({
                     //Select all the usernames, locations and scores from the users table
-                    query: "SELECT id, username, location, score, frequency_car, frequency_walk_bike, " +
+                    query: "SELECT id, username, profile_image, score, frequency_car, frequency_walk_bike, " +
                         "frequency_scooter, frequency_public_transport, branch, badges.badge_name, " +
                         "badges.badge_description, badges.badge_image FROM users JOIN user_badge ON users.id = user_badge.id_user " +
                         "JOIN badges ON badges.id_badge = user_badge.id_badge WHERE id = ?",
