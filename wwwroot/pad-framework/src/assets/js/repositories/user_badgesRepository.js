@@ -1,11 +1,11 @@
 import {NetworkManager} from "../framework/utils/networkManager.js";
 
-export class BadgesRepository{
+export class user_badgesRepository{
     #route;
     #networkManager;
 
     constructor() {
-        this.#route = "/badges"
+        this.#route = "/user_badges"
         this.#networkManager = new NetworkManager();
     }
 

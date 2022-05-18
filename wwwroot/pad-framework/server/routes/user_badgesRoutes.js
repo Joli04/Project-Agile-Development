@@ -5,18 +5,16 @@ class BadgesRoutes{
 
     constructor(app) {
         this.#app = app;
-        this.#getBadges();
-        this.#updateBadges();
+        this.#getUserBadges();
+        this.#updateUserBadges();
     }
 
-    #getBadges(){
-        this.#app.get("/badges", async (req, res) => {
-
-            const getId = req.params.id;
+    #getUserBadges(){
+        this.#app.get("/user_badges", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT * FROM badges"
+                    query: "SELECT * FROM user_badge"
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);
@@ -26,13 +24,12 @@ class BadgesRoutes{
         });
     }
 
-    #updateBadges(){
-        this.#app.post("/badges", async (req, res) => {
-            let waarde1 = req.body.params;
+    #updateUserBadges(){
+        this.#app.post("/user_badges", async (req, res) => {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "UPDATE `badges` SET `badge_achieved`= 1"
+                    query: "UPDATE `user_badges` SET `badge_seen`= 1"
                 });
 
                 res.status(this.#errorCodes.HTTP_OK_CODE).json(data);

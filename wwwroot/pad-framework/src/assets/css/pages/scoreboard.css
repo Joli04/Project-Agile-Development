@@ -83,3 +83,44 @@ select {
     background-color: #ffffff;
     border-color: #dae0e5;
 }
+
+.badge-popup {
+    width: 400px;
+    background: #b6d4fe;
+    border-radius: 6px;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.badge-popup img {
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.badge-popup h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 15px 0 5px;
+}
+
+.badge-popup button {
+    width: 50%;
+    margin-top: 10px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}

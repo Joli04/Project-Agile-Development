@@ -1,22 +1,25 @@
 import {ScoreboardRepository} from "../repositories/scoreboardRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
-// import {scoreRepository} from "../repositories/scoreRepository.js";
+import {BadgesRepository} from "../repositories/badgesRepository.js";
+import {user_badgesRepository} from "../repositories/user_badgesRepository.js";
 // import {ImagesRepo} from "../repositories/imagesRepo";
 import {App} from "../app.js";
 import {Controller} from "./controller.js";
+
 
 export class ScoreboardController extends Controller {
     #scoreboardView
     #scoreboardRepository
     #pointsRepository
-
-    // #scoreRepository
+    #badgesRepository
+    #user_badgesRepository
 
     constructor() {
         super();
 
-        this.#pointsRepository = new PointsRepository();
         this.#scoreboardRepository = new ScoreboardRepository();
+        this.#badgesRepository = new BadgesRepository();
+        this.#user_badgesRepository = new user_badgesRepository();
         //this.#imageRepo = new ImagesRepo();
 
         this.#setupView();
@@ -31,6 +34,9 @@ export class ScoreboardController extends Controller {
         await this.selectPlace();
         await this.selectTypeScore();
         // await this.sortByScoreType();
+        await this.selectPlace();
+        await this.badgePopUp();
+
     }
 
     static #createScoreboard(objects, container) {
@@ -109,37 +115,69 @@ export class ScoreboardController extends Controller {
         })
     }
 
+    async badgePopUp() {
+        const popUp = this.#scoreboardView.querySelector(".badge-popup");
+        const badge = await this.#scoreboardRepository.getBadges();
+        const closebtnPopUp = this.#scoreboardView.querySelector(".closepopup")
+        const userBadge = await this.#user_badgesRepository.get();
+        console.log(userBadge)
+        console.log(badge)
 
-    // async showMonthly() {
-    //     let objects = await this.#scoreRepository.get();
-    //     objects.sort((a, b) => {
-    //         return b.score - a.score;
-    //     })
-    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    //
-    // }
-    //
-    // async showYearly() {
-    //     let objects = await this.#scoreboardRepository.get(this.#scoreboardView.querySelector('#places').value);
-    //     objects.sort((a, b) => {
-    //         return b.score - a.score;
-    //     })
-    //     this.#createScoreboard(objects, this.#scoreboardView.querySelector('#tablebody'))
-    // }
-    //
-    // async selectTime() {
-    //     const buttonMonthly = this.#scoreboardView.querySelector("#monthly")
-    //     buttonMonthly.addEventListener("click", (e) => {
-    //         this.#scoreboardView.querySelector("#places").value = "Geen"
-    //         this.showMonthly();
-    //     })
-    //
-    //     const buttonYearly = this.#scoreboardView.querySelector("#yearly")
-    //
-    //     buttonYearly.addEventListener("click", (e) => {
-    //         this.#scoreboardView.querySelector("#places").value = "Geen"
-    //         this.showYearly();
-    //     })
-    // }
+        await this.showCorrectBadge();
+        for (let i = 0; i < badge.length; i++) {
+
+            let badgeAchieved = badge[i].badge_achieved
+
+            console.log(badgeAchieved)
+            if (badgeAchieved === 0){
+                console.log("dit doet iets")
+                popUp.style.visibility = "visible"
+                popUp.style.top = "75%"
+                popUp.style.transform = "translate(-50%, -50%) scale(1)"
+                await this.#badgesRepository.update(1);
+                break
+            }
+            else{
+
+            }
+        }
+
+        // for (let i = 0; i < userBadge.length; i++) {
+        //     let userBadgeAchieved = userBadge[i].badge_seen
+        //     let userid = userBadge[i].id_user
+        //     let badgeId = userBadge[i].id_badge
+        //     console.log(userBadgeAchieved)
+        //
+        //         if (userid ===  && badgeId === )
+        // }
+
+        closebtnPopUp.addEventListener("click", () => {
+            popUp.style.visibility = "hidden"
+            popUp.style.transition = "transform` 0.4s, top 0.4s"
+            popUp.style.transform = "translate(-50%, -50%) scale(0.1)"
+        })
+    }
+
+    async showCorrectBadge() {
+
+        const imageSrc = this.#scoreboardView.querySelector(".imgBadge");
+        const badge = await this.#scoreboardRepository.getBadges();
+
+        for (let i = 0; i < badge.length; i++) {
+
+            let badgeAchieved = badge[i].badge_achieved
+
+            if (badgeAchieved === 0){
+                imageSrc.src = await badge[i].badge_image;
+                console.log("ja")
+                break
+            }
+            else {
+                console.log("nee")
+            }
+        }
+
+
+    }
 
 }

@@ -14,4 +14,7 @@ export class ScoreboardRepository {
         return await this.#networkManager.doRequest(`${this.#route}/${place}/${scoreType}`, "GET")
     }
 
+    async getBadges(userid){
+        return await this.#networkManager.doRequest(`${this.#route}/${userid}/badges`, "GET")
+    }
 }
