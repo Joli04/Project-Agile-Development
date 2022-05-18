@@ -1,3 +1,5 @@
+import {App} from "../../../../src/assets/js/app";
+
 describe("Scoreboard", () => {
 //Run before each test in this context
     beforeEach(() => {
@@ -19,7 +21,7 @@ describe("Scoreboard", () => {
         cy.get(".table-responsive-sm").should("exist")
 
         // checking if the table body exists
-        cy.get("tbody#tablebody.tbody").should("exist")
+        cy.get("#tablebody").should("exist")
 
         // checking if the table data exists
         cy.get("td.text-center").should("exist")
@@ -28,7 +30,7 @@ describe("Scoreboard", () => {
         cy.get("th.text-center").should("exist")
 
         //checking if the different branches have the indicated values.
-        cy.get('select[id="places"]').select("Geen").should('have.value', 'Geen')
+        cy.get('select[id="places"]').select("none").should('have.value', 'none')
         cy.get('select[id="places"]').select("Amsterdam").should('have.value', 'Amsterdam')
         cy.get('select[id="places"]').select("Apeldoorn").should('have.value', 'Apeldoorn')
         cy.get('select[id="places"]').select("Den Haag").should('have.value', 'Den Haag')
