@@ -32,7 +32,7 @@ class UploadFileRoute {
             //get file by key "file", defined in front-end
             const file = req.files.userpic;
             const fileName = req.files.userpic.name;
-            const imageUrl = `/api/uploads/${fileName}`;
+            const imageUrl = `/uploads/${fileName}`;
 
             file.mv(imageUrl, (err) => {
                 if (err) {
