@@ -4,10 +4,10 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { App } from "../app.js";
+import {App} from "../app.js";
 import {Controller} from "./controller.js";
 
-export class NavbarController extends Controller{
+export class NavbarController extends Controller {
     #navbarView
 
     constructor() {
@@ -23,6 +23,16 @@ export class NavbarController extends Controller{
     async #setupView() {
         //await for when HTML is
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
+
+        let admin = App.sessionManager.get("admin")
+        console.log(admin)
+
+        if (admin === 1) {
+            this.#navbarView.querySelector(".admin").style.display = 'block';
+        } else {
+            this.#navbarView.querySelector(".admin").style.display = 'none';
+        }
+
 
         //from here we can safely get elements from the view via the right getter
         const anchors = this.#navbarView.querySelectorAll("a.nav-link");
@@ -42,7 +52,7 @@ export class NavbarController extends Controller{
         const clickedAnchor = event.target;
         const controller = clickedAnchor.dataset.controller;
 
-        if(typeof controller === "undefined") {
+        if (typeof controller === "undefined") {
             console.error("No data-controller attribute defined in anchor HTML tag, don't know which controller to load!")
             return false;
         }

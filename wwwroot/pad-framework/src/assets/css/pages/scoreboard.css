@@ -1,44 +1,129 @@
-table {
-  border-collapse: collapse;
-}
-th, td {
-  border: 2px solid black;
+.table_scoreboard th, td {
+    border: transparent;
 }
 
-.tablehead{
-  background: black;
-  color: white;
+.thead_scoreboard th {
+    font-size: 1.2rem;
+    font-weight: 900;
 }
 
-th, td{
-  border: 2px solid black !important;
+.table_scoreboard {
+    border: transparent;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5.3px rgba(0, 0, 0, 0.027),
+    0px 0px 17.9px rgba(0, 0, 0, 0.037),
+    0px 0px 80px rgba(0, 0, 0, 0.06);
+
+
 }
 
-.tablebody tr:nth-child(uneven){
-  background: #ffffff;
+.thead_scoreboard {
+    box-shadow: 0px 3.1px 5.3px rgba(0, 0, 0, 0.027),
+    0px 10.3px 17.9px rgba(0, 0, 0, 0.037),
+    0px 46px 80px rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+
 }
-.tablebody tr:nth-child(even){
-  background: #e10738;
+
+.tbody_scoreboard tr {
+    transition: all 0.2s ease;
+}
+
+.tbody_scoreboard tr:hover {
+    background-color: rgba(83, 83, 90, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
 }
 
 #sortNameImage {
-  max-width: 25px;
-  max-height: 25px;
+    max-width: 25px;
+    max-height: 25px;
 }
 
 .buttonImage {
-  justify-content: center;
-  margin-top: 15px;
-  margin-right: 5px;
-  margin-bottom: 15px;
+    justify-content: center;
+    margin-top: 15px;
+    margin-right: 5px;
+    margin-bottom: 15px;
 }
 
 #prizesImage {
-  max-width: 50px;
-  max-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
 }
 
 #sort-btn {
-  margin-bottom: 5px;
-  margin-left: 7%;
+    margin-bottom: 5px;
+    margin-left: 7%;
+}
+
+select {
+    background-color: transparent;
+}
+
+.button_monthly, .button_yearly {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.badge-popup {
+    width: 400px;
+    background: #b6d4fe;
+    border-radius: 6px;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.badge-popup img {
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.badge-popup h2 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 15px 0 5px;
+}
+
+.badge-popup button {
+    width: 50%;
+    margin-top: 10px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #ffffff;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.time_toggle .btn {
+    color: #ffffff;
+    background-color: #b70d31;
+    transition: all 0.2s ease;
+}
+
+.time_toggle .btn:hover {
+    background-color: #980926;
 }

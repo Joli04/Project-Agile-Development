@@ -22,33 +22,6 @@
     display: none;
 }
 
-#popup-prize{
-    border-color: black;
-    border-radius: 15px;
-    border-style: solid;
-    position: relative;
-    text-align: center;
-    background: lightgrey;
-    margin: auto;
-    max-height: 250px;
-    padding: 10%;
-    /*margin-top: 2000px;*/
-    width: 400px;
-    height: auto;
-    animation: popup-prize 0.6s;
-}
-
-@keyframes popup-prize {
-0%{
-    transform: scale(0);
-    opacity: 0;
-}
-100%{
-    transform: scale(1);
-    opacity: 1;
-}
-}
-
 h2 {
     color: black;
 }
@@ -74,20 +47,7 @@ h2 {
         opacity: 1;
     }
 }
-.list_prize:hover {
-    color:#b70d32;
-    font-size: 25px;
-    transition-duration: 500ms;
-}
 
-.list_prize:not(hover){
-    transition-duration: 500ms;
-}
-
-hr{
-    height: 3px;
-    background: #53535a;
-}
 /* The Close Button */
 .close {
     color: #aaaaaa;
@@ -103,20 +63,24 @@ hr{
     cursor: pointer;
 }
 
-.dropbtn {
-    width: auto;
-    height: auto;
-    border-radius: 8px;
-    border-color: red;
-    background-color: white;
-    justify-content: center;
+#transportBox{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 4px 3px 8px 1px #969696;
+    -webkit-box-shadow: 4px 3px 8px 1px #969696;
 }
 
-.dropbtn:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    background-color: red;
-    border-color: black;
-    color:white;
-    transition: 0.5s;
+.man_bicycle{
+    width: 200px;
+    height: 200px;
+}
+
+.modal_transport_content{
+    display: none;
+}
+
+#transport1, #transport2,#transport3,#transport4, #transport5{
+    width: 35%;
+    height: 100%;
 }
 

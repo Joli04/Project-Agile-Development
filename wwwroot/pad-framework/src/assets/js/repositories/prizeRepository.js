@@ -1,25 +1,20 @@
 import {NetworkManager} from "../framework/utils/networkManager.js";
 
-export class TransportRepository {
+export class PrizeRepository {
     #route
     #networkManager
 
     constructor() {
-        this.#route = "/transport"
+        this.#route = "/prize"
         this.#networkManager = new NetworkManager();
     }
 
-
     /**
-     * Get request.
+     * Get request
      * @returns {Promise<*>}
      */
     async get(){
         console.log(this.#route)
         return await this.#networkManager.doRequest(`${this.#route}`, "GET");
-    }
-
-    async setFrequency(userId){
-        return await this.#networkManager.doRequest(`${this.#route}/${userId}`, "GET");
     }
 }

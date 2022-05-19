@@ -1,96 +1,50 @@
 <div class="container">
-    <section class="scoreboard-container">
-        <h2>Scoreboard:</h2>
-        <br>
-        <!--       <button id="sort-btn" onclick="sort_table(compList, 0, nameRow); nameRow *= -1">Sorteer op naam</button>-->
-
-        <button id="transportButton" class="dropbtn">
-            <img src="assets/Media/auto.png" class="buttonImage">
-            Welk transport wilt u nemen?
-        </button>
-
-        <div id="myContentDiv" class="content2">
-            <div id="myContent" class="transport-content">
-                <span class="closeWindow">&times;</span>
-                <div class="image">
-                    <img class="points_img" id="transport1" src="assets/Media/auto.png">
-                    <p class="modal_points">1 punt</p>
-                </div>
-                <div class="image">
-                    <img class="points_img" id="transport2" src="assets/Media/elektrischeAuto.png">
-                    <p class="modal_points">2 punten</p>
-                </div>
-                <div class="image">
-                    <img class="points_img" id="transport3" src="assets/Media/trein.png">
-                    <p class="modal_points">3 punten</p>
-                </div>
-                <div class="image">
-                    <img class="points_img" id="transport4" src="assets/Media/fiets.png">
-                    <p class="modal_points">4 punten</p>
-                </div>
-                <div class="image">
-                    <img class="points_img" id="transport5" src="assets/Media/lopend.png">
-                    <p class="modal_points">5 punten</p>
+    <section class="py-4 container-fluid">
+        <h3>Scoreboard</h3>
+        <div class="col-12">
+            <label for="places">Choose branche:</label>
+            <select name="places" id="places" class="border-0 my-4">
+                <option value="none">All</option>
+                <option value="Amsterdam">Betabit Amsterdam</option>
+                <option value="Apeldoorn">Betabit Apeldoorn</option>
+                <option value="Den Haag">Betabit Den Haag</option>
+                <option value="Eindhoven">Betabit Eindhoven</option>
+                <option value="Rotterdam">Betabit Rotterdam</option>
+                <option value="Utrecht">Betabit Utrecht</option>
+            </select>
+            <div class="btn-group btn-group-toggle mx-3 time_toggle" data-toggle="buttons">
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-yearly" value="yearly"
+                       autocomplete="off">
+                <label class="btn" for="btn-yearly">Yearly</label>
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-mothly" value="monthly"
+                       autocomplete="off">
+                <label class="btn" for="btn-mothly">Monthly</label>
+                <input type="radio" name="time-sorting" class="btn-check" id="btn-total" value="total"
+                       autocomplete="off">
+                <label class="btn" for="btn-total">Total</label>
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table align-middle mb-0 bg-white table_scoreboard">
+                    <thead class="bg-light thead_scoreboard">
+                    <tr>
+                        <th class="text-center fw-bold" scope="col">Number</th>
+                        <th class="text-center fw-bold" scope="col">Username</th>
+                        <th class="text-center fw-bold" scope="col">Location</th>
+                        <th class="text-center fw-bold" scope="col">Score</th>
+                    </tr>
+                    </thead>
+                    <tbody class="tbody_scoreboard" id="tablebody">
+                    </tbody>
+                </table>
+            </div>
+            <div class="popup-container">
+                <div class="badge-popup" id="voornu">
+                    <img src="" alt="badge" class="imgBadge" id="imgSource">
+                    <h2>You achieved this badge!</h2>
+                    <p>You did it! :D</p>
+                    <button type="button" class="closepopup">Ok</button>
                 </div>
             </div>
-            <div class="second_modal">
-                <div class="second_modal_content">
-                    <span id="closeWindowConfirm">&times;</span>
-                    <p>Wil je dit voertuig echt kiezen?!</p>
-                    <button id="confirmBtn">Confirm</button>
-                </div>
-            </div>
-        </div>
-
-        <button id="myBtn" class="dropbtn">
-            <img src="assets/Media/wonPrizes.png" class="buttonImage" id="prizesImage">
-            De prijzen
-        </button>
-
-        <!-- The Modal -->
-        <div id="prizeModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close" onclick="closeModal">&times;</span>
-                <h2>De top drie prijzen</h2>
-                <ol>
-                    <li class="list_prize" id="prize1">Een gratis weekendje weg
-                        <hr>
-                    </li>
-                    <li class="list_prize" id="prize2">Een fiets met het Betabit logo
-                        <hr>
-                    </li>
-                    <li class="list_prize" id="prize3">Gratis koffie voor een week</li>
-                    <hr>
-                </ol>
-                <div class="popup">
-                    <div id="popup-prize">
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-          <br>
-          <br>
-<!--        <button id="sort-btn" class="dropbtn">-->
-<!--            <img src="assets/Media/updownArrow.png" class="buttonImage" id="sortNameImage">-->
-<!--            Sort by name-->
-<!--        </button>-->
-        <label for="places">Sorteer op plaats:</label>
-        <select name="places" id="places">
-            <option value="Geen">Geen</option>
-            <option value="Amsterdam" name="Amsterdam">Betabit Amsterdam</option>
-            <option value="Apeldoorn">Betabit Apeldoorn</option>
-            <option value="Den Haag">Betabit Den Haag</option>
-            <option value="Eindhoven">Betabit Eindhoven</option>
-            <option value="Rotterdam">Betabit Rotterdam</option>
-            <option value="Utrecht">Betabit Utrecht</option>
-        </select>
-        <div id="scoreboard">
-
         </div>
     </section>
 </div>
-

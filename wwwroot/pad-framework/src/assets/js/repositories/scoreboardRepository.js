@@ -1,6 +1,6 @@
 import {NetworkManager} from "../framework/utils/networkManager.js";
 
-export class ScoreboardRepository{
+export class ScoreboardRepository {
     #route
     #networkManager
 
@@ -9,12 +9,12 @@ export class ScoreboardRepository{
         this.#networkManager = new NetworkManager();
     }
 
-    async getALL(){
-
+    //Does a request and gives the value place
+    async get(place, scoreType) {
+        return await this.#networkManager.doRequest(`${this.#route}/${place}/${scoreType}`, "GET")
     }
 
-    async get(place){
-        console.log(this.#route)
-        return await this.#networkManager.doRequest(`${this.#route}`, "POST",{place: place})
+    async getBadges(userid){
+        return await this.#networkManager.doRequest(`${this.#route}/${userid}/badges`, "GET")
     }
 }

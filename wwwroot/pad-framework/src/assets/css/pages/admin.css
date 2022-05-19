@@ -1,0 +1,15 @@
+#titel{
+
+    position: relative;
+    margin-left: 40%;
+}
+
+.wijzig{
+    display: inline-flex;
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin-left: 14%;
+    margin-top: 10%;
+    align-content: center;
+}
