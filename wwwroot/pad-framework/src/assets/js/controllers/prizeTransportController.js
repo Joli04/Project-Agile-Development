@@ -144,17 +144,21 @@ export class PrizeTransportController extends Controller {
         const modalTransportContent = document.querySelector(".modal_transport_content");
         const errorMsg = document.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
+        const alert = document.querySelector(".alert");
+        document.querySelector('.alert').style.display = "none";
+
 
         // show error message if no vehicle selected
         cancelBtn.addEventListener("click", () => {
             if (window.getComputedStyle(modalTransportContent).display === "none") {
                 errorMsg.innerText = "Oeps, niks geselecteerd!";
+                errorMsg.style.color = "red";
                 setTimeout(function () {
                     errorMsg.innerText = "";
-                }, 2000);
+                }, 1600);
             }
             modalTransportContent.style.display = "none";
-        })
+        });
 
         confirmBtn.addEventListener("click", async (event) => {
             let score = await this.#transportRepository.get();
@@ -181,6 +185,10 @@ export class PrizeTransportController extends Controller {
                     //         break
                     // }
                     await this.updatePoints(score[i].point);
+                    setTimeout(function () {
+                        alert.style.display = "none";
+                    }, 2000);
+                   alert.style.display = "block";
                 }
             }
         })

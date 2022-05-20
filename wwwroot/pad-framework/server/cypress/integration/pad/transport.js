@@ -26,9 +26,9 @@ describe("Transport", () => {
         cy.get(".btn-success").should("be.visible");
 
         cy.get(".btn-danger").click();
-
-        cy.get(".errorMsg").should("be.visible")
-
+        //
+        // cy.get(".errorMsg").should("be.visible")
+        //
 
 
 
