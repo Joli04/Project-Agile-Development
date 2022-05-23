@@ -84,3 +84,16 @@ h2 {
     height: 100%;
 }
 
+.modal_transport_content{
+    display: none;
+}
+
+#transport1, #transport2,#transport3,#transport4, #transport5{
+    width: 35%;
+    height: 100%;
+}
+
+.alert{
+    width: 100%;
+    height: 11%;
+}

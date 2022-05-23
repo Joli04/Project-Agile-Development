@@ -76,6 +76,7 @@ export class ProfileController extends Controller {
     }
 
     async fetchAllBadges(userId) {
+
         let badges = await this.#profileRepository.getUserData(userId);
 
         let element = document.getElementById("row");
