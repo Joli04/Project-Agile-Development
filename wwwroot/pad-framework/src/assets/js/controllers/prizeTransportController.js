@@ -124,15 +124,17 @@ export class PrizeTransportController extends Controller {
      * Async function that gets, updates and sets the score of the user
      *
      * @param points = the amount of point that gets added to the players score
+     * @param vehicleType
      * @returns {Promise<void>}
      */
-    async updatePoints(points) {
+    async updatePoints(points, vehicleType) {
         let userId = App.sessionManager.get("id");
-        let userScore = await this.#pointsRepository.get(userId);
+        let userScore = await this.#pointsRepository.get(userId, vehicleType);
+
         console.log(userScore)
         let totalScore = userScore[0].score += points;
-
-        this.#pointsRepository.set(totalScore, userId);
+        let frequency = userScore[0].frequency += 1;
+        this.#pointsRepository.set(totalScore, vehicleType, frequency, userId);
     }
 
     /**
@@ -167,24 +169,7 @@ export class PrizeTransportController extends Controller {
                 if (transports[i].checked) {
                     console.log(score[i].point)
                     let vehicleType = transports[i].value;
-                    // switch (vehicleType){
-                    //     case "car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "e-car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "public_transport":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "bike":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "walk":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    // }
-                    await this.updatePoints(score[i].point);
+                    await this.updatePoints(score[i].point, vehicleType);
                     setTimeout(function () {
                         alert.style.display = "none";
                     }, 2000);
