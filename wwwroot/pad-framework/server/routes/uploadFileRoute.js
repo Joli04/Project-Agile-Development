@@ -42,7 +42,7 @@ class UploadFileRoute {
                     try {
                         this.#databaseHelper.handleQuery({
                             query: "UPDATE users SET profile_image = ? WHERE id = ?",
-                            values: [baseUrl + `/uploads/${fileName}`, id]
+                            values: [appPath, id]
                         });
                         return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
                     } catch (e) {
