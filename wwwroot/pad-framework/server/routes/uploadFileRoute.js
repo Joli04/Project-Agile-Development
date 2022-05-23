@@ -34,7 +34,7 @@ class UploadFileRoute {
             const fileName = req.files.userpic.name;
             let uploadPath = wwwrootPath + `/uploads/${fileName}`;
 
-            file.mv(wwwrootPath + `/uploads/${fileName}`, (err) => {
+            file.mv(uploadPath, (err) => {
                 if (err) {
                     console.log(err)
                     return res.status(this.#errorCodes.BAD_REQUEST_CODE).json({reason: err});
@@ -42,7 +42,7 @@ class UploadFileRoute {
                     try {
                         this.#databaseHelper.handleQuery({
                             query: "UPDATE users SET profile_image = ? WHERE id = ?",
-                            values: [`${window.location.href}/uploads/${fileName}`, id]
+                            values: [uploadPath, id]
                         });
                         return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
                     } catch (e) {
