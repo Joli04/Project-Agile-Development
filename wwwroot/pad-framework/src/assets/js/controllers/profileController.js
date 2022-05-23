@@ -66,7 +66,6 @@ export class ProfileController extends Controller {
         if (userData[0].profile_image === null) {
             userPicture.src = "assets/Media/default_profile_image.png"
         } else {
-            console.log(userData[0].profile_image.path)
             userPicture.src = userData[0].profile_image;
         }
 

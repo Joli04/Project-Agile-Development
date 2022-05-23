@@ -42,7 +42,7 @@ class UploadFileRoute {
                     try {
                         this.#databaseHelper.handleQuery({
                             query: "UPDATE users SET profile_image = ? WHERE id = ?",
-                            values: [`https://dev-bbi-7.hbo-ict.cloud/#/uploads/${fileName}`, id]
+                            values: [uploadPath, id]
                         });
                         return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
                     } catch (e) {
