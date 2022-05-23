@@ -32,7 +32,7 @@ class UploadFileRoute {
             //get file by key "file", defined in front-end
             const file = req.files.userpic;
             const fileName = req.files.userpic.name;
-            let uploadPath = appPath + `/uploads/${fileName}`;
+            let uploadPath = wwwrootPath + `/uploads/${fileName}`;
 
             file.mv(uploadPath, (err) => {
                 if (err) {
@@ -42,7 +42,7 @@ class UploadFileRoute {
                     try {
                         this.#databaseHelper.handleQuery({
                             query: "UPDATE users SET profile_image = ? WHERE id = ?",
-                            values: [`./app/uploads/${fileName}`, id]
+                            values: [`./uploads/${fileName}`, id]
                         });
                         return res.status(this.#errorCodes.HTTP_OK_CODE).json("File successfully uploaded!");
                     } catch (e) {
