@@ -20,7 +20,7 @@ class BadgesRoutes{
                         "FROM badges AS b " +
                         "LEFT JOIN user_badge AS ub ON ub.id_user = ? " +
                         "AND ub.id_badge = b.id_badge " +
-                        "ORDER BY ub.badge_seen = false, b.id_badge ASC",
+                        "ORDER BY ub.badge_seen DESC, b.id_badge ASC",
                     values: [getId]
 
                 });
