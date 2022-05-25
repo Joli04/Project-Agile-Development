@@ -1,15 +1,19 @@
-#titel{
-
-    position: relative;
-    margin-left: 40%;
-}
-
-.wijzig{
+    .wijzig{
     display: inline-flex;
     position: relative;
-    width: 200px;
-    height: 100px;
-    margin-left: 14%;
-    margin-top: 10%;
-    align-content: center;
+    padding-left: 50px;
 }
+button{
+    border-radius: 10px;
+    color: white;
+    background-color: #b70d31;
+}
+
+button:hover{
+    background-color: #930528;
+}
+#titel{
+    text-align: center;
+    margin-top: 10%;
+}
+

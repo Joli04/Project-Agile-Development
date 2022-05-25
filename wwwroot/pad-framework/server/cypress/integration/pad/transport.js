@@ -40,6 +40,9 @@ describe("Transport", () => {
         // cy.get("")
 
 
+        cy.get(".errorMsg").should("be.visible")
+
+
 
 
         //checking for the hover function

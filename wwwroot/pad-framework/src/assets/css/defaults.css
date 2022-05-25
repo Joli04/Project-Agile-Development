@@ -32,21 +32,8 @@ footer {
     max-width: 100px;
     border-radius: 25%;
 }
-#titel{
-    text-align: center;
-    margin-top: 10%;
-}
-
 #opties{
     display: inline-flex;
     position: relative;
     margin-left: 25%;
-}
-.wijzig{
-    display: inline-flex;
-    position: relative;
-    padding-left: 50px;
-}
-button{
-    border-radius: 10px;
 }

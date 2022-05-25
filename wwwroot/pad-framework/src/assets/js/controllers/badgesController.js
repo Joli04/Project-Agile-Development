@@ -30,37 +30,47 @@ export class BadgesController extends Controller{
      */
     createBadges(objects){
 
-        let badgeTable = this.#badgesView.querySelector(".badges");
+        let badgeTable = this.#badgesView.querySelector(".badges-frame");
 
         for(let i = 0; i < objects.length; i++) {
 
             let divBadge = document.createElement("div");
+
+            let divBadgeBody = document.createElement("div");
+            divBadgeBody.classList.add("badge-body");
+
+            let divImage = document.createElement("div");
+
             let imgBadge = new Image();
+            imgBadge.classList.add("badge-img-top");
             let numberBadge = document.createElement("p");
+            let lineBadge = document.createElement("div");
+            lineBadge.classList.add("divider");
+            let nameBadge = document.createElement("h4");
             let descBadge = document.createElement("p");
             let achieved = objects[i].badge_seen;
 
-            divBadge.style.width = "250px";
             if(achieved){
-                divBadge.style.backgroundColor = "rgba(94, 255, 100, 0.8)";
+                divBadge.classList.add("badges-achieved");
+                divImage.classList.add("badge-img-achieved");
             } else {
-                divBadge.style.backgroundColor = "rgba(168, 168, 168, 1)";
+                divBadge.classList.add("badges-unachieved");
+                divImage.classList.add("badge-img-unachieved");
             }
 
             imgBadge.src = objects[i].badge_image;
-            imgBadge.style.height = "100px";
-            imgBadge.style.width = "100px";
-            imgBadge.style.display = "block";
-            imgBadge.style.margin = "0 auto";
             numberBadge.textContent = objects[i].id_badge;
-            numberBadge.style.textAlign = "center";
+            nameBadge.textContent = objects[i].badge_name;
             descBadge.textContent = objects[i].badge_description;
-            descBadge.style.textAlign = "center";
 
             badgeTable.appendChild(divBadge);
-            divBadge.appendChild(imgBadge);
-            divBadge.appendChild(numberBadge);
-            divBadge.appendChild(descBadge);
+            divBadge.appendChild(divImage);
+            divBadge.appendChild(lineBadge);
+            divBadge.appendChild(divBadgeBody);
+            divImage.appendChild(imgBadge);
+            divImage.appendChild(numberBadge);
+            divBadgeBody.appendChild(nameBadge);
+            divBadgeBody.appendChild(descBadge);
         }
     }
 }
