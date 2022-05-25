@@ -52,6 +52,10 @@ export class PrizeTransportController extends Controller {
         window.addEventListener("click", offClickModal);
     }
 
+    /**
+     * Method to show the prize to the user
+     * @param object from the database
+     */
     #showPrizes(object) {
         let prizes = document.querySelectorAll("#prize1, #prize2, #prize3");
         for (let i = 0; i < prizes.length; i++) {
@@ -69,9 +73,9 @@ export class PrizeTransportController extends Controller {
      * Show and close transport modal.
      */
     #showTransportModal() {
-        const vehiclePopup = document.querySelector("#vehiclePopup");
+        const vehiclePopup = this.#prizeView.querySelector("#vehiclePopup");
         const closeButtonPopup = document.querySelector(".closePopup");
-        const buttonPopup = document.querySelector(".btn_transport_popup");
+        const buttonPopup = this.#prizeView.querySelector(".btn_transport_popup");
         buttonPopup.addEventListener("click", () => {
             vehiclePopup.style.display = "block";
         })
@@ -139,13 +143,15 @@ export class PrizeTransportController extends Controller {
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
     #transportConformation(userId) {
-        const cancelBtn = document.querySelector(".btn-danger");
-        const confirmBtn = document.querySelector(".btn-success");
-        const modalTransportContent = document.querySelector(".modal_transport_content");
-        const errorMsg = document.querySelector(".errorMsg");
+        const cancelBtn = this.#prizeView.querySelector(".btn-danger");
+        const confirmBtn = this.#prizeView.querySelector(".btn-success");
+        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content");
+        const errorMsg = this.#prizeView.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
-        const alert = document.querySelector(".alert");
-        document.querySelector('.alert').style.display = "none";
+        const alert = this.#prizeView.querySelector(".alert");
+
+        //make sure it's hidden at first.
+        this.#prizeView.querySelector('.alert').style.display = "none";
 
 
         // show error message if no vehicle selected
