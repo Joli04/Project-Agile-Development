@@ -31,7 +31,7 @@
 
 .tbody_scoreboard tr:hover {
     background-color: rgba(83, 83, 90, 0.2);
-    box-shadow: 0 0 10px rgba(0,0,0,0.07);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.07);
 }
 
 #sortNameImage {
@@ -72,16 +72,9 @@ select {
     font-size: 1rem;
     line-height: 1.5;
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow
-    .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     margin-bottom: 5px;
     color: black;
-}
-
-.button_monthly:hover, .button_yearly:hover{
-    color: #b70d31;
-    background-color: #ffffff;
-    border-color: #dae0e5;
 }
 
 .badge-popup {
@@ -91,7 +84,7 @@ select {
     position: absolute;
     top: 75%;
     left: 50%;
-    transform: translate(-50%,-50%) scale(0.1);
+    transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
     padding: 0 30px 30px;
     color: #333;
@@ -123,4 +116,14 @@ select {
     outline: none;
     cursor: pointer;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.time_toggle .btn {
+    color: #ffffff;
+    background-color: #b70d31;
+    transition: all 0.2s ease;
+}
+
+.time_toggle .btn:hover {
+    background-color: #980926;
 }

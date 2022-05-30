@@ -4,20 +4,20 @@
  */
 
 import { UsersRepository } from "../repositories/usersRepository.js";
-import { AdminRepository } from "../repositories/adminRepository.js";
+// import { AdminRepository } from "../repositories/adminRepository.js";
 import { App } from "../app.js";
 import { Controller } from "./controller.js";
 
 export class LoginController extends Controller{
     //# is a private field in Javascript
     #usersRepository
-    #adminRepository
+    // #adminRepository
     #loginView
 
     constructor() {
         super();
         this.#usersRepository = new UsersRepository();
-        this.#adminRepository = new AdminRepository();
+        // this.#adminRepository = new AdminRepository();
 
         this.#setupView()
     }
@@ -48,11 +48,11 @@ export class LoginController extends Controller{
 
         try{
             const user = await this.#usersRepository.login(username, password);
-            const admins = await this.#adminRepository.get()
+
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
             App.sessionManager.set("username", user.username);
             App.sessionManager.set("id", user.id);
-            App.sessionManager.set("admins",admins)
+            App.sessionManager.set("admin", user.admin)
             window.location.reload(true)
             App.loadController(App.CONTROLLER_PROFILE);
         } catch(error) {

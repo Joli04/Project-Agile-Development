@@ -4,7 +4,7 @@
         <div class="card profile">
             <div class="card-body">
                 <div class="profile_image_addons">
-                    <img src="assets/Media/profileImageExample.jpg" alt="" class="profile_image">
+                    <img src="" alt="" class="profile_image">
                     <form method="post" encType="multipart/form-data">
                         <input type="file" id="file" class="d-none">
                         <label for="file" id="upload_button">
@@ -17,7 +17,8 @@
                         </label>
                     </form>
                 </div>
-                <button type="submit" class="btn my-3 btn-primary upload">Upload</button>
+                <button type="submit" class="btn my-3 upload">Upload</button>
+                <span class="error_image"></span>
                 <div class="user_info">
                     <h2><span class="user_name">Name</span></h2>
                     <p><span class="user_function">Function</span></p>
@@ -41,12 +42,16 @@
                                 <td><span class="vehicle_frequency_car">0</span></td>
                             </tr>
                             <tr>
-                                <td class="vehicle_name">Walk/Bike:</td>
-                                <td><span class="vehicle_frequency_walk_bike">0</span></td>
+                                <td class="vehicle_name">E-Car:</td>
+                                <td><span class="vehicle_frequency_e_car">0</span></td>
                             </tr>
                             <tr>
-                                <td class="vehicle_name">Scooter:</td>
-                                <td><span class="vehicle_frequency_scooter">0</span></td>
+                                <td class="vehicle_name">Bike:</td>
+                                <td><span class="vehicle_frequency_bike">0</span></td>
+                            </tr>
+                            <tr>
+                                <td class="vehicle_name">Walk:</td>
+                                <td><span class="vehicle_frequency_walk">0</span></td>
                             </tr>
                             <tr>
                                 <td class="vehicle_name">Public Transport:</td>

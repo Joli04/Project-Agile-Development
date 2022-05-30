@@ -23,35 +23,54 @@ export class BadgesController extends Controller{
         this.createBadges(objects);
     }
 
+    /***
+     * method that gets all the badges from the database and puts them in the view
+     *
+     * @param objects = data of the badges
+     */
     createBadges(objects){
 
-        let badgeTable = this.#badgesView.querySelector(".badges");
+        let badgeTable = this.#badgesView.querySelector(".badges-frame");
 
         for(let i = 0; i < objects.length; i++) {
 
             let divBadge = document.createElement("div");
-            let imgBadge = new Image();
-            let numberBadge = document.createElement("p");
-            let descBadge = document.createElement("p");
-            let gehaald = objects[i].badge_seen;
 
-            divBadge.style.width = "250px";
-            if(gehaald == 1){
-                divBadge.style.backgroundColor = "rgba(94, 255, 100, 0.8)"
+            let divBadgeBody = document.createElement("div");
+            divBadgeBody.classList.add("badge-body");
+
+            let divImage = document.createElement("div");
+
+            let imgBadge = new Image();
+            imgBadge.classList.add("badge-img-top");
+            let numberBadge = document.createElement("p");
+            let lineBadge = document.createElement("div");
+            lineBadge.classList.add("divider");
+            let nameBadge = document.createElement("h4");
+            let descBadge = document.createElement("p");
+            let achieved = objects[i].badge_seen;
+
+            if(achieved){
+                divBadge.classList.add("badges-achieved");
+                divImage.classList.add("badge-img-achieved");
             } else {
-                divBadge.style.backgroundColor = "rgba(168, 168, 168, 1)"
+                divBadge.classList.add("badges-unachieved");
+                divImage.classList.add("badge-img-unachieved");
             }
 
             imgBadge.src = objects[i].badge_image;
-            imgBadge.style.height = "100px";
-            imgBadge.style.width = "100px";
             numberBadge.textContent = objects[i].id_badge;
+            nameBadge.textContent = objects[i].badge_name;
             descBadge.textContent = objects[i].badge_description;
 
             badgeTable.appendChild(divBadge);
-            divBadge.appendChild(imgBadge);
-            divBadge.appendChild(numberBadge);
-            divBadge.appendChild(descBadge);
+            divBadge.appendChild(divImage);
+            divBadge.appendChild(lineBadge);
+            divBadge.appendChild(divBadgeBody);
+            divImage.appendChild(imgBadge);
+            divImage.appendChild(numberBadge);
+            divBadgeBody.appendChild(nameBadge);
+            divBadgeBody.appendChild(descBadge);
         }
     }
 }

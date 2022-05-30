@@ -1,4 +1,4 @@
-import {AdminRepository} from "../repositories/adminRepository.js";
+// import {AdminRepository} from "../repositories/adminRepository.js";
 import {Controller} from "./controller.js";
 
 export class AdminController extends Controller {
@@ -9,7 +9,7 @@ export class AdminController extends Controller {
     constructor() {
         super();
 
-        this.#adminRepository = new AdminRepository();
+        // this.#adminRepository = new AdminRepository();
 
         this.#setupView();
     }

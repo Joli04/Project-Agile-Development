@@ -124,43 +124,43 @@ export class PrizeTransportController extends Controller {
      * Async function that gets, updates and sets the score of the user
      *
      * @param points = the amount of point that gets added to the players score
+     * @param vehicleType
      * @returns {Promise<void>}
      */
-    async updatePoints(points) {
+    async updatePoints(points, vehicleType) {
         let userId = App.sessionManager.get("id");
-        let userScore = await this.#pointsRepository.get(userId);
+        let userScore = await this.#pointsRepository.get(userId, vehicleType);
+
         console.log(userScore)
         let totalScore = userScore[0].score += points;
-
-        // switch (vehicleType){
-        //     case "car":
-        //         break
-        //     case ""
-        // }
-
-        this.#pointsRepository.set(totalScore, userId);
+        let frequency = userScore[0].frequency += 1;
+        this.#pointsRepository.set(totalScore, vehicleType, frequency, userId);
     }
 
     /**
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
-    #transportConformation() {
+    #transportConformation(userId) {
         const cancelBtn = document.querySelector(".btn-danger");
         const confirmBtn = document.querySelector(".btn-success");
         const modalTransportContent = document.querySelector(".modal_transport_content");
         const errorMsg = document.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
+        const alert = document.querySelector(".alert");
+        document.querySelector('.alert').style.display = "none";
+
 
         // show error message if no vehicle selected
         cancelBtn.addEventListener("click", () => {
             if (window.getComputedStyle(modalTransportContent).display === "none") {
                 errorMsg.innerText = "Oeps, niks geselecteerd!";
+                errorMsg.style.color = "red";
                 setTimeout(function () {
                     errorMsg.innerText = "";
-                }, 2000);
+                }, 1600);
             }
             modalTransportContent.style.display = "none";
-        })
+        });
 
         confirmBtn.addEventListener("click", async (event) => {
             let score = await this.#transportRepository.get();
@@ -169,7 +169,11 @@ export class PrizeTransportController extends Controller {
                 if (transports[i].checked) {
                     console.log(score[i].point)
                     let vehicleType = transports[i].value;
-                    await this.updatePoints(score[i].point);
+                    await this.updatePoints(score[i].point, vehicleType);
+                    setTimeout(function () {
+                        alert.style.display = "none";
+                    }, 2000);
+                   alert.style.display = "block";
                 }
             }
         })
