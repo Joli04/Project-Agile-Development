@@ -1,20 +1,17 @@
 import {Controller} from "./controller.js";
 import {TransportRepository} from "../repositories/transportRepository.js";
-import {PrizeRepository} from "../repositories/prizeRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
 import {App} from "../app.js";
 
-export class PrizeTransportController extends Controller {
+export class TransportController extends Controller {
 
-    #prizeView
+    #transportView
     #transportRepository
-    #prizeRepository
     #pointsRepository
 
     constructor() {
         super()
         this.#transportRepository = new TransportRepository();
-        this.#prizeRepository = new PrizeRepository();
         this.#pointsRepository = new PointsRepository();
         this.#setupView();
 
@@ -25,13 +22,11 @@ export class PrizeTransportController extends Controller {
      * @returns {Promise<void>}
      */
     async #setupView() {
-        let object = await this.#prizeRepository.get();
-        this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
+        this.#transportView = await super.loadHtmlIntoContent("html_views/transport.html")
 
         this.#showTransportModal();
         this.#transportContent();
         this.#transportConformation();
-        this.#showPrizes(object);
     }
 
     /**
@@ -53,29 +48,12 @@ export class PrizeTransportController extends Controller {
     }
 
     /**
-     * Method to show the prize to the user
-     * @param object from the database
-     */
-    #showPrizes(object) {
-        let prizes = document.querySelectorAll("#prize1, #prize2, #prize3");
-        for (let i = 0; i < prizes.length; i++) {
-            let img = new Image();
-            img.src = object[i].image_link;
-            img.style.width = "60px";
-            img.style.height = "60px";
-            img.style.marginLeft = "20px";
-            prizes[i].append(object[i].image_description)
-            prizes[i].append(img)
-        }
-    }
-
-    /**
      * Show and close transport modal.
      */
     #showTransportModal() {
-        const vehiclePopup = this.#prizeView.querySelector("#vehiclePopup");
+        const vehiclePopup = this.#transportView.querySelector("#vehiclePopup");
         const closeButtonPopup = document.querySelector(".closePopup");
-        const buttonPopup = this.#prizeView.querySelector(".btn_transport_popup");
+        const buttonPopup = this.#transportView.querySelector(".btn_transport_popup");
         buttonPopup.addEventListener("click", () => {
             vehiclePopup.style.display = "block";
         })
@@ -90,10 +68,10 @@ export class PrizeTransportController extends Controller {
      * make sure the transport modal content is shown.
      */
     #transportContent() {
-        const totalBtn = this.#prizeView.querySelectorAll(
+        const totalBtn = this.#transportView.querySelectorAll(
             "#car-button, #e-car-button, #bus-button, #cycling-button, #walking-button");
-        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content")
-        const transport = this.#prizeView.querySelectorAll(
+        const modalTransportContent = this.#transportView.querySelector(".modal_transport_content")
+        const transport = this.#transportView.querySelectorAll(
             '#transport1, #transport4, #transport3, #transport2, #transport5');
 
         for (let i = 0; i < totalBtn.length; i++) {
@@ -143,15 +121,15 @@ export class PrizeTransportController extends Controller {
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
     #transportConformation(userId) {
-        const cancelBtn = this.#prizeView.querySelector(".btn-danger");
-        const confirmBtn = this.#prizeView.querySelector(".btn-success");
-        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content");
-        const errorMsg = this.#prizeView.querySelector(".errorMsg");
+        const cancelBtn = this.#transportView.querySelector(".btn-danger");
+        const confirmBtn = this.#transportView.querySelector(".btn-success");
+        const modalTransportContent = this.#transportView.querySelector(".modal_transport_content");
+        const errorMsg = this.#transportView.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
-        const alert = this.#prizeView.querySelector(".alert");
+        const alert = this.#transportView.querySelector(".alert");
 
         //make sure it's hidden at first.
-        this.#prizeView.querySelector('.alert').style.display = "none";
+        this.#transportView.querySelector('.alert').style.display = "none";
 
 
         // show error message if no vehicle selected
