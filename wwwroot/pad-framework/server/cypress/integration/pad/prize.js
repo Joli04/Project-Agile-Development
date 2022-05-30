@@ -11,7 +11,6 @@ describe("Prize", () => {
     it("Prize modal", () => {
         // checking for existing nav bar
         cy.get(".nav-link").should("exist");
-
         // checking for existing prize popup modal
         cy.get(".btn_prize_popup").should("exist");
 
