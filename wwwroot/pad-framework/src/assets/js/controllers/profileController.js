@@ -53,14 +53,16 @@ export class ProfileController extends Controller {
         const userPicture = this.#profileView.querySelector(".profile_image");
 
         const carFrequency = this.#profileView.querySelector("span.vehicle_frequency_car");
-        const walkFrequency = this.#profileView.querySelector("span.vehicle_frequency_walk_bike");
-        const scooterFrequency = this.#profileView.querySelector("span.vehicle_frequency_scooter");
+        const bikeFrequency = this.#profileView.querySelector("span.vehicle_frequency_bike");
+        const eCarFrequency = this.#profileView.querySelector("span.vehicle_frequency_e_car");
         const publicTransportFrequency = this.#profileView.querySelector("span.vehicle_frequency_public_transport");
+        const walkFrequency = this.#profileView.querySelector("span.vehicle_frequency_walk");
 
 
         carFrequency.innerHTML = userData[0].frequency_car;
-        walkFrequency.innerHTML = userData[0].frequency_walk_bike;
-        scooterFrequency.innerHTML = userData[0].frequency_scooter;
+        bikeFrequency.innerHTML = userData[0].frequency_bike;
+        eCarFrequency.innerHTML = userData[0].frequency_e_car;
+        walkFrequency.innerHTML = userData[0].frequency_walk;
         publicTransportFrequency.innerHTML = userData[0].frequency_public_transport;
 
         if (userData[0].profile_image === null) {
