@@ -14,8 +14,9 @@ import {UploadController} from "./controllers/uploadController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {BadgesController} from "./controllers/badgesController.js"
 import {ProfileController} from "./controllers/profileController.js";
-import {PrizeTransportController} from "./controllers/prizeTransportController.js";
+import {TransportController} from "./controllers/transportController.js";
 import {AdminController} from "./controllers/adminController.js";
+import {PrizeController} from "./controllers/prizeController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -31,6 +32,7 @@ export class App {
     static CONTROLLER_SCOREBOARD = "scoreboard";
     static CONTROLLER_POINTS = "points";
     static CONTROLLER_PRIZE = "prize";
+    static CONTROLLER_TRANSPORT = "transport"
     static CONTROLLER_BADGES = "badges";
     static CONTROLLER_ADMIN = "admin";
 
@@ -89,9 +91,13 @@ export class App {
                 App.setCurrentController(name);
                 App.isLoggedIn(() => new PointsController(), () => new LoginController());
                 break;
+            case App.CONTROLLER_TRANSPORT:
+                App.setCurrentController(name);
+                App.isLoggedIn(() => new TransportController(), () => new LoginController());
+                break;
             case App.CONTROLLER_PRIZE:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new PrizeTransportController(), () => new LoginController());
+                App.isLoggedIn(()=> new PrizeController(), ()=> new LoginController());
                 break;
             case App.CONTROLLER_BADGES:
                 App.setCurrentController(name);

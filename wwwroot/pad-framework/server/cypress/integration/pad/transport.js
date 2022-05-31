@@ -13,7 +13,7 @@ describe("Transport", () => {
         cy.get(".nav-link").should("exist");
 
         // checking for existing prize popup modal
-        cy.get("#vehiclePopup").should("exist");
+        cy.get(".btn_transport_popup").should("exist");
 
         // checking if the button is clickable.
         cy.get(".btn_transport_popup").click();
@@ -29,6 +29,19 @@ describe("Transport", () => {
         //
         // cy.get(".errorMsg").should("be.visible")
         //
+
+        cy.get(".errorMsg").should("be.visible");
+
+        cy.get(".car-button").click();
+
+        cy.visit("http://localhost:8080/#transport");
+
+        cy.get(".btn-success").click();
+
+
+        // cy.get(".alert").should("be.visible");
+        // cy.get("")
+
 
         cy.get(".errorMsg").should("be.visible")
 

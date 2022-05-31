@@ -1,20 +1,17 @@
 import {Controller} from "./controller.js";
 import {TransportRepository} from "../repositories/transportRepository.js";
-import {PrizeRepository} from "../repositories/prizeRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
 import {App} from "../app.js";
 
-export class PrizeTransportController extends Controller {
+export class TransportController extends Controller {
 
-    #prizeView
+    #transportView
     #transportRepository
-    #prizeRepository
     #pointsRepository
 
     constructor() {
         super()
         this.#transportRepository = new TransportRepository();
-        this.#prizeRepository = new PrizeRepository();
         this.#pointsRepository = new PointsRepository();
         this.#setupView();
 
@@ -25,13 +22,11 @@ export class PrizeTransportController extends Controller {
      * @returns {Promise<void>}
      */
     async #setupView() {
-        let object = await this.#prizeRepository.get();
-        this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
+        this.#transportView = await super.loadHtmlIntoContent("html_views/transport.html")
 
         this.#showTransportModal();
         this.#transportContent();
         this.#transportConformation();
-        this.#showPrizes(object);
     }
 
     /**
@@ -52,26 +47,13 @@ export class PrizeTransportController extends Controller {
         window.addEventListener("click", offClickModal);
     }
 
-    #showPrizes(object) {
-        let prizes = document.querySelectorAll("#prize1, #prize2, #prize3");
-        for (let i = 0; i < prizes.length; i++) {
-            let img = new Image();
-            img.src = object[i].image_link;
-            img.style.width = "60px";
-            img.style.height = "60px";
-            img.style.marginLeft = "20px";
-            prizes[i].append(object[i].image_description)
-            prizes[i].append(img)
-        }
-    }
-
     /**
      * Show and close transport modal.
      */
     #showTransportModal() {
-        const vehiclePopup = document.querySelector("#vehiclePopup");
+        const vehiclePopup = this.#transportView.querySelector("#vehiclePopup");
         const closeButtonPopup = document.querySelector(".closePopup");
-        const buttonPopup = document.querySelector(".btn_transport_popup");
+        const buttonPopup = this.#transportView.querySelector(".btn_transport_popup");
         buttonPopup.addEventListener("click", () => {
             vehiclePopup.style.display = "block";
         })
@@ -86,10 +68,10 @@ export class PrizeTransportController extends Controller {
      * make sure the transport modal content is shown.
      */
     #transportContent() {
-        const totalBtn = this.#prizeView.querySelectorAll(
+        const totalBtn = this.#transportView.querySelectorAll(
             "#car-button, #e-car-button, #bus-button, #cycling-button, #walking-button");
-        const modalTransportContent = this.#prizeView.querySelector(".modal_transport_content")
-        const transport = this.#prizeView.querySelectorAll(
+        const modalTransportContent = this.#transportView.querySelector(".modal_transport_content")
+        const transport = this.#transportView.querySelectorAll(
             '#transport1, #transport4, #transport3, #transport2, #transport5');
 
         for (let i = 0; i < totalBtn.length; i++) {
@@ -124,30 +106,30 @@ export class PrizeTransportController extends Controller {
      * Async function that gets, updates and sets the score of the user
      *
      * @param points = the amount of point that gets added to the players score
-     * @param vehicleType
      * @returns {Promise<void>}
      */
-    async updatePoints(points, vehicleType) {
+    async updatePoints(points) {
         let userId = App.sessionManager.get("id");
-        let userScore = await this.#pointsRepository.get(userId, vehicleType);
-
+        let userScore = await this.#pointsRepository.get(userId);
         console.log(userScore)
         let totalScore = userScore[0].score += points;
-        let frequency = userScore[0].frequency += 1;
-        this.#pointsRepository.set(totalScore, vehicleType, frequency, userId);
+
+        this.#pointsRepository.set(totalScore, userId);
     }
 
     /**
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
     #transportConformation(userId) {
-        const cancelBtn = document.querySelector(".btn-danger");
-        const confirmBtn = document.querySelector(".btn-success");
-        const modalTransportContent = document.querySelector(".modal_transport_content");
-        const errorMsg = document.querySelector(".errorMsg");
+        const cancelBtn = this.#transportView.querySelector(".btn-danger");
+        const confirmBtn = this.#transportView.querySelector(".btn-success");
+        const modalTransportContent = this.#transportView.querySelector(".modal_transport_content");
+        const errorMsg = this.#transportView.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
-        const alert = document.querySelector(".alert");
-        document.querySelector('.alert').style.display = "none";
+        const alert = this.#transportView.querySelector(".alert");
+
+        //make sure it's hidden at first.
+        this.#transportView.querySelector('.alert').style.display = "none";
 
 
         // show error message if no vehicle selected
@@ -169,7 +151,24 @@ export class PrizeTransportController extends Controller {
                 if (transports[i].checked) {
                     console.log(score[i].point)
                     let vehicleType = transports[i].value;
-                    await this.updatePoints(score[i].point, vehicleType);
+                    // switch (vehicleType){
+                    //     case "car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "e-car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "public_transport":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "bike":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "walk":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    // }
+                    await this.updatePoints(score[i].point);
                     setTimeout(function () {
                         alert.style.display = "none";
                     }, 2000);
