@@ -2,15 +2,18 @@ import {Controller} from "./controller.js";
 import {TransportRepository} from "../repositories/transportRepository.js";
 import {PointsRepository} from "../repositories/pointsRepository.js";
 import {App} from "../app.js";
+import {user_transportRepository} from "../repositories/user_transportRepository.js";
 
 export class TransportController extends Controller {
 
     #transportView
     #transportRepository
     #pointsRepository
+    #userTransportRepository
 
     constructor() {
         super()
+        this.#userTransportRepository = new user_transportRepository();
         this.#transportRepository = new TransportRepository();
         this.#pointsRepository = new PointsRepository();
         this.#setupView();
@@ -26,14 +29,14 @@ export class TransportController extends Controller {
 
         this.#showTransportModal();
         this.#transportContent();
-        this.#transportConformation();
+        await this.#transportConformation();
     }
 
     /**
      * if you click outside of the modal, it closes.
      */
     #offClickModal() {
-        let modal = document.querySelector(".modal");
+        let modal = this.#transportView.querySelector(".modal");
         for (let i = 0; i < modal.length; i++) {
             modal[i].hidden = true;
         }
@@ -44,6 +47,7 @@ export class TransportController extends Controller {
                 modal.style.display = "none";
             }
         }
+
         window.addEventListener("click", offClickModal);
     }
 
@@ -120,17 +124,26 @@ export class TransportController extends Controller {
     /**
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
-    #transportConformation(userId) {
+    async #transportConformation(userId) {
+        let idUser = App.sessionManager.get("id");
         const cancelBtn = this.#transportView.querySelector(".btn-danger");
         const confirmBtn = this.#transportView.querySelector(".btn-success");
         const modalTransportContent = this.#transportView.querySelector(".modal_transport_content");
         const errorMsg = this.#transportView.querySelector(".errorMsg");
         let transports = document.getElementsByName('vehicle-option');
         const alert = this.#transportView.querySelector(".alert");
+        let getUserTransport = await this.#userTransportRepository.getUserTransport();
 
-        //make sure it's hidden at first.
+        // loop through, check if the user logged in is the same as of the id's in the database .
+        for (let i = 0; i < getUserTransport.length; i++) {
+            if (idUser === getUserTransport[i].id_user) {
+               confirmBtn.disabled = true;
+               break;
+            }
+        }
+
+        // the conformation alert is hidden at first.
         this.#transportView.querySelector('.alert').style.display = "none";
-
 
         // show error message if no vehicle selected
         cancelBtn.addEventListener("click", () => {
@@ -144,12 +157,16 @@ export class TransportController extends Controller {
             modalTransportContent.style.display = "none";
         });
 
+        // update points if transport is selected
         confirmBtn.addEventListener("click", async (event) => {
             let score = await this.#transportRepository.get();
-            // let points = 0;
+
             for (let i = 0; i < transports.length; i++) {
+                // confirmBtn.disable = false;
                 if (transports[i].checked) {
                     console.log(score[i].point)
+                    await this.#userTransportRepository.updateUserTransport(idUser);
+
                     let vehicleType = transports[i].value;
                     // switch (vehicleType){
                     //     case "car":
@@ -168,21 +185,19 @@ export class TransportController extends Controller {
                     //         await this.#transportRepository.setFrequency(userId, vehicleType);
                     //         break
                     // }
+
+                    // update points
                     await this.updatePoints(score[i].point);
+
+                    // show succes and the amount of
+                    alert.style.display = "block";
+
+                    // redirect to scoreboard after the points are added
                     setTimeout(function () {
-                        alert.style.display = "none";
-                    }, 2000);
-                   alert.style.display = "block";
+                        App.loadController(App.CONTROLLER_SCOREBOARD)
+                    }, 1300);
                 }
             }
         })
-        // if(window.getComputedStyle(modalTransportContent).display === "block"){
-        //     cancelBtn.style.display = "block";
-        //     confirmBtn.style.display = "block";
-        //     cancelBtn.addEventListener("click", () =>{
-        //         modalTransportContent.style.display = "none";
-        //     })
-        // }
-
     }
 }
