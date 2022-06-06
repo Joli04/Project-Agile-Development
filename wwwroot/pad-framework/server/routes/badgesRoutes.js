@@ -18,11 +18,11 @@ class BadgesRoutes{
             const getId = req.params.id;
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT b.*, ub.badge_seen " +
-                        "FROM badges AS b " +
+                    query: "SELECT ba.*, ub.badge_seen " +
+                        "FROM badges AS ba " +
                         "LEFT JOIN user_badge AS ub ON ub.id_user = ? " +
-                        "AND ub.id_badge = b.id_badge " +
-                        "ORDER BY ub.badge_seen DESC, b.id_badge ASC",
+                        "AND ub.id_badge = ba.id_badge " +
+                        "ORDER BY ub.badge_seen DESC, ba.id_badge ASC",
                     values: [getId]
                 });
 
@@ -38,7 +38,7 @@ class BadgesRoutes{
             const getId = req.params.id;
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id, score, frequency_e_car, frequency_public_transport,frequency_walk, frequency_bike" +
+                    query: "SELECT *" +
                         "FROM users WHERE id = ?",
                     values: [getId]
                 });
