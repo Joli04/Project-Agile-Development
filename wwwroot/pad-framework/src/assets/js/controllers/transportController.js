@@ -12,6 +12,7 @@ export class TransportController extends Controller {
     #userTransportRepository
 
     constructor() {
+
         super()
         this.#userTransportRepository = new user_transportRepository();
         this.#transportRepository = new TransportRepository();
@@ -125,8 +126,8 @@ export class TransportController extends Controller {
     /**
      * Method that confirms your vehicle choice, and give the option to cancel.
      */
-    async #transportConformation(userId) {
-        let idUser = App.sessionManager.get("id");
+    async #transportConformation() {
+        let userId = App.sessionManager.get("id");
         const cancelBtn = this.#transportView.querySelector(".btn-danger");
         const confirmBtn = this.#transportView.querySelector(".btn-success");
         const modalTransportContent = this.#transportView.querySelector(".modal_transport_content");
@@ -137,7 +138,7 @@ export class TransportController extends Controller {
 
         // loop through, check if the user logged in is the same as of the id's in the database .
         for (let i = 0; i < getUserTransport.length; i++) {
-            if (idUser === getUserTransport[i].id_user) {
+            if (userId === getUserTransport[i].id_user) {
                 confirmBtn.disabled = true;
                 break;
             }
@@ -160,34 +161,19 @@ export class TransportController extends Controller {
 
         // update points if transport is selected
         confirmBtn.addEventListener("click", async (event) => {
-            let score = await this.#transportRepository.get();
-
+            let transport = await this.#transportRepository.get();
             for (let i = 0; i < transports.length; i++) {
                 // confirmBtn.disable = false;
                 if (transports[i].checked) {
-                    console.log(score[i].point)
-                    await this.#userTransportRepository.updateUserTransport(idUser);
+                    console.log(transport[i].point)
                     let vehicleType = transports[i].value;
-                    // switch (vehicleType){
-                    //     case "car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "e-car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "public_transport":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "bike":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "walk":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    // }
+                    let frequencyPerVehicle = await this.#userTransportRepository.getVehicleFrequency(userId, vehicleType);
+                    let frequency = frequencyPerVehicle[0].frequency += 1;
+                    await this.#userTransportRepository.updateFrequency(userId, vehicleType, frequency)
+                    await this.#userTransportRepository.updateUserTransport(userId);
 
                     // update points
-                    await this.updatePoints(score[i].point);
+                    await this.updatePoints(transport[i].point);
 
                     // show succes and the amount of
                     alert.style.display = "block";
@@ -307,8 +293,9 @@ export class TransportController extends Controller {
         ]
 
         intro.setSteps(steps);
+        intro.start();
         if (first_login === 1 && !App.sessionManager.get('tour')) {
-            intro.start();
+            // intro.start();
             // await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
         }
 

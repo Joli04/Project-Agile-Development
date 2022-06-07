@@ -13,6 +13,14 @@ export class user_transportRepository{
      * get request for all data from user_transport1
      * @returns {Promise<*>}
      */
+    async updateFrequency(userId, vehicleType, frequency){
+        return this.#networkManager.doRequest(`${this.#route}/${userId}/${vehicleType}/${frequency}`, "PUT");
+    }
+
+    /**
+     * get request for all data from user_transport1
+     * @returns {Promise<*>}
+     */
     async getUserTransport(){
         return this.#networkManager.doRequest(`${this.#route}`, "GET");
     }
@@ -23,7 +31,10 @@ export class user_transportRepository{
      * @returns {Promise<*>}
      */
     async updateUserTransport(userId){
-        return await this.#networkManager.doRequest(`${this.#route}/${userId}`, "PUT",
-            {"userId": userId});
+        return await this.#networkManager.doRequest(`${this.#route}/${userId}`, "PUT");
+    }
+
+    async getVehicleFrequency(userId, vehicleType){
+        return await this.#networkManager.doRequest(`${this.#route}/${userId}/${vehicleType}`, "GET");
     }
 }
