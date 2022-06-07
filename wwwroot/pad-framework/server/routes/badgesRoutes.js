@@ -38,7 +38,7 @@ class BadgesRoutes{
             const getId = req.params.id;
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT *" +
+                    query: "SELECT id, score, frequency_e_car, frequency_public_transport,frequency_walk, frequency_bike " +
                         "FROM users WHERE id = ?",
                     values: [getId]
                 });
