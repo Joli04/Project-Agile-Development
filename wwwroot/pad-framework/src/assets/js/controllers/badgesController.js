@@ -16,23 +16,25 @@ export class BadgesController extends Controller{
 
     async #setupView(){
         let objects;
+        let user
         let userId = App.sessionManager.get("id");
 
         this.#badgesView = await super.loadHtmlIntoContent("html_views/badges.html");
         objects = await this.#badgesRepository.get(userId);
+        user = await this.#badgesRepository.getUser(userId);
+        this.achieveBadge(objects, user);
         this.createBadges(objects);
     }
 
     /***
      * method that gets all the badges from the database and puts them in the view
      *
-     * @param objects = data of the badges
+     * @param badges = data of the badges
      */
-    createBadges(objects){
-
+    createBadges(badges){
         let badgeTable = this.#badgesView.querySelector(".badges-frame");
 
-        for(let i = 0; i < objects.length; i++) {
+        for(let i = 0; i < badges.length; i++) {
 
             let divBadge = document.createElement("div");
 
@@ -48,7 +50,7 @@ export class BadgesController extends Controller{
             lineBadge.classList.add("divider");
             let nameBadge = document.createElement("h4");
             let descBadge = document.createElement("p");
-            let achieved = objects[i].badge_seen;
+            let achieved = badges[i].badge_seen;
 
             if(achieved){
                 divBadge.classList.add("badges-achieved");
@@ -58,10 +60,10 @@ export class BadgesController extends Controller{
                 divImage.classList.add("badge-img-unachieved");
             }
 
-            imgBadge.src = objects[i].badge_image;
-            numberBadge.textContent = objects[i].id_badge;
-            nameBadge.textContent = objects[i].badge_name;
-            descBadge.textContent = objects[i].badge_description;
+            imgBadge.src = badges[i].badge_image;
+            numberBadge.textContent = badges[i].id_badge;
+            nameBadge.textContent = badges[i].badge_name;
+            descBadge.textContent = badges[i].badge_description;
 
             badgeTable.appendChild(divBadge);
             divBadge.appendChild(divImage);
@@ -71,6 +73,42 @@ export class BadgesController extends Controller{
             divImage.appendChild(numberBadge);
             divBadgeBody.appendChild(nameBadge);
             divBadgeBody.appendChild(descBadge);
+        }
+    }
+
+    /**
+     * method that checks if a badge is achieved and then adds it to the user_badge tabel
+     *
+     * @param objects = all data of badges
+     * @param user = all data of user
+     * @returns {Promise<void>}
+     */
+    async achieveBadge(objects, user){
+        for(let i = 0; i < objects.length; i++) {
+            if (objects[i].badge_seen == null) {
+                if (objects[i].badge_type == "Walk") {
+                    if (user[0].frequency_walk >= objects[i].badge_req) {
+                        this.#badgesRepository.set(user[0].id, objects[i].id_badge);
+                    }
+                } else if (objects[i].badge_type == "Bike") {
+                    if (user[0].frequency_bike >= objects[i].badge_req) {
+                        this.#badgesRepository.set(user[0].id, objects[i].id_badge);
+                    }
+                } else if (objects[i].badge_type == "Public transit") {
+                    if (user[0].frequency_public_transport >= objects[i].badge_req) {
+                        this.#badgesRepository.set(user[0].id, objects[i].id_badge);
+                    }
+                } else if (objects[i].badge_type == "Score") {
+                    if (user[0].score >= objects[i].badge_req) {
+                        this.#badgesRepository.set(user[0].id, objects[i].id_badge);
+                        this.#setupView();
+                    }
+                } else if (objects[i].badge_type == "E-car") {
+                    if (user[0].frequency_e_car >= objects[i].badge_req) {
+                        this.#badgesRepository.set(user[0].id, objects[i].id_badge);
+                    }
+                }
+            }
         }
     }
 }

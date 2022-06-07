@@ -5,7 +5,9 @@ describe("Transport", () => {
         const session = {"username": "test"};
         localStorage.setItem("session", JSON.stringify(session));
 //Go to the specified URL
-        cy.visit("http://localhost:8080/#prize");
+//         cy.intercept('/transport');
+        cy.intercept('/navbar');
+        cy.visit("http://localhost:8080/#transport");
     });
 
     it("Transport modal", () => {
@@ -25,28 +27,36 @@ describe("Transport", () => {
 
         cy.get(".btn-success").should("be.visible");
 
+        cy.intercept('/user_transport1');
+        cy.intercept('PUT', '/user_transport1/id_user_transport', {
+            statusCode: 200,
+        }).as('login');
+        cy.visit("http://localhost:8080/#user_transport1/5")
+
+        cy.get(".btn-success").should("exist");
+
+
         cy.get(".btn-danger").click();
+
+        cy.get(".errorMsg").should("be.visible")
+
+        // cy.get(".errorMsg").should("be.visible");
         //
-        // cy.get(".errorMsg").should("be.visible")
+        // cy.get(".car-button").click();
         //
-
-        cy.get(".errorMsg").should("be.visible");
-
-        cy.get(".car-button").click();
-
-        cy.visit("http://localhost:8080/#transport");
-
-        cy.get(".btn-success").click();
+        // cy.visit("http://localhost:8080/#transport");
+        //
+        // cy.get(".btn-success").click();
 
 
         // cy.get(".alert").should("be.visible");
         // cy.get("")
 
 
-        cy.get(".errorMsg").should("be.visible")
 
 
 
+//CY.INTERCEPT  voor elk endpoint.
 
         //checking for the hover function
         // cy.get("#prize1").trigger("mouseover");

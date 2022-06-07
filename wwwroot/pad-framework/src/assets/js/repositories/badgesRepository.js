@@ -2,12 +2,12 @@ import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class BadgesRepository{
     #route;
-    #route2;
+    #routeUser;
     #networkManager;
 
     constructor() {
         this.#route = "/badges"
-        this.#route2 = "/badges/achieved"
+        this.#routeUser = "/user"
         this.#networkManager = new NetworkManager();
     }
 
@@ -18,5 +18,13 @@ export class BadgesRepository{
      */
     async get(userId){
         return this.#networkManager.doRequest(`${this.#route}/${userId}`, "GET");
+    }
+
+    async getUser(userId){
+        return this.#networkManager.doRequest(`${this.#routeUser}/${userId}`, "GET");
+    }
+
+    async set(userId, idBadge){
+        return this.#networkManager.doRequest(`${this.#route}/${userId}`, "POST", {id_badge: idBadge});
     }
 }

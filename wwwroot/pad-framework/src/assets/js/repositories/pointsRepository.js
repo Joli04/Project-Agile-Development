@@ -18,7 +18,7 @@ export class PointsRepository{
      * @returns {Promise<*>}
      */
     async set(score, vehicleType, frequency, userId){
-        return this.#networkManager.doRequest(`${this.#route}/${userId}`, "POST", {score: score, frequency: frequency, vehicleType: vehicleType});
+        return this.#networkManager.doRequest(`${this.#route}/${userId}`, "POST", {score: score, vehicleType: vehicleType, frequency: frequency});
     }
 
     /**
