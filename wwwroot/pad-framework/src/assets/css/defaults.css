@@ -11,7 +11,6 @@ footer {
 }
 
 .navbar .nav-link{
-    font-family: 'Varela Round', sans-serif;
     color: #292b2c;
     transition: all 0.4s ease;
 }
@@ -28,12 +27,25 @@ footer {
 }
 
 .logoBeta {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 125px;
+    max-width: 125px;
     border-radius: 25%;
 }
 #opties{
     display: inline-flex;
     position: relative;
     margin-left: 25%;
+}
+
+html, body{
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, p, span, a {
+    font-family: 'Jost', sans-serif;
+}
+
+.navbar .nav-link{
+    font-size: 18px;
+    font-weight: bold;
 }

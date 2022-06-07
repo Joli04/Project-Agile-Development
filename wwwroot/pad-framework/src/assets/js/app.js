@@ -10,7 +10,6 @@
 import {SessionManager} from "./framework/utils/sessionManager.js"
 import {LoginController} from "./controllers/loginController.js"
 import {NavbarController} from "./controllers/navbarController.js"
-import {UploadController} from "./controllers/uploadController.js"
 import {ScoreboardController} from "./controllers/scoreboardController.js";
 import {BadgesController} from "./controllers/badgesController.js"
 import {ProfileController} from "./controllers/profileController.js";
@@ -28,9 +27,7 @@ export class App {
     static CONTROLLER_LOGIN = "login";
     static CONTROLLER_LOGOUT = "logout";
     static CONTROLLER_PROFILE = "profile";
-    static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_SCOREBOARD = "scoreboard";
-    static CONTROLLER_POINTS = "points";
     static CONTROLLER_PRIZE = "prize";
     static CONTROLLER_TRANSPORT = "transport"
     static CONTROLLER_BADGES = "badges";
@@ -41,7 +38,7 @@ export class App {
         App.loadController(App.CONTROLLER_NAVBAR);
 
         //Attempt to load the controller from the URL, if it fails, fall back to the welcome controller.
-        App.loadControllerFromUrl(App.CONTROLLER_SCOREBOARD);
+        App.loadControllerFromUrl(App.CONTROLLER_TRANSPORT);
     }
 
     /**
@@ -86,10 +83,6 @@ export class App {
             case App.CONTROLLER_SCOREBOARD:
                 App.setCurrentController(name)
                 App.isLoggedIn(() => new ScoreboardController(), () => new LoginController());
-                break;
-            case App.CONTROLLER_POINTS:
-                App.setCurrentController(name);
-                App.isLoggedIn(() => new PointsController(), () => new LoginController());
                 break;
             case App.CONTROLLER_TRANSPORT:
                 App.setCurrentController(name);
@@ -165,6 +158,8 @@ export class App {
         App.sessionManager.remove("username");
         App.sessionManager.remove("password");
         App.sessionManager.remove("id");
+        App.sessionManager.remove("admin");
+        App.sessionManager.remove("is_first_login");
 
         //go to login screen
         App.loadController(App.CONTROLLER_LOGIN);

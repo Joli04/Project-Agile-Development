@@ -58,8 +58,8 @@
     font-size: 50px;
 }
 
-h1, h2, h3, h4, h5, p, span {
-    font-family: 'Archivo', sans-serif;
+h1, h2, h3, h4, h5, p, span, a {
+    font-family: 'Jost', sans-serif;
 }
 
 .badges_link, .badges_link:hover {

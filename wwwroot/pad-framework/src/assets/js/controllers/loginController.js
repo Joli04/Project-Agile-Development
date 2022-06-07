@@ -52,9 +52,12 @@ export class LoginController extends Controller{
             //let the session manager know we are logged in by setting the username, never set the password in localstorage
             App.sessionManager.set("username", user.username);
             App.sessionManager.set("id", user.id);
-            App.sessionManager.set("admin", user.admin)
+            App.sessionManager.set("admin", user.admin);
+            App.sessionManager.set("is_first_login", user.is_first_login);
+
             window.location.reload(true)
-            App.loadController(App.CONTROLLER_PROFILE);
+            App.loadController(App.CONTROLLER_TRANSPORT);
+
         } catch(error) {
             //if unauthorized error code, show error message to the user
             if(error.code === 401) {

@@ -27,6 +27,7 @@ export class TransportController extends Controller {
     async #setupView() {
         this.#transportView = await super.loadHtmlIntoContent("html_views/transport.html")
 
+        await this.featuresTour();
         this.#showTransportModal();
         this.#transportContent();
         await this.#transportConformation();
@@ -110,15 +111,17 @@ export class TransportController extends Controller {
      * Async function that gets, updates and sets the score of the user
      *
      * @param points = the amount of point that gets added to the players score
+     * @param vehicleType
      * @returns {Promise<void>}
      */
-    async updatePoints(points) {
+    async updatePoints(points, vehicleType) {
         let userId = App.sessionManager.get("id");
-        let userScore = await this.#pointsRepository.get(userId);
+        let userScore = await this.#pointsRepository.get(userId, vehicleType);
+
         console.log(userScore)
         let totalScore = userScore[0].score += points;
-
-        this.#pointsRepository.set(totalScore, userId);
+        let frequency = userScore[0].frequency += 1;
+        this.#pointsRepository.set(totalScore, vehicleType, frequency, userId);
     }
 
     /**
@@ -168,6 +171,130 @@ export class TransportController extends Controller {
                     await this.#userTransportRepository.updateUserTransport(idUser);
 
                     let vehicleType = transports[i].value;
+                    await this.updatePoints(score[i].point, vehicleType);
+                    setTimeout(function () {
+                        alert.style.display = "none";
+                    }, 2000);
+                    alert.style.display = "block";
+                }
+            }
+        })
+    }
+
+    /**
+     * Function for showing guided tour through the webapplication
+     *
+     * @returns {Promise<void>}
+     */
+    async featuresTour() {
+
+        const cancelButton = document.querySelector('.closePopup');
+        const transportPopupButton = document.querySelector('.btn_transport_popup');
+
+        let first_login = App.sessionManager.get("is_first_login");
+
+        let intro = new WebTour();
+
+        let steps = [
+            {
+                content: `<div class="welcome_tour">
+                                    <h3>Welcome ${App.sessionManager.get("username")}!</h3>
+                                    <p>Let's start. We'll quickly show you some features, so you know how to start your hourney!</p>
+                                </div>`,
+                width: '500px',
+            },
+            {
+                element: '.transport_card',
+                title: "Let's get started",
+                content: 'Our platform gives you the opportunity to choose the vehicle you want to use and based on ' +
+                    'that you can score points.',
+                placement: 'bottom',
+                onNext: function () {
+                    transportPopupButton.click();
+                },
+                onPrevious: function () {
+                    cancelButton.click();
+                }
+            },
+            {
+                element: '.vehicle_buttons',
+                title: 'Vehicles',
+                content: 'This is the row where you can choose which vehicle you go with to your work.',
+                placement: 'bottom',
+            },
+            {
+                element: '.btn_confirm',
+                title: 'To confirm...',
+                content: 'When you have chosen your vehicle, press on the "Confirm"-button to complete the process...',
+                placement: 'top'
+            },
+            {
+                element: '.btn_cancel',
+                title: 'Cancel...',
+                content: '...or press the "Cancel"-button to close the pop-up.',
+                placement: 'top',
+                onNext: function () {
+                    cancelButton.click();
+                }
+            },
+            {
+                element: '.listContent',
+                title: 'Navigation Bar',
+                content: 'Our platform provides more functionalities! This is the navigation bar to navigate ' +
+                    'through the pages.',
+                placement: 'bottom',
+            },
+            {
+                element: '.profile',
+                title: 'Profile',
+                content: 'In "Profile" you will find all your statistics and personal information. There are also ' +
+                    'badges that you have achieved.',
+                placement: 'bottom',
+            },
+            {
+                element: '.scoreboard',
+                title: 'Scoreboard',
+                content: 'In "Scoreboard" you can see other users and their points. You can compete with them by ' +
+                    'filling your own point in the application every day you have to work!',
+                placement: 'bottom',
+            },
+            {
+                element: '.prize',
+                title: 'Prize',
+                content: "In 'Prize' you will find all the prizes you can get with only the highest number of " +
+                    "points. You don't do it for nothing!",
+                placement: 'bottom',
+            },
+            {
+                element: '.badges',
+                title: 'Badges',
+                content: 'In "Badges" you will find all the badges you can get. If the badge is grey, you still ' +
+                    'need to get it, but if the badge is highlighted, you have already done that!',
+                placement: 'bottom',
+            },
+            {
+                element: '.admin',
+                title: 'Admin',
+                content: 'In "Admin" you get access to our platform. You can change the prices, descriptions ' +
+                    'and even the images.',
+                placement: 'bottom',
+            },
+            {
+                title: 'Enjoy of your journey!',
+                content: 'Now you know enough to start using our platform! Enjoy and we will see you in the green future!',
+                placement: 'bottom',
+            }
+        ]
+
+        intro.setSteps(steps);
+
+        if (first_login === 1 && !App.sessionManager.get('tour')) {
+            intro.start();
+            await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
+        }
+
+        App.sessionManager.set('tour', 'runned');
+
                     // switch (vehicleType){
                     //     case "car":
                     //         await this.#transportRepository.setFrequency(userId, vehicleType);
@@ -200,4 +327,5 @@ export class TransportController extends Controller {
             }
         })
     }
+
 }
