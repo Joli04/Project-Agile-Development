@@ -290,42 +290,43 @@ export class TransportController extends Controller {
 
         if (first_login === 1 && !App.sessionManager.get('tour')) {
             intro.start();
-            await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
+            // await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
         }
 
-        App.sessionManager.set('tour', 'runned');
+        // App.sessionManager.set('tour', 'runned');
 
-                    // switch (vehicleType){
-                    //     case "car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "e-car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "public_transport":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "bike":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "walk":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    // }
-
-                    // update points
-                    await this.updatePoints(score[i].point);
-
-                    // show succes and the amount of
-                    alert.style.display = "block";
-
-                    // redirect to scoreboard after the points are added
-                    setTimeout(function () {
-                        App.loadController(App.CONTROLLER_SCOREBOARD)
-                    }, 1300);
-                }
-            }
-        })
+        //             // switch (vehicleType){
+        //             //     case "car":
+        //             //         await this.#transportRepository.setFrequency(userId, vehicleType);
+        //             //         break
+        //             //     case "e-car":
+        //             //         await this.#transportRepository.setFrequency(userId, vehicleType);
+        //             //         break
+        //             //     case "public_transport":
+        //             //         await this.#transportRepository.setFrequency(userId, vehicleType);
+        //             //         break
+        //             //     case "bike":
+        //             //         await this.#transportRepository.setFrequency(userId, vehicleType);
+        //             //         break
+        //             //     case "walk":
+        //             //         await this.#transportRepository.setFrequency(userId, vehicleType);
+        //             //         break
+        //             // }
+        //
+        //             // update points
+        //             await this.updatePoints(score[i].point);
+        //
+        //             // show succes and the amount of
+        //             alert.style.display = "block";
+        //
+        //             // redirect to scoreboard after the points are added
+        //             setTimeout(function () {
+        //                 App.loadController(App.CONTROLLER_SCOREBOARD)
+        //             }, 1300);
+        //         }
+        //     }
+        // })
     }
+
 
 }
