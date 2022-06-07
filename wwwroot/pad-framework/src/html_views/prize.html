@@ -5,6 +5,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center flex-column">
                         <h2>Award(YEAR)</h2>
+                        <button id="year" class="editbutton" value="yearly">Edit</button>
                         <div class="card w-100">
                             <div class="card-body" id="prize1">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -965,6 +966,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center flex-column">
                         <h2>Award(MONTH)</h2>
+                        <button id="month" class="editbutton" value="monthly">Edit</button>
                         <div class="card w-100">
                             <div class="card-body" id="prize1_monthly">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -1921,4 +1923,46 @@
             </div>
         </div>
     </div>
+    <div class="modal">
+        <div class="modal-content">
+            <h1 id="modaltitle"></h1>
+            <div id="changeprize" class="change">
+                <h2 class="edittitle"></h2>
+                <label class="textnewprize">New prize 1 text:</label>
+                <input type="text" id="textprize1" name="change prize"><br>
+
+                <label class="textnewprize">New prize 1 Image:</label>
+                <button>
+                    <label for="imageprize1" class="editphoto">Pick a new image</label>
+                    <input type="file" id="imageprize1" accept="image/png, image/jpg" hidden/>
+                </button><br><br>
+
+                <label class="textnewprize">New prize 2 text:</label>
+                <input type="text" id="textprize2" name="change prize"><br>
+
+                <label class="textnewprize">New prize 2 Image:</label>
+                <button>
+                    <label for="imageprize2" class="editphoto">Pick a new image</label>
+                    <input type="file" id="imageprize2" hidden/>
+                </button><br><br>
+
+                <label class="textnewprize">New prize 3 text:</label>
+                <input type="text" id="textprize3" name="change prize"><br>
+
+                <label class="textnewprize">New prize 3 Image:</label>
+                <button>
+                    <label for="imageprize3" >Pick a new image</label>
+                    <input type="file" id="imageprize3"  class="editphoto" hidden/>
+                </button><br><br>
+
+
+            </div>
+        </div>
+        <div class=" text-center">
+            <div class="errorMsg position-absolute top-50 start-50 translate-middle mt-5"></div>
+            <button type="button" id="cancel" class="btn btn-danger position-absolute bottom-0 end-50 m-5">Cancel</button>
+            <button type="button" id="confirm" class="btn btn-success position-absolute bottom-0 start-50 m-5">Confirm</button>
+        </div>
+    </div>
+</div>
 </div>

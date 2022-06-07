@@ -128,8 +128,8 @@ export class ProfileController extends Controller {
         console.log(formData)
 
         try {
-            const repsonse = await this.#profileRepository.setUserImage(userId, formData);
-            console.log(repsonse);
+            const response = await this.#profileRepository.setUserImage(userId, formData);
+            console.log(response);
 
             fileInput.value = "";
 
