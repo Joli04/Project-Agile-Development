@@ -1,0 +1,83 @@
+.vehiclePopup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 120; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.75); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background: whitesmoke;
+    margin: auto;
+    padding: 20px;
+    height: 85%;
+    border-radius: 10px;
+    width: 40%;
+    animation: modal-content 0.6s;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #cb4545;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#transportBox {
+    background-color: whitesmoke;
+    border-radius: 20px;
+    box-shadow: 4px 3px 8px 1px #969696;
+    -webkit-box-shadow: 4px 3px 8px 1px #969696;
+}
+
+.man_bicycle {
+    width: 200px;
+    height: 200px;
+}
+
+.modal_transport_content {
+    display: none;
+}
+
+#transport1, #transport2, #transport3, #transport4, #transport5 {
+    width: 35%;
+    height: 100%;
+}
+
+.modal_transport_content {
+    display: none;
+}
+
+#transport1, #transport2, #transport3, #transport4, #transport5 {
+    width: 35%;
+    height: 100%;
+}
+
+.alert {
+    width: 100%;
+    height: 11%;
+}
+
+.welcome_tour {
+    text-align: center;
+    padding: 30px
+}
+
+h3 {
+    text-align: center;
+}

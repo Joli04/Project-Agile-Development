@@ -34,7 +34,7 @@ class UsersRoutes {
 
             try {
                 const data = await this.#databaseHelper.handleQuery({
-                    query: "SELECT id,username, password, admin FROM users WHERE username = ? AND password = ?",
+                    query: "SELECT id,username, password, admin, is_first_login FROM users WHERE username = ? AND password = ?",
                     values: [username, password]
                 });
 
@@ -44,7 +44,8 @@ class UsersRoutes {
                     res.status(this.#errorCodes.HTTP_OK_CODE).json({
                         "username": data[0].username,
                         "id": data[0].id,
-                        "admin": data[0].admin
+                        "admin": data[0].admin,
+                        "is_first_login": data[0].is_first_login
                     });
                 } else {
                     //wrong username
