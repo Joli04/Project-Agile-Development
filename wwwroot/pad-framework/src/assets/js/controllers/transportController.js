@@ -27,7 +27,7 @@ export class TransportController extends Controller {
     async #setupView() {
         this.#transportView = await super.loadHtmlIntoContent("html_views/transport.html")
 
-        await this.featuresTour();
+        await this.featuresTour()
         this.#showTransportModal();
         this.#transportContent();
         await this.#transportConformation();
@@ -111,17 +111,15 @@ export class TransportController extends Controller {
      * Async function that gets, updates and sets the score of the user
      *
      * @param points = the amount of point that gets added to the players score
-     * @param vehicleType
      * @returns {Promise<void>}
      */
-    async updatePoints(points, vehicleType) {
+    async updatePoints(points) {
         let userId = App.sessionManager.get("id");
-        let userScore = await this.#pointsRepository.get(userId, vehicleType);
-
+        let userScore = await this.#pointsRepository.get(userId);
         console.log(userScore)
         let totalScore = userScore[0].score += points;
-        let frequency = userScore[0].frequency += 1;
-        this.#pointsRepository.set(totalScore, vehicleType, frequency, userId);
+
+        this.#pointsRepository.set(totalScore, userId);
     }
 
     /**
@@ -140,8 +138,8 @@ export class TransportController extends Controller {
         // loop through, check if the user logged in is the same as of the id's in the database .
         for (let i = 0; i < getUserTransport.length; i++) {
             if (idUser === getUserTransport[i].id_user) {
-               confirmBtn.disabled = true;
-               break;
+                confirmBtn.disabled = true;
+                break;
             }
         }
 
@@ -169,13 +167,35 @@ export class TransportController extends Controller {
                 if (transports[i].checked) {
                     console.log(score[i].point)
                     await this.#userTransportRepository.updateUserTransport(idUser);
-
                     let vehicleType = transports[i].value;
-                    await this.updatePoints(score[i].point, vehicleType);
-                    setTimeout(function () {
-                        alert.style.display = "none";
-                    }, 2000);
+                    // switch (vehicleType){
+                    //     case "car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "e-car":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "public_transport":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "bike":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    //     case "walk":
+                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
+                    //         break
+                    // }
+
+                    // update points
+                    await this.updatePoints(score[i].point);
+
+                    // show succes and the amount of
                     alert.style.display = "block";
+
+                    // redirect to scoreboard after the points are added
+                    setTimeout(function () {
+                        App.loadController(App.CONTROLLER_SCOREBOARD)
+                    }, 1300);
                 }
             }
         })
@@ -287,45 +307,12 @@ export class TransportController extends Controller {
         ]
 
         intro.setSteps(steps);
-
         if (first_login === 1 && !App.sessionManager.get('tour')) {
             intro.start();
-            await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
+            // await this.#transportRepository.setFirstLogin(App.sessionManager.get("id"), first_login)
         }
 
         App.sessionManager.set('tour', 'runned');
 
-                    // switch (vehicleType){
-                    //     case "car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "e-car":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "public_transport":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "bike":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    //     case "walk":
-                    //         await this.#transportRepository.setFrequency(userId, vehicleType);
-                    //         break
-                    // }
-
-                    // update points
-                    await this.updatePoints(score[i].point);
-
-                    // show succes and the amount of
-                    alert.style.display = "block";
-
-                    // redirect to scoreboard after the points are added
-                    setTimeout(function () {
-                        App.loadController(App.CONTROLLER_SCOREBOARD)
-                    }, 1300);
-                }
-            }
-        })
     }
-
 }
