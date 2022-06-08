@@ -24,13 +24,10 @@ export class NavbarController extends Controller {
         //await for when HTML is
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
 
-        let admin = App.sessionManager.get("admin")
-        console.log(admin)
-
-        if (admin === 1) {
-            this.#navbarView.querySelector(".admin").style.display = 'block';
+        if ( App.sessionManager.get("admin") === 1) {
+            this.#navbarView.querySelector("#admin").style.display = 'block';
         } else {
-            this.#navbarView.querySelector(".admin").style.display = 'none';
+            this.#navbarView.querySelector("#admin").style.display = 'none';
         }
 
 

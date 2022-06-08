@@ -54,7 +54,6 @@ export class LoginController extends Controller{
             App.sessionManager.set("id", user.id);
             App.sessionManager.set("admin", user.admin);
             App.sessionManager.set("is_first_login", user.is_first_login);
-
             window.location.reload(true)
             App.loadController(App.CONTROLLER_TRANSPORT);
 
