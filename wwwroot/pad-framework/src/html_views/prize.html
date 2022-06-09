@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center flex-column">
                         <h2>Award(yearly)</h2>
-                        <button id="year" class="editbutton" value="yearly">Edit</button>
+                        <button id="year" class="editbuttonyearly" value="yearly">Edit</button>
                         <div class="card w-100">
                             <div class="card-body" id="prize1">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -966,7 +966,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center flex-column">
                         <h2>Award(monthly)</h2>
-                        <button id="month" class="editbutton" value="monthly">Edit</button>
+                        <button id="month" class="editbuttonmonthly" value="monthly">Edit</button>
                         <div class="card w-100">
                             <div class="card-body" id="prize1_monthly">
                                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -1927,45 +1927,83 @@
         <div class="modal-content">
             <h1 id="modaltitle"></h1>
             <div id="changeprize" class="change">
-                <h2 class="edittitle"></h2>
-                <label class="textnewprize">New prize 1 text:</label>
-                <input type="text" id="textprize1" name="change prize"><br>
-
-                <label class="textnewprize">New prize 1 Image:</label>
-                    <form method="post" encType="multipart/form-data">
-                        <input type="file" id="image1" class="d-none">
-                        <label for="image1" class="upload_button">Upload Image</label>
-                    </form>
-
-
-                <label class="textnewprize">New prize 2 text:</label>
-                <input type="text" id="textprize2" name="change prize"><br>
-
-                <label class="textnewprize">New prize 2 Image:</label>
-
-                <form method="post" encType="multipart/form-data">
-                    <input type="file" id="image2" class="d-none">
-                    <label for="image2" class="upload_button">Upload Image</label>
+                <form class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom01">Text prize 1:</label>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Example file input</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom02">Text prize 2:</label>
+                            <input type="text" class="form-control" id="validationCustom02" placeholder="First name" value="Mark" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile2">Example file input</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile2">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom03">Text prize 3:</label>
+                            <input type="text" class="form-control" id="validationCustom03" placeholder="First name" value="Mark" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile3">Example file input</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile3">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit form</button>
                 </form>
+<!--                <h2 class="edittitle"></h2>-->
+<!--                <label class="textnewprize">New prize 1 text:</label>-->
+<!--                <input type="text" id="textprize1" name="change prize"><br>-->
 
-                <label class="textnewprize">New prize 3 text:</label>
-                <input type="text" id="textprize3" name="change prize"><br>
-
-                <label class="textnewprize">New prize 3 Image:</label>
-
-                <form method="post" encType="multipart/form-data">
-                    <input type="file" id="image3" class="d-none">
-                    <label for="image3" class="upload_button">Upload Image</label>
-                </form>
+<!--                <label class="textnewprize">New prize 1 Image:</label>-->
+<!--                <form method="post" encType="multipart/form-data">-->
+<!--                    <input type="file" id="image1" class="d-none">-->
+<!--                    <label for="image1" class="upload_button">Upload Image</label>-->
+<!--                </form>-->
 
 
+<!--                <label class="textnewprize">New prize 2 text:</label>-->
+<!--                <input type="text" id="textprize2" name="change prize"><br>-->
+
+<!--                <label class="textnewprize">New prize 2 Image:</label>-->
+
+<!--                <form method="post" encType="multipart/form-data">-->
+<!--                    <input type="file" id="image2" class="d-none">-->
+<!--                    <label for="image2" class="upload_button">Upload Image</label>-->
+<!--                </form>-->
+
+<!--                <label class="textnewprize">New prize 3 text:</label>-->
+<!--                <input type="text" id="textprize3" name="change prize"><br>-->
+
+<!--                <label class="textnewprize">New prize 3 Image:</label>-->
+
+<!--                <form method="post" encType="multipart/form-data">-->
+<!--                    <input type="file" id="image3" class="d-none">-->
+<!--                    <label for="image3" class="upload_button">Upload Image</label>-->
+<!--                </form>-->
             </div>
         </div>
-        <div class=" text-center">
-            <div class="errorMsg position-absolute top-50 start-50 translate-middle mt-5"></div>
-            <button type="button" id="cancel" class="btn btn-danger position-absolute bottom-0 end-50 m-5">Cancel</button>
-            <button type="button" id="confirm" class="btn btn-success position-absolute bottom-0 start-50 m-5">Confirm</button>
-        </div>
+<!--        <div class=" text-center">-->
+<!--            <div class="errorMsg position-absolute top-50 start-50 translate-middle mt-5"></div>-->
+<!--            <button type="button" id="cancel" class="btn btn-danger position-absolute bottom-0 end-50 m-5">Cancel-->
+<!--            </button>-->
+<!--            <button type="button" id="confirm" class="btn btn-success position-absolute bottom-0 start-50 m-5">Confirm-->
+<!--            </button>-->
+<!--        </div>-->
     </div>
 </div>
 </div>

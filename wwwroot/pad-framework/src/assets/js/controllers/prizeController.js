@@ -14,13 +14,12 @@ export class PrizeController extends Controller {
     }
 
     async #setupView() {
-
         let object = await this.#prizeRepository.get();
         this.#prizeView = await super.loadHtmlIntoContent("html_views/prize.html")
 
         if (App.sessionManager.get("admin") === 1) {
-            this.#prizeView.querySelector("#month").style.display = 'block';
-            this.#prizeView.querySelector("#year").style.display = 'block';
+            this.#prizeView.querySelector(".editbuttonmonthly").style.display = 'block';
+            this.#prizeView.querySelector(".editbuttonyearly").style.display = 'block';
         } else {
             this.#prizeView.querySelector("#month").style.display = 'none';
             this.#prizeView.querySelector("#year").style.display = 'none';
@@ -51,8 +50,8 @@ export class PrizeController extends Controller {
     //
     // }
     async #edit(object) {
-        const editbuttonyear = this.#prizeView.querySelector("#year");
-        const editbuttonmonth = this.#prizeView.querySelector("#month");
+        const editbuttonyear = this.#prizeView.querySelector(".editbuttonyearly");
+        const editbuttonmonth = this.#prizeView.querySelector(".editbuttonmonthly");
         const modaltitle = this.#prizeView.querySelector("#modaltitle");
         const modal = this.#prizeView.querySelector(".modal");
         const confirm = this.#prizeView.querySelector("#confirm");
