@@ -2,10 +2,10 @@ import {Controller} from "./controller.js";
 import {PrizeRepository} from "../repositories/prizeRepository.js";
 import {App} from "../app.js";
 
-export class PrizeController extends Controller{
+export class PrizeController extends Controller {
     #prizeView
     #prizeRepository
-    #profileRepository
+
 
     constructor() {
         super()
@@ -46,10 +46,11 @@ export class PrizeController extends Controller{
             prizes[i].append(img);
         }
     }
+
     // async update() {
     //
     // }
-    async #edit(object){
+    async #edit(object) {
         const editbuttonyear = this.#prizeView.querySelector("#year");
         const editbuttonmonth = this.#prizeView.querySelector("#month");
         const modaltitle = this.#prizeView.querySelector("#modaltitle");
@@ -80,26 +81,6 @@ export class PrizeController extends Controller{
             let textprize3 = this.#prizeView.querySelector("#textprize3").value;
 
 
-            const image = this.#prizeView.querySelector("#imageprize1");
-
-
-            let newimage = image.files[0];
-            let naam = newimage.name;
-
-            const data = new FormData()
-
-            data.append("Imageprize1", newimage, `${naam}`)
-
-            try {
-                const response = this.#prizeRepository.setNewImage(data);
-                console.log(response);
-
-            }
-            catch (e) {
-                console.error(e);
-            }
-
-
             if (waarde === "yearly") {
                 if (textprize1.length === 0) {
                     const obj = object[0].image_description
@@ -125,7 +106,7 @@ export class PrizeController extends Controller{
                     textprize3 = stringtextprize3;
                 }
 
-                this.#prizeRepository.settextprize(textprize1, textprize2, textprize3, waarde);
+                await this.#prizeRepository.settextprize(textprize1, textprize2, textprize3, waarde);
                 modal.style.display = "none";
                 // window.location.reload(true)
             } else {
@@ -153,16 +134,63 @@ export class PrizeController extends Controller{
                     textprize3 = stringtextprize3;
                 }
 
-                this.#prizeRepository.settextprize(textprize1, textprize2, textprize3, waarde);
+                await this.#prizeRepository.settextprize(textprize1, textprize2, textprize3, waarde);
                 modal.style.display = "none";
-                window.location.reload(true)
+                // window.location.reload(true)
+            }
+
+            const fileImage1 = this.#prizeView.querySelector("#image1");
+            const fileImage2 = this.#prizeView.querySelector("#image2");
+            const fileImage3 = this.#prizeView.querySelector("#image3");
+
+            const error = this.#prizeView.querySelector(".error_image");
+            const formData = new FormData()
+
+            let img1file = fileImage1.files[0];
+            let img2file = fileImage2.files[0];
+            let img3file = fileImage3.files[0];
+
+            let fileNameImage1;
+            let fileNameImage2;
+            let fileNameImage3;
+
+
+                console.log(fileImage1.files.length)
+                console.log(fileImage2.files.length)
+                console.log(fileImage3.files.length)
+
+            const length1 = fileImage1.files.length;
+            const length2 = fileImage2.files.length;
+            const length3 = fileImage3.files.length;
+
+                if (length1 !== 0) {
+                    fileNameImage1 = fileImage1.files[0].name;
+                    formData.append("image1", img1file, `${fileNameImage1}`)
+                }
+
+                if (length2 !== 0) {
+                    fileNameImage2 = fileImage2.files[0].name
+                    formData.append("image2", img2file, `${fileNameImage2}`)
+                }
+
+                if(length3 !== 0) {
+                    fileNameImage3 = fileImage3.files[0].name
+                    formData.append("image3", img3file, `${fileNameImage3}`)
+                }
+
+            console.log(formData)
+            try {
+                const response = await this.#prizeRepository.setNewImage(waarde, formData);
+                console.log(response)
+
+            } catch (e) {
+                console.error(e);
             }
         })
 
         cancel.addEventListener("click", () => {
             modal.style.display = "none";
         })
-
 
 
     }

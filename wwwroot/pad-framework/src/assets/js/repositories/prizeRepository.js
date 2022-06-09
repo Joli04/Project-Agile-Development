@@ -23,8 +23,8 @@ export class PrizeRepository {
         return await this.#networkManager.doRequest(`${this.#route}/${textprize1}/${textprize2}/${textprize3}/${waarde}`, "GET");
     }
 
-    async setNewImage(userId, formData){
-        return await this.#networkManager.doFileRequest(`/upload/${userId}`, "POST", formData);
+    async setNewImage(waarde,formData) {
+        return await this.#networkManager.doFileRequest(`/upload/prize/${waarde}`, "POST", formData);
     }
 
 }

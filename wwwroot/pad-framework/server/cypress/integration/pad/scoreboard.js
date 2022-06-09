@@ -4,7 +4,7 @@ describe("Scoreboard", () => {
 //Run before each test in this context
     beforeEach(() => {
 //Set user as logged in
-        const session = {"username": "test"};
+        const session = {"username": "Lisa"};
         localStorage.setItem("session", JSON.stringify(session));
 //Go to the specified URL
         cy.visit("http://localhost:8080/#scoreboard");
